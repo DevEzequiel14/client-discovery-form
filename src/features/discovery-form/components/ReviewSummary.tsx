@@ -1,6 +1,7 @@
 import type { Messages } from '@i18n/types';
 import type { PartialDiscoveryForm } from '../types/form';
 import type { StepId } from '../types/steps';
+import { ASSET_KEYS } from '../types/steps';
 
 type ReviewSummaryProps = {
   messages: Messages;
@@ -17,7 +18,10 @@ const reviewFields: Array<{
   { stepId: 'contact', keys: ['fullName', 'email', 'phone'] },
   { stepId: 'business', keys: ['company', 'industry', 'hasWebsite', 'website'] },
   { stepId: 'needs', keys: ['goals', 'projectType', 'expectedOutcome'] },
-  { stepId: 'features', keys: ['features'] },
+  {
+    stepId: 'assets',
+    keys: [...ASSET_KEYS, 'needsContentHelp'],
+  },
   { stepId: 'design', keys: ['designStyle', 'references'] },
   {
     stepId: 'timeline-budget',
@@ -42,10 +46,22 @@ function formatValue(
     ];
   }
 
-  if (key === 'hasWebsite') {
+  if (key === 'hasWebsite' || key === 'needsContentHelp') {
     return value === 'yes'
       ? messages.businessStep.yes
       : messages.businessStep.no;
+  }
+
+  if (
+    key === 'logo' ||
+    key === 'photos' ||
+    key === 'texts' ||
+    key === 'visualIdentity' ||
+    key === 'brandManual'
+  ) {
+    return messages.assetsStep.readiness[
+      value as keyof typeof messages.assetsStep.readiness
+    ];
   }
 
   return value;

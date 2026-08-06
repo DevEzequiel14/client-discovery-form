@@ -9,10 +9,10 @@ import { $formLocale } from '../stores/discovery-form.store';
 import { ReviewSummary } from './ReviewSummary';
 import { StepNavigation } from './StepNavigation';
 import { StepProgress } from './StepProgress';
+import { AssetsStepForm } from './steps/AssetsStepForm';
 import { BusinessStep } from './steps/BusinessStep';
 import { ContactStep } from './steps/ContactStep';
 import { DesignStep } from './steps/DesignStep';
-import { FeaturesStep } from './steps/FeaturesStep';
 import { NeedsStepForm } from './steps/NeedsStepForm';
 import { TimelineBudgetStep } from './steps/TimelineBudgetStep';
 
@@ -40,6 +40,8 @@ export function FormWizard({ locale }: FormWizardProps) {
   }, [locale]);
 
   const step = messages.steps[state.currentStepId];
+  const embedsOwnNav =
+    state.currentStepId === 'needs' || state.currentStepId === 'assets';
 
   return (
     <div className="mx-auto w-full max-w-2xl space-y-8">
@@ -80,13 +82,8 @@ export function FormWizard({ locale }: FormWizardProps) {
           <NeedsStepForm locale={locale} />
         ) : null}
 
-        {state.currentStepId === 'features' ? (
-          <FeaturesStep
-            messages={messages}
-            value={state.data}
-            errors={state.errors}
-            onChange={update}
-          />
+        {state.currentStepId === 'assets' ? (
+          <AssetsStepForm locale={locale} />
         ) : null}
 
         {state.currentStepId === 'design' ? (
@@ -121,7 +118,7 @@ export function FormWizard({ locale }: FormWizardProps) {
           </div>
         ) : null}
 
-        {state.currentStepId !== 'needs' ? (
+        {!embedsOwnNav ? (
           <div className="mt-6">
             <StepNavigation
               messages={messages}

@@ -60,9 +60,10 @@ export const es: Messages = {
       description:
         'Empezamos por tu problema u objetivo. Después vemos qué tipo de proyecto encaja y qué resultado esperás.',
     },
-    features: {
-      title: 'Funcionalidades',
-      description: 'Capacidades clave que debe incluir.',
+    assets: {
+      title: '¿Con qué materiales contás?',
+      description:
+        'Esto nos dice cuánto hay listo para producir y si hace falta acompañarte en contenidos y marca.',
     },
     design: {
       title: 'Diseño',
@@ -118,8 +119,7 @@ export const es: Messages = {
     goalsHint:
       'Contá el problema o la oportunidad. No hace falta hablar todavía de tecnología.',
     projectTypeLegend: '¿Qué tipo de proyecto imaginás?',
-    projectTypeHint:
-      'Elegí la opción más cercana. Después lo afinamos juntos.',
+    projectTypeHint: 'Elegí la opción más cercana. Después lo afinamos juntos.',
     expectedOutcomePlaceholder:
       'Ej. Quiero recibir más consultas calificadas por mes y mostrar mis servicios con claridad…',
     expectedOutcomeHint:
@@ -149,6 +149,42 @@ export const es: Messages = {
       },
     },
   },
+  assetsStep: {
+    matrixLegend: 'Estado de cada material',
+    matrixHint: 'Marcá la opción más cercana a tu situación actual.',
+    helpLegend: '¿Querés que te ayudemos a crear o completar lo que falte?',
+    helpHint:
+      'Si preferís enfocarte en tu negocio, podemos encargarnos de contenidos y marca.',
+    savedMessage:
+      'Materiales registrados. El siguiente paso estará disponible pronto.',
+    readiness: {
+      ready: 'Listo',
+      partial: 'Parcial',
+      none: 'No tengo',
+    },
+    items: {
+      logo: {
+        label: 'Logo',
+        hint: 'Archivo usable (SVG, PNG o AI), no solo una foto recortada.',
+      },
+      photos: {
+        label: 'Fotografías',
+        hint: 'Imágenes propias del negocio, productos o equipo.',
+      },
+      texts: {
+        label: 'Textos',
+        hint: 'Copy de servicios, acerca de, beneficios o propuestas.',
+      },
+      visualIdentity: {
+        label: 'Identidad visual',
+        hint: 'Colores, tipografías o estilo visual definidos.',
+      },
+      brandManual: {
+        label: 'Manual de marca',
+        hint: 'Documento con reglas de uso de la marca.',
+      },
+    },
+  },
   fields: {
     fullName: 'Nombre completo',
     email: 'Correo electrónico',
@@ -160,7 +196,12 @@ export const es: Messages = {
     projectType: 'Tipo de proyecto',
     goals: '¿Qué querés lograr?',
     expectedOutcome: '¿Qué esperás obtener?',
-    features: 'Funcionalidades deseadas',
+    logo: 'Logo',
+    photos: 'Fotografías',
+    texts: 'Textos',
+    visualIdentity: 'Identidad visual',
+    brandManual: 'Manual de marca',
+    needsContentHelp: 'Ayuda con materiales',
     designStyle: 'Estilo de diseño',
     references: 'Referencias o enlaces',
     timeline: 'Plazo deseado',

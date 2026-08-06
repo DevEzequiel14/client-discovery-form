@@ -1,4 +1,4 @@
-import type { ProjectType } from './steps';
+import type { AssetKey, AssetReadiness, ProjectType } from './steps';
 import type { HasWebsite, Industry } from '../constants/industries';
 
 export type ContactData = {
@@ -15,16 +15,19 @@ export type BusinessData = {
 };
 
 export type NeedsData = {
-  /** What they want to achieve / problem to solve */
   goals: string;
-  /** What kind of project they imagine */
   projectType: ProjectType;
-  /** What they expect to get as a result */
   expectedOutcome: string;
 };
 
-export type FeaturesData = {
-  features: string;
+export type AssetsData = {
+  logo: AssetReadiness;
+  photos: AssetReadiness;
+  texts: AssetReadiness;
+  visualIdentity: AssetReadiness;
+  brandManual: AssetReadiness;
+  /** Whether they want help creating what's missing */
+  needsContentHelp: 'yes' | 'no';
 };
 
 export type DesignData = {
@@ -41,7 +44,7 @@ export type TimelineBudgetData = {
 export type DiscoveryFormData = ContactData &
   BusinessData &
   NeedsData &
-  FeaturesData &
+  AssetsData &
   DesignData &
   TimelineBudgetData;
 
@@ -55,3 +58,5 @@ export type FormStatus =
   | 'error';
 
 export type FieldErrors = Partial<Record<keyof DiscoveryFormData, string>>;
+
+export type { AssetKey };

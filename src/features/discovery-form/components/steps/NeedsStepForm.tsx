@@ -33,7 +33,6 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
     projectType: (form.data.projectType ?? '') as ProjectType | '',
     expectedOutcome: form.data.expectedOutcome ?? '',
   });
-  const [saved, setSaved] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<NeedsField, string>>>(
     {},
   );
@@ -61,7 +60,6 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
   function handleContinue(event: { preventDefault: () => void }) {
     event.preventDefault();
     setFormStatus('validating');
-    setSaved(false);
 
     const schema = createNeedsSchema(messages.validation);
     const result = schema.safeParse({
@@ -95,8 +93,8 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
     patchFormData(payload);
     setFieldErrors({});
     setErrors({});
-    setSaved(true);
     setFormStatus('idle');
+    setCurrentStep('assets');
   }
 
   return (
@@ -114,7 +112,6 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
           requiredLabel={messages.common.required}
           rows={4}
           onChange={(event) => {
-            setSaved(false);
             setValues((current) => ({ ...current, goals: event.target.value }));
             clearError('goals');
           }}
@@ -166,7 +163,6 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
                     checked={selected}
                     className="mt-1 size-4 shrink-0 accent-cdf-accent"
                     onChange={() => {
-                      setSaved(false);
                       setValues((current) => ({
                         ...current,
                         projectType: type,
@@ -217,7 +213,6 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
           requiredLabel={messages.common.required}
           rows={4}
           onChange={(event) => {
-            setSaved(false);
             setValues((current) => ({
               ...current,
               expectedOutcome: event.target.value,
@@ -226,15 +221,6 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
           }}
         />
       </div>
-
-      {saved ? (
-        <p
-          className="rounded-md border border-cdf-success/30 bg-green-50 px-4 py-3 text-sm text-cdf-success"
-          role="status"
-        >
-          {messages.needsStep.savedMessage}
-        </p>
-      ) : null}
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <button

@@ -60,9 +60,10 @@ export const en: Messages = {
       description:
         'We start with your problem or goal. Then we look at the project type you imagine and the result you expect.',
     },
-    features: {
-      title: 'Features',
-      description: 'Key capabilities it should include.',
+    assets: {
+      title: 'What materials do you already have?',
+      description:
+        'This shows how ready you are to produce and whether you need help with content and brand.',
     },
     design: {
       title: 'Design',
@@ -146,6 +147,41 @@ export const en: Messages = {
       },
     },
   },
+  assetsStep: {
+    matrixLegend: 'Status of each asset',
+    matrixHint: 'Choose the option closest to your current situation.',
+    helpLegend: 'Would you like help creating or completing what’s missing?',
+    helpHint:
+      'If you prefer to focus on your business, we can handle content and brand.',
+    savedMessage: 'Assets recorded. The next step will be available soon.',
+    readiness: {
+      ready: 'Ready',
+      partial: 'Partial',
+      none: 'Don’t have',
+    },
+    items: {
+      logo: {
+        label: 'Logo',
+        hint: 'A usable file (SVG, PNG, or AI), not just a cropped photo.',
+      },
+      photos: {
+        label: 'Photographs',
+        hint: 'Original images of the business, products, or team.',
+      },
+      texts: {
+        label: 'Copy / texts',
+        hint: 'Service copy, about text, benefits, or offers.',
+      },
+      visualIdentity: {
+        label: 'Visual identity',
+        hint: 'Defined colors, typography, or visual style.',
+      },
+      brandManual: {
+        label: 'Brand guidelines',
+        hint: 'A document with brand usage rules.',
+      },
+    },
+  },
   fields: {
     fullName: 'Full name',
     email: 'Email address',
@@ -157,7 +193,12 @@ export const en: Messages = {
     projectType: 'Project type',
     goals: 'What do you want to achieve?',
     expectedOutcome: 'What do you expect to get?',
-    features: 'Desired features',
+    logo: 'Logo',
+    photos: 'Photographs',
+    texts: 'Copy / texts',
+    visualIdentity: 'Visual identity',
+    brandManual: 'Brand guidelines',
+    needsContentHelp: 'Help with materials',
     designStyle: 'Design style',
     references: 'References or links',
     timeline: 'Desired timeline',

@@ -6,6 +6,7 @@ import {
   $discoveryForm,
   $formLocale,
 } from '../stores/discovery-form.store';
+import { AssetsStepForm } from './steps/AssetsStepForm';
 import { BusinessStepForm } from './steps/BusinessStepForm';
 import { ContactStepForm } from './steps/ContactStepForm';
 import { NeedsStepForm } from './steps/NeedsStepForm';
@@ -14,11 +15,17 @@ type DiscoveryWizardProps = {
   locale: Locale;
 };
 
-const ACTIVE_STEPS = ['contact', 'business', 'needs'] as const;
+const ACTIVE_STEPS = ['contact', 'business', 'needs', 'assets'] as const;
 type ActiveStep = (typeof ACTIVE_STEPS)[number];
 
 function resolveActiveStep(stepId: StepId): ActiveStep {
-  if (stepId === 'business' || stepId === 'needs') return stepId;
+  if (
+    stepId === 'business' ||
+    stepId === 'needs' ||
+    stepId === 'assets'
+  ) {
+    return stepId;
+  }
   return 'contact';
 }
 
@@ -79,7 +86,9 @@ export function DiscoveryWizard({ locale }: DiscoveryWizardProps) {
         </p>
       </header>
 
-      {stepId === 'needs' ? (
+      {stepId === 'assets' ? (
+        <AssetsStepForm locale={locale} />
+      ) : stepId === 'needs' ? (
         <NeedsStepForm locale={locale} />
       ) : stepId === 'business' ? (
         <BusinessStepForm locale={locale} />

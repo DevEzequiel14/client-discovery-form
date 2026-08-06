@@ -96,6 +96,25 @@ export type Messages = {
       other: { label: string; description: string };
     };
   };
+  assetsStep: {
+    matrixLegend: string;
+    matrixHint: string;
+    helpLegend: string;
+    helpHint: string;
+    savedMessage: string;
+    readiness: {
+      ready: string;
+      partial: string;
+      none: string;
+    };
+    items: {
+      logo: { label: string; hint: string };
+      photos: { label: string; hint: string };
+      texts: { label: string; hint: string };
+      visualIdentity: { label: string; hint: string };
+      brandManual: { label: string; hint: string };
+    };
+  };
   fields: {
     fullName: string;
     email: string;
@@ -104,10 +123,15 @@ export type Messages = {
     industry: string;
     hasWebsite: string;
     website: string;
-    projectType: string;
     goals: string;
+    projectType: string;
     expectedOutcome: string;
-    features: string;
+    logo: string;
+    photos: string;
+    texts: string;
+    visualIdentity: string;
+    brandManual: string;
+    needsContentHelp: string;
     designStyle: string;
     references: string;
     timeline: string;
