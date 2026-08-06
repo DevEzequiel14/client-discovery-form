@@ -22,7 +22,7 @@ const reviewFields: Array<{
     stepId: 'assets',
     keys: [...ASSET_KEYS, 'needsContentHelp'],
   },
-  { stepId: 'design', keys: ['designStyle', 'references'] },
+  { stepId: 'design', keys: ['designStyle', 'referenceUrls', 'designTaste'] },
   {
     stepId: 'timeline-budget',
     keys: ['timeline', 'budget', 'additionalNotes'],
@@ -62,6 +62,12 @@ function formatValue(
     return messages.assetsStep.readiness[
       value as keyof typeof messages.assetsStep.readiness
     ];
+  }
+
+  if (key === 'designStyle') {
+    return messages.designStep.styleOptions[
+      value as keyof typeof messages.designStep.styleOptions
+    ].label;
   }
 
   return value;

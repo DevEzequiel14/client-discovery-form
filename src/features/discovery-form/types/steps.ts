@@ -33,3 +33,16 @@ export const ASSET_KEYS = [
 ] as const;
 
 export type AssetKey = (typeof ASSET_KEYS)[number];
+
+export const DESIGN_STYLES = [
+  'minimal',
+  'modern',
+  'classic',
+  'bold',
+  'elegant',
+  'friendly',
+  'editorial',
+  'other',
+] as const;
+
+export type DesignStyle = (typeof DESIGN_STYLES)[number];

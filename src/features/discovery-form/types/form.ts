@@ -1,4 +1,4 @@
-import type { AssetKey, AssetReadiness, ProjectType } from './steps';
+import type { AssetKey, AssetReadiness, DesignStyle, ProjectType } from './steps';
 import type { HasWebsite, Industry } from '../constants/industries';
 
 export type ContactData = {
@@ -31,8 +31,12 @@ export type AssetsData = {
 };
 
 export type DesignData = {
-  designStyle: string;
-  references?: string;
+  /** Visual direction (no colors) */
+  designStyle: DesignStyle;
+  /** Favorite pages / reference URLs */
+  referenceUrls: string;
+  /** Likes, dislikes, overall taste */
+  designTaste: string;
 };
 
 export type TimelineBudgetData = {

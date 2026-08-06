@@ -115,6 +115,25 @@ export type Messages = {
       brandManual: { label: string; hint: string };
     };
   };
+  designStep: {
+    styleLegend: string;
+    styleHint: string;
+    urlsPlaceholder: string;
+    urlsHint: string;
+    tastePlaceholder: string;
+    tasteHint: string;
+    savedMessage: string;
+    styleOptions: {
+      minimal: { label: string; description: string };
+      modern: { label: string; description: string };
+      classic: { label: string; description: string };
+      bold: { label: string; description: string };
+      elegant: { label: string; description: string };
+      friendly: { label: string; description: string };
+      editorial: { label: string; description: string };
+      other: { label: string; description: string };
+    };
+  };
   fields: {
     fullName: string;
     email: string;
@@ -133,7 +152,8 @@ export type Messages = {
     brandManual: string;
     needsContentHelp: string;
     designStyle: string;
-    references: string;
+    referenceUrls: string;
+    designTaste: string;
     timeline: string;
     budget: string;
     additionalNotes: string;

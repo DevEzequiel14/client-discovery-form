@@ -12,7 +12,7 @@ import { StepProgress } from './StepProgress';
 import { AssetsStepForm } from './steps/AssetsStepForm';
 import { BusinessStep } from './steps/BusinessStep';
 import { ContactStep } from './steps/ContactStep';
-import { DesignStep } from './steps/DesignStep';
+import { DesignStepForm } from './steps/DesignStepForm';
 import { NeedsStepForm } from './steps/NeedsStepForm';
 import { TimelineBudgetStep } from './steps/TimelineBudgetStep';
 
@@ -41,7 +41,9 @@ export function FormWizard({ locale }: FormWizardProps) {
 
   const step = messages.steps[state.currentStepId];
   const embedsOwnNav =
-    state.currentStepId === 'needs' || state.currentStepId === 'assets';
+    state.currentStepId === 'needs' ||
+    state.currentStepId === 'assets' ||
+    state.currentStepId === 'design';
 
   return (
     <div className="mx-auto w-full max-w-2xl space-y-8">
@@ -87,12 +89,7 @@ export function FormWizard({ locale }: FormWizardProps) {
         ) : null}
 
         {state.currentStepId === 'design' ? (
-          <DesignStep
-            messages={messages}
-            value={state.data}
-            errors={state.errors}
-            onChange={update}
-          />
+          <DesignStepForm locale={locale} />
         ) : null}
 
         {state.currentStepId === 'timeline-budget' ? (

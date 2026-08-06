@@ -66,8 +66,9 @@ export const es: Messages = {
         'Esto nos dice cuánto hay listo para producir y si hace falta acompañarte en contenidos y marca.',
     },
     design: {
-      title: 'Diseño',
-      description: 'Estilo, referencias e inspiración.',
+      title: '¿Qué estilo visual buscás?',
+      description:
+        'Sin hablar de colores: queremos entender referencias, dirección estética y gustos.',
     },
     'timeline-budget': {
       title: 'Plazos y presupuesto',
@@ -185,6 +186,54 @@ export const es: Messages = {
       },
     },
   },
+  designStep: {
+    styleLegend: '¿Qué estilo se acerca más a lo que imaginás?',
+    styleHint: 'Elegí la dirección general. Después lo afinamos con referencias.',
+    urlsPlaceholder:
+      'https://ejemplo.com\nhttps://otra-referencia.com/pagina',
+    urlsHint:
+      'Pegá una o más URLs de sitios o páginas que te gusten (una por línea).',
+    tastePlaceholder:
+      'Ej. Me gusta lo limpio y con buena tipografía. Prefiero evitar diseños cargados o muy corporativos…',
+    tasteHint:
+      'Contá qué te gusta, qué evitarías y la sensación que debería transmitir.',
+    savedMessage:
+      'Estilo registrado. El siguiente paso estará disponible pronto.',
+    styleOptions: {
+      minimal: {
+        label: 'Minimalista',
+        description: 'Espacio, claridad y pocos elementos.',
+      },
+      modern: {
+        label: 'Moderno',
+        description: 'Actual, limpio y con buen ritmo visual.',
+      },
+      classic: {
+        label: 'Clásico',
+        description: 'Sobrio, ordenado y atemporal.',
+      },
+      bold: {
+        label: 'Impactante',
+        description: 'Fuerte, expresivo y con mucha personalidad.',
+      },
+      elegant: {
+        label: 'Elegante',
+        description: 'Refinado, premium y cuidado en los detalles.',
+      },
+      friendly: {
+        label: 'Cercano',
+        description: 'Cálido, accesible y fácil de recorrer.',
+      },
+      editorial: {
+        label: 'Editorial',
+        description: 'Enfocado en tipografía, lectura y composición.',
+      },
+      other: {
+        label: 'Otro / mezcla',
+        description: 'No encaja en una sola categoría.',
+      },
+    },
+  },
   fields: {
     fullName: 'Nombre completo',
     email: 'Correo electrónico',
@@ -202,8 +251,9 @@ export const es: Messages = {
     visualIdentity: 'Identidad visual',
     brandManual: 'Manual de marca',
     needsContentHelp: 'Ayuda con materiales',
-    designStyle: 'Estilo de diseño',
-    references: 'Referencias o enlaces',
+    designStyle: 'Estilo visual',
+    referenceUrls: 'Páginas o sitios de referencia',
+    designTaste: 'Gustos y preferencias',
     timeline: 'Plazo deseado',
     budget: 'Presupuesto estimado',
     additionalNotes: 'Notas adicionales',
@@ -211,7 +261,7 @@ export const es: Messages = {
   validation: {
     required: 'Este campo es obligatorio',
     emailInvalid: 'Ingresa un email válido',
-    urlInvalid: 'Ingresa una URL válida',
+    urlInvalid: 'Ingresá al menos una URL o dominio de referencia',
     phoneInvalid: 'Ingresa un teléfono válido',
     minLength: 'Debe tener al menos {min} caracteres',
     selectAtLeastOne: 'Selecciona al menos una opción',

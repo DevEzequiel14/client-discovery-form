@@ -1,5 +1,7 @@
-import { TextArea } from '@components/ui/TextArea';
-import { TextField } from '@components/ui/TextField';
+/**
+ * Legacy presentational stub. Active Paso 5 UI: DesignStepForm.tsx
+ */
+import { FormTextArea } from '@components/ui/FormTextArea';
 import type { Messages } from '@i18n/types';
 import type { DesignData, FieldErrors } from '../../types/form';
 
@@ -18,19 +20,21 @@ export function DesignStep({
 }: DesignStepProps) {
   return (
     <div className="grid gap-4">
-      <TextField
-        name="designStyle"
-        label={messages.fields.designStyle}
-        value={value.designStyle ?? ''}
-        error={errors.designStyle}
-        onChange={(event) => onChange({ designStyle: event.target.value })}
+      <FormTextArea
+        id="referenceUrls"
+        name="referenceUrls"
+        label={messages.fields.referenceUrls}
+        value={value.referenceUrls ?? ''}
+        error={errors.referenceUrls}
+        onChange={(event) => onChange({ referenceUrls: event.target.value })}
       />
-      <TextArea
-        name="references"
-        label={`${messages.fields.references} (${messages.common.optional})`}
-        value={value.references ?? ''}
-        error={errors.references}
-        onChange={(event) => onChange({ references: event.target.value })}
+      <FormTextArea
+        id="designTaste"
+        name="designTaste"
+        label={messages.fields.designTaste}
+        value={value.designTaste ?? ''}
+        error={errors.designTaste}
+        onChange={(event) => onChange({ designTaste: event.target.value })}
       />
     </div>
   );

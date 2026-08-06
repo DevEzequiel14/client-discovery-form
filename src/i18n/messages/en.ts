@@ -66,8 +66,9 @@ export const en: Messages = {
         'This shows how ready you are to produce and whether you need help with content and brand.',
     },
     design: {
-      title: 'Design',
-      description: 'Style, references, and inspiration.',
+      title: 'What visual style are you after?',
+      description:
+        'No color talk: we want references, aesthetic direction, and taste.',
     },
     'timeline-budget': {
       title: 'Timeline & budget',
@@ -182,6 +183,53 @@ export const en: Messages = {
       },
     },
   },
+  designStep: {
+    styleLegend: 'Which style feels closest to what you imagine?',
+    styleHint: 'Pick a general direction. We will refine it with references.',
+    urlsPlaceholder:
+      'https://example.com\nhttps://another-reference.com/page',
+    urlsHint:
+      'Paste one or more URLs of sites or pages you like (one per line).',
+    tastePlaceholder:
+      'e.g. I like clean layouts with strong typography. I prefer to avoid cluttered or overly corporate looks…',
+    tasteHint:
+      'Tell us what you like, what to avoid, and the feeling it should convey.',
+    savedMessage: 'Style captured. The next step will be available soon.',
+    styleOptions: {
+      minimal: {
+        label: 'Minimal',
+        description: 'Space, clarity, and few elements.',
+      },
+      modern: {
+        label: 'Modern',
+        description: 'Current, clean, and visually paced.',
+      },
+      classic: {
+        label: 'Classic',
+        description: 'Sober, ordered, and timeless.',
+      },
+      bold: {
+        label: 'Bold',
+        description: 'Strong, expressive, and full of personality.',
+      },
+      elegant: {
+        label: 'Elegant',
+        description: 'Refined, premium, and detail-oriented.',
+      },
+      friendly: {
+        label: 'Friendly',
+        description: 'Warm, approachable, and easy to browse.',
+      },
+      editorial: {
+        label: 'Editorial',
+        description: 'Focused on type, reading, and composition.',
+      },
+      other: {
+        label: 'Other / mix',
+        description: 'Does not fit a single category.',
+      },
+    },
+  },
   fields: {
     fullName: 'Full name',
     email: 'Email address',
@@ -199,8 +247,9 @@ export const en: Messages = {
     visualIdentity: 'Visual identity',
     brandManual: 'Brand guidelines',
     needsContentHelp: 'Help with materials',
-    designStyle: 'Design style',
-    references: 'References or links',
+    designStyle: 'Visual style',
+    referenceUrls: 'Reference pages or sites',
+    designTaste: 'Taste and preferences',
     timeline: 'Desired timeline',
     budget: 'Estimated budget',
     additionalNotes: 'Additional notes',
@@ -208,7 +257,7 @@ export const en: Messages = {
   validation: {
     required: 'This field is required',
     emailInvalid: 'Enter a valid email',
-    urlInvalid: 'Enter a valid URL',
+    urlInvalid: 'Enter at least one reference URL or domain',
     phoneInvalid: 'Enter a valid phone number',
     minLength: 'Must be at least {min} characters',
     selectAtLeastOne: 'Select at least one option',

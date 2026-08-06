@@ -46,7 +46,6 @@ export function AssetsStepForm({ locale }: AssetsStepFormProps) {
     brandManual: form.data.brandManual ?? '',
     needsContentHelp: form.data.needsContentHelp ?? '',
   });
-  const [saved, setSaved] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<AssetsField, string>>>(
     {},
   );
@@ -74,7 +73,6 @@ export function AssetsStepForm({ locale }: AssetsStepFormProps) {
   function handleContinue(event: { preventDefault: () => void }) {
     event.preventDefault();
     setFormStatus('validating');
-    setSaved(false);
 
     const schema = createAssetsSchema(messages.validation);
     const result = schema.safeParse({
@@ -111,8 +109,8 @@ export function AssetsStepForm({ locale }: AssetsStepFormProps) {
     patchFormData(result.data);
     setFieldErrors({});
     setErrors({});
-    setSaved(true);
     setFormStatus('idle');
+    setCurrentStep('design');
   }
 
   const readinessOptions = ASSET_READINESS.map((value) => ({
@@ -179,7 +177,6 @@ export function AssetsStepForm({ locale }: AssetsStepFormProps) {
                           checked={selected}
                           className="sr-only"
                           onChange={() => {
-                            setSaved(false);
                             setValues((current) => ({
                               ...current,
                               [key]: option.value,
@@ -224,7 +221,6 @@ export function AssetsStepForm({ locale }: AssetsStepFormProps) {
             { value: 'no', label: messages.businessStep.no },
           ]}
           onChange={(value) => {
-            setSaved(false);
             setValues((current) => ({
               ...current,
               needsContentHelp: value as 'yes' | 'no',
@@ -233,15 +229,6 @@ export function AssetsStepForm({ locale }: AssetsStepFormProps) {
           }}
         />
       </div>
-
-      {saved ? (
-        <p
-          className="rounded-md border border-cdf-success/30 bg-green-50 px-4 py-3 text-sm text-cdf-success"
-          role="status"
-        >
-          {messages.assetsStep.savedMessage}
-        </p>
-      ) : null}
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <button
