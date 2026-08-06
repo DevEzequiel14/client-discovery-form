@@ -46,9 +46,23 @@ export type Messages = {
     privacyNote: string;
   };
   thanks: {
+    eyebrow: string;
     headline: string;
     supporting: string;
-    reference: string;
+    referenceLabel: string;
+    referenceHint: string;
+    nowTitle: string;
+    nowIntro: string;
+    timeline: [
+      { title: string; timing: string; description: string },
+      { title: string; timing: string; description: string },
+      { title: string; timing: string; description: string },
+    ];
+    nextTitle: string;
+    nextSteps: [string, string, string];
+    ctaSupporting: string;
+    ctaPrimary: string;
+    ctaNote: string;
   };
   steps: Record<
     StepId,

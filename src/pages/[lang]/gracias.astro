@@ -15,6 +15,7 @@ if (!lang || !isLocale(lang)) {
 
 const messages = getMessages(lang);
 const reference = Astro.url.searchParams.get('ref');
+const t = messages.thanks;
 ---
 
 <FormLayout
@@ -22,24 +23,158 @@ const reference = Astro.url.searchParams.get('ref');
   title={messages.meta.thanksTitle}
   description={messages.meta.thanksDescription}
 >
-  <section class="mx-auto max-w-2xl space-y-6 py-16 text-center">
-    <h1 class="font-display text-4xl text-cdf-ink md:text-5xl">
-      {messages.thanks.headline}
-    </h1>
-    <p class="text-lg text-cdf-muted">{messages.thanks.supporting}</p>
+  <section class="thanks-page mx-auto max-w-2xl space-y-10 py-10 md:py-14">
+    <header class="thanks-hero space-y-4">
+      <p class="text-sm font-medium tracking-wide text-cdf-accent">
+        {t.eyebrow}
+      </p>
+      <h1 class="font-display text-4xl leading-tight text-cdf-ink md:text-5xl">
+        {t.headline}
+      </h1>
+      <p class="max-w-xl text-lg leading-relaxed text-cdf-muted">
+        {t.supporting}
+      </p>
+    </header>
+
     {
       reference ? (
-        <p class="text-sm text-cdf-muted">
-          {messages.thanks.reference}:{' '}
-          <span class="font-medium text-cdf-ink">{reference}</span>
-        </p>
+        <aside
+          class="thanks-ref rounded-xl border border-cdf-border/80 bg-white/70 px-5 py-4 shadow-sm backdrop-blur"
+          aria-label={t.referenceLabel}
+        >
+          <p class="text-xs font-medium uppercase tracking-wide text-cdf-muted">
+            {t.referenceLabel}
+          </p>
+          <p class="mt-1 font-mono text-sm font-medium tracking-wide text-cdf-ink md:text-base">
+            {reference}
+          </p>
+          <p class="mt-2 text-sm leading-relaxed text-cdf-muted">
+            {t.referenceHint}
+          </p>
+        </aside>
       ) : null
     }
-    <a
-      href={`/${lang}`}
-      class="inline-flex items-center justify-center rounded-md border border-cdf-border bg-white px-5 py-3 text-sm font-medium text-cdf-ink transition hover:bg-white/80"
-    >
-      {messages.common.goHome}
-    </a>
+
+    <div class="thanks-timeline space-y-4">
+      <div class="space-y-1">
+        <h2 class="font-display text-2xl text-cdf-ink">{t.nowTitle}</h2>
+        <p class="text-sm leading-relaxed text-cdf-muted">{t.nowIntro}</p>
+      </div>
+
+      <ol class="space-y-3">
+        {
+          t.timeline.map((item, index) => (
+            <li class="thanks-step flex gap-4 rounded-xl border border-cdf-border/70 bg-white/60 px-4 py-4">
+              <span
+                class="flex size-8 shrink-0 items-center justify-center rounded-md bg-cdf-accent/10 font-display text-sm font-semibold text-cdf-accent"
+                aria-hidden="true"
+              >
+                {index + 1}
+              </span>
+              <div class="min-w-0 space-y-1">
+                <div class="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                  <h3 class="font-medium text-cdf-ink">{item.title}</h3>
+                  <p class="text-xs font-medium text-cdf-accent">{item.timing}</p>
+                </div>
+                <p class="text-sm leading-relaxed text-cdf-muted">
+                  {item.description}
+                </p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+
+    <div class="thanks-next space-y-3">
+      <h2 class="font-display text-2xl text-cdf-ink">{t.nextTitle}</h2>
+      <ul class="space-y-2.5">
+        {
+          t.nextSteps.map((step) => (
+            <li class="flex gap-3 text-sm leading-relaxed text-cdf-muted">
+              <span
+                class="mt-2 size-1.5 shrink-0 rounded-full bg-cdf-accent/80"
+                aria-hidden="true"
+              />
+              <span>{step}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="thanks-cta space-y-4 border-t border-cdf-border/70 pt-8">
+      <p class="text-sm leading-relaxed text-cdf-muted">{t.ctaSupporting}</p>
+      <div class="flex flex-wrap items-center gap-3">
+        <a
+          href={`/${lang}`}
+          class="inline-flex min-h-11 items-center justify-center rounded-md bg-cdf-accent px-5 py-2.5 text-sm font-medium text-white transition hover:bg-cdf-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent"
+        >
+          {t.ctaPrimary}
+        </a>
+        <p class="text-xs text-cdf-muted">{t.ctaNote}</p>
+      </div>
+    </div>
   </section>
 </FormLayout>
+
+<style>
+  .thanks-hero {
+    animation: thanks-rise 0.7s ease-out both;
+  }
+
+  .thanks-ref {
+    animation: thanks-rise 0.7s ease-out 0.08s both;
+  }
+
+  .thanks-timeline {
+    animation: thanks-rise 0.7s ease-out 0.16s both;
+  }
+
+  .thanks-step {
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .thanks-step:hover {
+    border-color: color-mix(
+      in oklab,
+      var(--color-cdf-accent) 35%,
+      var(--color-cdf-border)
+    );
+  }
+
+  .thanks-next {
+    animation: thanks-rise 0.7s ease-out 0.24s both;
+  }
+
+  .thanks-cta {
+    animation: thanks-rise 0.7s ease-out 0.32s both;
+  }
+
+  @keyframes thanks-rise {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .thanks-hero,
+    .thanks-ref,
+    .thanks-timeline,
+    .thanks-next,
+    .thanks-cta {
+      animation: none;
+    }
+
+    .thanks-step {
+      transition: none;
+    }
+  }
+</style>
