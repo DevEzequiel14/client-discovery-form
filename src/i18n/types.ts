@@ -2,7 +2,6 @@ import type { StepId } from '@features/discovery-form/types/steps';
 
 export type Messages = {
   meta: {
-    /** Short client-facing label shown in the header / document title */
     brandLabel: string;
     homeTitle: string;
     homeDescription: string;
@@ -81,6 +80,22 @@ export type Messages = {
       other: string;
     };
   };
+  needsStep: {
+    goalsPlaceholder: string;
+    goalsHint: string;
+    projectTypeLegend: string;
+    projectTypeHint: string;
+    expectedOutcomePlaceholder: string;
+    expectedOutcomeHint: string;
+    savedMessage: string;
+    projectTypeOptions: {
+      website: { label: string; description: string };
+      webApp: { label: string; description: string };
+      ecommerce: { label: string; description: string };
+      redesign: { label: string; description: string };
+      other: { label: string; description: string };
+    };
+  };
   fields: {
     fullName: string;
     email: string;
@@ -90,15 +105,8 @@ export type Messages = {
     hasWebsite: string;
     website: string;
     projectType: string;
-    projectTypeOptions: {
-      website: string;
-      webApp: string;
-      ecommerce: string;
-      redesign: string;
-      other: string;
-    };
     goals: string;
-    targetAudience: string;
+    expectedOutcome: string;
     features: string;
     designStyle: string;
     references: string;

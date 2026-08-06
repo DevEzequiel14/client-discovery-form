@@ -1,3 +1,6 @@
+/**
+ * Legacy FormWizard kept for reference. Active flow: DiscoveryWizard.
+ */
 import { useEffect } from 'react';
 import { Alert } from '@components/feedback/Alert';
 import type { Locale } from '@i18n/locales';
@@ -10,8 +13,7 @@ import { BusinessStep } from './steps/BusinessStep';
 import { ContactStep } from './steps/ContactStep';
 import { DesignStep } from './steps/DesignStep';
 import { FeaturesStep } from './steps/FeaturesStep';
-import { GoalsStep } from './steps/GoalsStep';
-import { ProjectTypeStep } from './steps/ProjectTypeStep';
+import { NeedsStepForm } from './steps/NeedsStepForm';
 import { TimelineBudgetStep } from './steps/TimelineBudgetStep';
 
 type FormWizardProps = {
@@ -74,22 +76,8 @@ export function FormWizard({ locale }: FormWizardProps) {
           />
         ) : null}
 
-        {state.currentStepId === 'project-type' ? (
-          <ProjectTypeStep
-            messages={messages}
-            value={state.data}
-            errors={state.errors}
-            onChange={update}
-          />
-        ) : null}
-
-        {state.currentStepId === 'goals' ? (
-          <GoalsStep
-            messages={messages}
-            value={state.data}
-            errors={state.errors}
-            onChange={update}
-          />
+        {state.currentStepId === 'needs' ? (
+          <NeedsStepForm locale={locale} />
         ) : null}
 
         {state.currentStepId === 'features' ? (
@@ -133,17 +121,19 @@ export function FormWizard({ locale }: FormWizardProps) {
           </div>
         ) : null}
 
-        <div className="mt-6">
-          <StepNavigation
-            messages={messages}
-            isFirstStep={isFirstStep}
-            isLastStep={isLastStep}
-            isSubmitting={state.status === 'submitting'}
-            onBack={back}
-            onNext={next}
-            onSubmit={submit}
-          />
-        </div>
+        {state.currentStepId !== 'needs' ? (
+          <div className="mt-6">
+            <StepNavigation
+              messages={messages}
+              isFirstStep={isFirstStep}
+              isLastStep={isLastStep}
+              isSubmitting={state.status === 'submitting'}
+              onBack={back}
+              onNext={next}
+              onSubmit={submit}
+            />
+          </div>
+        ) : null}
       </div>
     </div>
   );

@@ -1,8 +1,7 @@
 export const STEP_IDS = [
   'contact',
   'business',
-  'project-type',
-  'goals',
+  'needs',
   'features',
   'design',
   'timeline-budget',

@@ -55,13 +55,10 @@ export const en: Messages = {
       description:
         'This helps us understand your brand context before we talk about the project.',
     },
-    'project-type': {
-      title: 'Project type',
-      description: 'What you need to build.',
-    },
-    goals: {
-      title: 'Goals',
-      description: 'What you want to achieve with this project.',
+    needs: {
+      title: 'What do you need to solve?',
+      description:
+        'We start with your problem or goal. Then we look at the project type you imagine and the result you expect.',
     },
     features: {
       title: 'Features',
@@ -114,6 +111,41 @@ export const en: Messages = {
       other: 'Other',
     },
   },
+  needsStep: {
+    goalsPlaceholder:
+      'e.g. Today we rely on word of mouth and want a steady way to get inquiries…',
+    goalsHint:
+      'Describe the problem or opportunity. No need to talk about technology yet.',
+    projectTypeLegend: 'What kind of project do you imagine?',
+    projectTypeHint: 'Pick the closest option. We can refine it together later.',
+    expectedOutcomePlaceholder:
+      'e.g. I want more qualified inquiries each month and a clear way to present my services…',
+    expectedOutcomeHint:
+      'Think about the concrete result that would make you say “this worked”.',
+    savedMessage: 'Need captured. The next step will be available soon.',
+    projectTypeOptions: {
+      website: {
+        label: 'Website',
+        description: 'Online presence, pages, and contact.',
+      },
+      webApp: {
+        label: 'App or system',
+        description: 'Workflows, users, and information management.',
+      },
+      ecommerce: {
+        label: 'Online store',
+        description: 'Catalog, payments, and online sales.',
+      },
+      redesign: {
+        label: 'Redesign',
+        description: 'Improve an existing site or system.',
+      },
+      other: {
+        label: 'Other',
+        description: 'You are unsure or it is a mix.',
+      },
+    },
+  },
   fields: {
     fullName: 'Full name',
     email: 'Email address',
@@ -123,15 +155,8 @@ export const en: Messages = {
     hasWebsite: 'Do you have a website?',
     website: 'Website URL',
     projectType: 'Project type',
-    projectTypeOptions: {
-      website: 'Website',
-      webApp: 'Web app / system',
-      ecommerce: 'E-commerce',
-      redesign: 'Redesign',
-      other: 'Other',
-    },
-    goals: 'Main goals',
-    targetAudience: 'Target audience',
+    goals: 'What do you want to achieve?',
+    expectedOutcome: 'What do you expect to get?',
     features: 'Desired features',
     designStyle: 'Design style',
     references: 'References or links',

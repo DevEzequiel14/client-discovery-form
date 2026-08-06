@@ -5,8 +5,7 @@ import { createContactSchema } from './contact.schema';
 import { createDesignSchema } from './design.schema';
 import { createDiscoveryFormSchema } from './discovery-form.schema';
 import { createFeaturesSchema } from './features.schema';
-import { createGoalsSchema } from './goals.schema';
-import { createProjectTypeSchema } from './project-type.schema';
+import { createNeedsSchema } from './needs.schema';
 import { createTimelineBudgetSchema } from './timeline-budget.schema';
 
 export function getStepSchema(stepId: StepId, v: ValidationMessages) {
@@ -15,10 +14,8 @@ export function getStepSchema(stepId: StepId, v: ValidationMessages) {
       return createContactSchema(v);
     case 'business':
       return createBusinessSchema(v);
-    case 'project-type':
-      return createProjectTypeSchema(v);
-    case 'goals':
-      return createGoalsSchema(v);
+    case 'needs':
+      return createNeedsSchema(v);
     case 'features':
       return createFeaturesSchema(v);
     case 'design':
@@ -36,7 +33,6 @@ export {
   createDesignSchema,
   createDiscoveryFormSchema,
   createFeaturesSchema,
-  createGoalsSchema,
-  createProjectTypeSchema,
+  createNeedsSchema,
   createTimelineBudgetSchema,
 };

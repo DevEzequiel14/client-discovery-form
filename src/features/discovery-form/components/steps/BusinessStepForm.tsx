@@ -45,7 +45,6 @@ export function BusinessStepForm({ locale }: BusinessStepFormProps) {
     hasWebsite: (form.data.hasWebsite ?? '') as HasWebsite | '',
     website: form.data.website ?? '',
   });
-  const [saved, setSaved] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<BusinessField, string>>>(
     {},
   );
@@ -73,7 +72,6 @@ export function BusinessStepForm({ locale }: BusinessStepFormProps) {
   function handleContinue(event: { preventDefault: () => void }) {
     event.preventDefault();
     setFormStatus('validating');
-    setSaved(false);
 
     const schema = createBusinessSchema(messages.validation);
     const result = schema.safeParse({
@@ -106,20 +104,18 @@ export function BusinessStepForm({ locale }: BusinessStepFormProps) {
       company: result.data.company,
       industry: result.data.industry,
       hasWebsite: result.data.hasWebsite,
-      ...(result.data.hasWebsite === 'yes' && result.data.website
-        ? { website: result.data.website }
-        : { website: undefined }),
+      website:
+        result.data.hasWebsite === 'yes' ? result.data.website : undefined,
     };
 
-    // Clear website in persisted data when user selects "no"
     patchFormData({
       ...payload,
       website: payload.hasWebsite === 'yes' ? payload.website : '',
     });
     setFieldErrors({});
     setErrors({});
-    setSaved(true);
     setFormStatus('idle');
+    setCurrentStep('needs');
   }
 
   const industryOptions = INDUSTRIES.map((industry) => ({
@@ -142,7 +138,6 @@ export function BusinessStepForm({ locale }: BusinessStepFormProps) {
           requiredLabel={messages.common.required}
           autoComplete="organization"
           onChange={(event) => {
-            setSaved(false);
             setValues((current) => ({
               ...current,
               company: event.target.value,
@@ -163,7 +158,6 @@ export function BusinessStepForm({ locale }: BusinessStepFormProps) {
           requiredLabel={messages.common.required}
           options={industryOptions}
           onChange={(event) => {
-            setSaved(false);
             setValues((current) => ({
               ...current,
               industry: event.target.value as Industry,
@@ -185,7 +179,6 @@ export function BusinessStepForm({ locale }: BusinessStepFormProps) {
             { value: 'no', label: messages.businessStep.no },
           ]}
           onChange={(value) => {
-            setSaved(false);
             setValues((current) => ({
               ...current,
               hasWebsite: value as HasWebsite,
@@ -211,7 +204,6 @@ export function BusinessStepForm({ locale }: BusinessStepFormProps) {
             autoComplete="url"
             inputMode="url"
             onChange={(event) => {
-              setSaved(false);
               setValues((current) => ({
                 ...current,
                 website: event.target.value,
@@ -221,15 +213,6 @@ export function BusinessStepForm({ locale }: BusinessStepFormProps) {
           />
         ) : null}
       </div>
-
-      {saved ? (
-        <p
-          className="rounded-md border border-cdf-success/30 bg-green-50 px-4 py-3 text-sm text-cdf-success"
-          role="status"
-        >
-          {messages.businessStep.savedMessage}
-        </p>
-      ) : null}
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <button

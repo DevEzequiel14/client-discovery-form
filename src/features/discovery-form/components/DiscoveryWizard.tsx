@@ -1,19 +1,26 @@
 import { useEffect } from 'react';
 import { useStore } from '@nanostores/react';
 import { t, getMessages, type Locale } from '@i18n/index';
-import { STEP_IDS } from '../types/steps';
+import { STEP_IDS, type StepId } from '../types/steps';
 import {
   $discoveryForm,
   $formLocale,
 } from '../stores/discovery-form.store';
 import { BusinessStepForm } from './steps/BusinessStepForm';
 import { ContactStepForm } from './steps/ContactStepForm';
+import { NeedsStepForm } from './steps/NeedsStepForm';
 
 type DiscoveryWizardProps = {
   locale: Locale;
 };
 
-const ACTIVE_STEPS = ['contact', 'business'] as const;
+const ACTIVE_STEPS = ['contact', 'business', 'needs'] as const;
+type ActiveStep = (typeof ACTIVE_STEPS)[number];
+
+function resolveActiveStep(stepId: StepId): ActiveStep {
+  if (stepId === 'business' || stepId === 'needs') return stepId;
+  return 'contact';
+}
 
 export function DiscoveryWizard({ locale }: DiscoveryWizardProps) {
   const form = useStore($discoveryForm);
@@ -23,8 +30,7 @@ export function DiscoveryWizard({ locale }: DiscoveryWizardProps) {
     $formLocale.set(locale);
   }, [locale]);
 
-  const stepId =
-    form.currentStepId === 'business' ? 'business' : 'contact';
+  const stepId = resolveActiveStep(form.currentStepId);
   const stepIndex = ACTIVE_STEPS.indexOf(stepId);
   const current = stepIndex + 1;
   const total = STEP_IDS.length;
@@ -73,7 +79,9 @@ export function DiscoveryWizard({ locale }: DiscoveryWizardProps) {
         </p>
       </header>
 
-      {stepId === 'business' ? (
+      {stepId === 'needs' ? (
+        <NeedsStepForm locale={locale} />
+      ) : stepId === 'business' ? (
         <BusinessStepForm locale={locale} />
       ) : (
         <ContactStepForm locale={locale} />

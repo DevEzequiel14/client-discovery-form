@@ -14,13 +14,13 @@ export type BusinessData = {
   website?: string;
 };
 
-export type ProjectTypeData = {
-  projectType: ProjectType;
-};
-
-export type GoalsData = {
+export type NeedsData = {
+  /** What they want to achieve / problem to solve */
   goals: string;
-  targetAudience: string;
+  /** What kind of project they imagine */
+  projectType: ProjectType;
+  /** What they expect to get as a result */
+  expectedOutcome: string;
 };
 
 export type FeaturesData = {
@@ -40,8 +40,7 @@ export type TimelineBudgetData = {
 
 export type DiscoveryFormData = ContactData &
   BusinessData &
-  ProjectTypeData &
-  GoalsData &
+  NeedsData &
   FeaturesData &
   DesignData &
   TimelineBudgetData;

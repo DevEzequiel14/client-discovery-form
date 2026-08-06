@@ -55,13 +55,10 @@ export const es: Messages = {
       description:
         'Con esta información entendemos el contexto de tu marca antes de hablar del proyecto.',
     },
-    'project-type': {
-      title: 'Tipo de proyecto',
-      description: 'Qué necesitas construir.',
-    },
-    goals: {
-      title: 'Objetivos',
-      description: 'Qué quieres lograr con este proyecto.',
+    needs: {
+      title: '¿Qué necesitás resolver?',
+      description:
+        'Empezamos por tu problema u objetivo. Después vemos qué tipo de proyecto encaja y qué resultado esperás.',
     },
     features: {
       title: 'Funcionalidades',
@@ -115,6 +112,43 @@ export const es: Messages = {
       other: 'Otra',
     },
   },
+  needsStep: {
+    goalsPlaceholder:
+      'Ej. Hoy dependemos del boca a boca y queremos captar consultas de forma constante…',
+    goalsHint:
+      'Contá el problema o la oportunidad. No hace falta hablar todavía de tecnología.',
+    projectTypeLegend: '¿Qué tipo de proyecto imaginás?',
+    projectTypeHint:
+      'Elegí la opción más cercana. Después lo afinamos juntos.',
+    expectedOutcomePlaceholder:
+      'Ej. Quiero recibir más consultas calificadas por mes y mostrar mis servicios con claridad…',
+    expectedOutcomeHint:
+      'Pensá en el resultado concreto que te haría decir “esto funcionó”.',
+    savedMessage:
+      'Necesidad registrada. El siguiente paso estará disponible pronto.',
+    projectTypeOptions: {
+      website: {
+        label: 'Sitio web',
+        description: 'Presencia online, páginas y contacto.',
+      },
+      webApp: {
+        label: 'Aplicación o sistema',
+        description: 'Flujos, usuarios y gestión de información.',
+      },
+      ecommerce: {
+        label: 'Tienda online',
+        description: 'Catálogo, pagos y ventas por internet.',
+      },
+      redesign: {
+        label: 'Rediseño',
+        description: 'Mejorar un sitio o sistema que ya existe.',
+      },
+      other: {
+        label: 'Otro',
+        description: 'Todavía no estás seguro o es una mezcla.',
+      },
+    },
+  },
   fields: {
     fullName: 'Nombre completo',
     email: 'Correo electrónico',
@@ -124,15 +158,8 @@ export const es: Messages = {
     hasWebsite: '¿Tenés una página web?',
     website: 'URL del sitio',
     projectType: 'Tipo de proyecto',
-    projectTypeOptions: {
-      website: 'Sitio web',
-      webApp: 'Aplicación web / sistema',
-      ecommerce: 'E-commerce',
-      redesign: 'Rediseño',
-      other: 'Otro',
-    },
-    goals: 'Objetivos principales',
-    targetAudience: 'Público objetivo',
+    goals: '¿Qué querés lograr?',
+    expectedOutcome: '¿Qué esperás obtener?',
     features: 'Funcionalidades deseadas',
     designStyle: 'Estilo de diseño',
     references: 'Referencias o enlaces',

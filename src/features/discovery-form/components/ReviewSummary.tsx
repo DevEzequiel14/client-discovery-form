@@ -8,10 +8,7 @@ type ReviewSummaryProps = {
   onEditStep: (stepId: StepId) => void;
 };
 
-type FieldKey = Exclude<
-  keyof Messages['fields'],
-  'projectTypeOptions'
->;
+type FieldKey = keyof Messages['fields'];
 
 const reviewFields: Array<{
   stepId: StepId;
@@ -19,8 +16,7 @@ const reviewFields: Array<{
 }> = [
   { stepId: 'contact', keys: ['fullName', 'email', 'phone'] },
   { stepId: 'business', keys: ['company', 'industry', 'hasWebsite', 'website'] },
-  { stepId: 'project-type', keys: ['projectType'] },
-  { stepId: 'goals', keys: ['goals', 'targetAudience'] },
+  { stepId: 'needs', keys: ['goals', 'projectType', 'expectedOutcome'] },
   { stepId: 'features', keys: ['features'] },
   { stepId: 'design', keys: ['designStyle', 'references'] },
   {
@@ -35,9 +31,9 @@ function formatValue(
   messages: Messages,
 ): string {
   if (key === 'projectType') {
-    return messages.fields.projectTypeOptions[
-      value as keyof typeof messages.fields.projectTypeOptions
-    ];
+    return messages.needsStep.projectTypeOptions[
+      value as keyof typeof messages.needsStep.projectTypeOptions
+    ].label;
   }
 
   if (key === 'industry') {
@@ -82,14 +78,12 @@ export function ReviewSummary({
           </div>
           <dl className="grid gap-2 text-sm">
             {section.keys.map((key) => {
-              const raw = data[key];
+              const raw = data[key as keyof PartialDiscoveryForm];
               if (!raw) return null;
 
               return (
                 <div key={key}>
-                  <dt className="text-cdf-muted">
-                    {messages.fields[key] as string}
-                  </dt>
+                  <dt className="text-cdf-muted">{messages.fields[key]}</dt>
                   <dd className="text-cdf-ink">
                     {formatValue(key, String(raw), messages)}
                   </dd>
