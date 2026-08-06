@@ -5,8 +5,10 @@ import type {
   DesignStyle,
   DomainStatus,
   HostingStatus,
+  InvestmentRange,
   ProjectType,
   SiteRole,
+  TimelineOption,
 } from './steps';
 import type { HasWebsite, Industry } from '../constants/industries';
 
@@ -54,8 +56,8 @@ export type TechnicalData = {
 };
 
 export type TimelineBudgetData = {
-  timeline: string;
-  budget: string;
+  timeline: TimelineOption;
+  investmentRange: InvestmentRange;
   additionalNotes?: string;
 };
 

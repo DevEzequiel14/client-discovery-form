@@ -1,5 +1,8 @@
-import { TextArea } from '@components/ui/TextArea';
-import { TextField } from '@components/ui/TextField';
+/**
+ * Legacy stub. Active flow uses TimelineBudgetStepForm.
+ */
+import { FormField } from '@components/ui/FormField';
+import { FormTextArea } from '@components/ui/FormTextArea';
 import type { Messages } from '@i18n/types';
 import type { FieldErrors, TimelineBudgetData } from '../../types/form';
 
@@ -10,6 +13,7 @@ type TimelineBudgetStepProps = {
   onChange: (patch: Partial<TimelineBudgetData>) => void;
 };
 
+/** @deprecated Prefer TimelineBudgetStepForm */
 export function TimelineBudgetStep({
   messages,
   value,
@@ -17,24 +21,35 @@ export function TimelineBudgetStep({
   onChange,
 }: TimelineBudgetStepProps) {
   return (
-    <div className="grid gap-4">
-      <TextField
+    <div className="space-y-4">
+      <FormField
+        id="timeline"
         name="timeline"
         label={messages.fields.timeline}
         value={value.timeline ?? ''}
         error={errors.timeline}
-        onChange={(event) => onChange({ timeline: event.target.value })}
+        onChange={(event) =>
+          onChange({ timeline: event.target.value as TimelineBudgetData['timeline'] })
+        }
       />
-      <TextField
-        name="budget"
-        label={messages.fields.budget}
-        value={value.budget ?? ''}
-        error={errors.budget}
-        onChange={(event) => onChange({ budget: event.target.value })}
+      <FormField
+        id="investmentRange"
+        name="investmentRange"
+        label={messages.fields.investmentRange}
+        value={value.investmentRange ?? ''}
+        error={errors.investmentRange}
+        onChange={(event) =>
+          onChange({
+            investmentRange:
+              event.target.value as TimelineBudgetData['investmentRange'],
+          })
+        }
       />
-      <TextArea
+      <FormTextArea
+        id="additionalNotes"
         name="additionalNotes"
-        label={`${messages.fields.additionalNotes} (${messages.common.optional})`}
+        label={messages.fields.additionalNotes}
+        optionalLabel={messages.common.optional}
         value={value.additionalNotes ?? ''}
         error={errors.additionalNotes}
         onChange={(event) =>

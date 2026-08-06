@@ -59,3 +59,21 @@ export type CorporateEmailStatus = (typeof CORPORATE_EMAIL_STATUS)[number];
 
 export const SITE_ROLE = ['myself', 'team', 'external', 'undecided'] as const;
 export type SiteRole = (typeof SITE_ROLE)[number];
+
+export const TIMELINE_OPTIONS = [
+  'asap',
+  'oneMonth',
+  'oneToThreeMonths',
+  'flexible',
+  'unsure',
+] as const;
+export type TimelineOption = (typeof TIMELINE_OPTIONS)[number];
+
+export const INVESTMENT_RANGES = [
+  'starter',
+  'focused',
+  'complete',
+  'open',
+  'discuss',
+] as const;
+export type InvestmentRange = (typeof INVESTMENT_RANGES)[number];

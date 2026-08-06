@@ -76,8 +76,9 @@ export const es: Messages = {
         'Solo para entender cómo está hoy lo técnico y quién va a ocuparse del sitio después.',
     },
     'timeline-budget': {
-      title: 'Plazos y presupuesto',
-      description: 'Expectativas de tiempo e inversión.',
+      title: 'Tiempos e inversión',
+      description:
+        'Esto nos ayuda a proponerte caminos realistas, sin pedirte un número exacto.',
     },
     review: {
       title: 'Revisión',
@@ -277,6 +278,50 @@ export const es: Messages = {
       undecided: 'Todavía no lo definí',
     },
   },
+  timelineBudgetStep: {
+    timelineLegend: '¿Para cuándo te gustaría tenerlo listo?',
+    timelineHint: 'Una idea aproximada alcanza; después lo afinamos juntos.',
+    investmentLegend:
+      '¿En qué rango te sentís cómodo invertir en este proyecto?',
+    investmentIntro:
+      'No hace falta un monto exacto. Elegí la opción que más se acerque: nos ayuda a proponerte alternativas que encajen.',
+    investmentHint:
+      'No es un compromiso. Si preferís dejarlo para la conversación, también está bien.',
+    notesPlaceholder:
+      'Ej. Hay una fecha de evento, o querés avanzar por etapas…',
+    notesHint: 'Cualquier detalle que nos ayude a priorizar tiempos o alcance.',
+    savedMessage:
+      'Respuestas guardadas. El siguiente paso estará disponible pronto.',
+    timelineOptions: {
+      asap: 'Lo antes posible',
+      oneMonth: 'En aproximadamente un mes',
+      oneToThreeMonths: 'En 1 a 3 meses',
+      flexible: 'No hay apuro; soy flexible',
+      unsure: 'Todavía no lo tengo claro',
+    },
+    investmentOptions: {
+      starter: {
+        label: 'Un punto de partida contenido',
+        description: 'Orientativo: hasta ~USD 1.000',
+      },
+      focused: {
+        label: 'Un proyecto de alcance medio',
+        description: 'Orientativo: ~USD 1.000 – 2.500',
+      },
+      complete: {
+        label: 'Algo más completo',
+        description: 'Orientativo: ~USD 2.500 – 5.000',
+      },
+      open: {
+        label: 'Estoy abierto a una inversión más amplia',
+        description: 'Orientativo: más de ~USD 5.000',
+      },
+      discuss: {
+        label: 'Prefiero hablarlo después',
+        description: 'Sin problema: lo vemos juntos en la conversación.',
+      },
+    },
+  },
   fields: {
     fullName: 'Nombre completo',
     email: 'Correo electrónico',
@@ -303,9 +348,9 @@ export const es: Messages = {
     corporateEmailStatus: 'Correo con dominio',
     siteAdmin: 'Quién se ocupa del día a día',
     siteUpdates: 'Quién hace actualizaciones',
-    timeline: 'Plazo deseado',
-    budget: 'Presupuesto estimado',
-    additionalNotes: 'Notas adicionales',
+    timeline: 'Cuándo lo necesitás',
+    investmentRange: 'Rango de inversión',
+    additionalNotes: 'Algo más que quieras contar',
   },
   validation: {
     required: 'Este campo es obligatorio',

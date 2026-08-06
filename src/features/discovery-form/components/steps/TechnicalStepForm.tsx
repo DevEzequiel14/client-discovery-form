@@ -50,7 +50,6 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
     siteAdmin: (form.data.siteAdmin ?? '') as SiteRole | '',
     siteUpdates: (form.data.siteUpdates ?? '') as SiteRole | '',
   });
-  const [saved, setSaved] = useState(false);
   const [errors, setErrors] = useState<
     Partial<Record<TechnicalField, string>>
   >({});
@@ -78,7 +77,6 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
   function handleContinue(event: { preventDefault: () => void }) {
     event.preventDefault();
     setFormStatus('validating');
-    setSaved(false);
 
     const schema = createTechnicalSchema(messages.validation);
     const result = schema.safeParse({
@@ -128,8 +126,8 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
     });
     setFieldErrors({});
     setErrors({});
-    setSaved(true);
     setFormStatus('idle');
+    setCurrentStep('timeline-budget');
   }
 
   return (
@@ -163,7 +161,6 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
             },
           ]}
           onChange={(value) => {
-            setSaved(false);
             setValues((current) => ({
               ...current,
               domainStatus: value as DomainStatus,
@@ -189,7 +186,6 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
             autoComplete="url"
             inputMode="url"
             onChange={(event) => {
-              setSaved(false);
               setValues((current) => ({
                 ...current,
                 domainName: event.target.value,
@@ -223,7 +219,6 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
             },
           ]}
           onChange={(value) => {
-            setSaved(false);
             setValues((current) => ({
               ...current,
               hostingStatus: value as HostingStatus,
@@ -256,7 +251,6 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
             },
           ]}
           onChange={(value) => {
-            setSaved(false);
             setValues((current) => ({
               ...current,
               corporateEmailStatus: value as CorporateEmailStatus,
@@ -293,7 +287,6 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
             },
           ]}
           onChange={(value) => {
-            setSaved(false);
             setValues((current) => ({
               ...current,
               siteAdmin: value as SiteRole,
@@ -330,7 +323,6 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
             },
           ]}
           onChange={(value) => {
-            setSaved(false);
             setValues((current) => ({
               ...current,
               siteUpdates: value as SiteRole,
@@ -339,15 +331,6 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
           }}
         />
       </div>
-
-      {saved ? (
-        <p
-          className="rounded-md border border-cdf-success/30 bg-green-50 px-4 py-3 text-sm text-cdf-success"
-          role="status"
-        >
-          {messages.technicalStep.savedMessage}
-        </p>
-      ) : null}
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <button

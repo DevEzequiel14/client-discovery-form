@@ -15,7 +15,7 @@ import { ContactStep } from './steps/ContactStep';
 import { DesignStepForm } from './steps/DesignStepForm';
 import { NeedsStepForm } from './steps/NeedsStepForm';
 import { TechnicalStepForm } from './steps/TechnicalStepForm';
-import { TimelineBudgetStep } from './steps/TimelineBudgetStep';
+import { TimelineBudgetStepForm } from './steps/TimelineBudgetStepForm';
 
 type FormWizardProps = {
   locale: Locale;
@@ -45,7 +45,8 @@ export function FormWizard({ locale }: FormWizardProps) {
     state.currentStepId === 'needs' ||
     state.currentStepId === 'assets' ||
     state.currentStepId === 'design' ||
-    state.currentStepId === 'technical';
+    state.currentStepId === 'technical' ||
+    state.currentStepId === 'timeline-budget';
 
   return (
     <div className="mx-auto w-full max-w-2xl space-y-8">
@@ -99,12 +100,7 @@ export function FormWizard({ locale }: FormWizardProps) {
         ) : null}
 
         {state.currentStepId === 'timeline-budget' ? (
-          <TimelineBudgetStep
-            messages={messages}
-            value={state.data}
-            errors={state.errors}
-            onChange={update}
-          />
+          <TimelineBudgetStepForm locale={locale} />
         ) : null}
 
         {state.currentStepId === 'review' ? (

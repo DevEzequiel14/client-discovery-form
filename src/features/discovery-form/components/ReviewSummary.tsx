@@ -36,7 +36,7 @@ const reviewFields: Array<{
   },
   {
     stepId: 'timeline-budget',
-    keys: ['timeline', 'budget', 'additionalNotes'],
+    keys: ['timeline', 'investmentRange', 'additionalNotes'],
   },
 ];
 
@@ -103,6 +103,18 @@ function formatValue(
     return messages.technicalStep.roleOptions[
       value as keyof typeof messages.technicalStep.roleOptions
     ];
+  }
+
+  if (key === 'timeline') {
+    return messages.timelineBudgetStep.timelineOptions[
+      value as keyof typeof messages.timelineBudgetStep.timelineOptions
+    ];
+  }
+
+  if (key === 'investmentRange') {
+    return messages.timelineBudgetStep.investmentOptions[
+      value as keyof typeof messages.timelineBudgetStep.investmentOptions
+    ].label;
   }
 
   return value;

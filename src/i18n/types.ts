@@ -171,6 +171,30 @@ export type Messages = {
       undecided: string;
     };
   };
+  timelineBudgetStep: {
+    timelineLegend: string;
+    timelineHint: string;
+    investmentLegend: string;
+    investmentIntro: string;
+    investmentHint: string;
+    notesPlaceholder: string;
+    notesHint: string;
+    savedMessage: string;
+    timelineOptions: {
+      asap: string;
+      oneMonth: string;
+      oneToThreeMonths: string;
+      flexible: string;
+      unsure: string;
+    };
+    investmentOptions: {
+      starter: { label: string; description: string };
+      focused: { label: string; description: string };
+      complete: { label: string; description: string };
+      open: { label: string; description: string };
+      discuss: { label: string; description: string };
+    };
+  };
   fields: {
     fullName: string;
     email: string;
@@ -198,7 +222,7 @@ export type Messages = {
     siteAdmin: string;
     siteUpdates: string;
     timeline: string;
-    budget: string;
+    investmentRange: string;
     additionalNotes: string;
   };
   validation: {
