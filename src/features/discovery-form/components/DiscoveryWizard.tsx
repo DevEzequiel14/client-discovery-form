@@ -12,6 +12,7 @@ import { ContactStepForm } from './steps/ContactStepForm';
 import { DesignStepForm } from './steps/DesignStepForm';
 import { ExtrasStepForm } from './steps/ExtrasStepForm';
 import { NeedsStepForm } from './steps/NeedsStepForm';
+import { ReviewStepForm } from './steps/ReviewStepForm';
 import { TechnicalStepForm } from './steps/TechnicalStepForm';
 import { TimelineBudgetStepForm } from './steps/TimelineBudgetStepForm';
 
@@ -28,6 +29,7 @@ const ACTIVE_STEPS = [
   'technical',
   'timeline-budget',
   'extras',
+  'review',
 ] as const;
 type ActiveStep = (typeof ACTIVE_STEPS)[number];
 
@@ -39,7 +41,8 @@ function resolveActiveStep(stepId: StepId): ActiveStep {
     stepId === 'design' ||
     stepId === 'technical' ||
     stepId === 'timeline-budget' ||
-    stepId === 'extras'
+    stepId === 'extras' ||
+    stepId === 'review'
   ) {
     return stepId;
   }
@@ -63,7 +66,10 @@ export function DiscoveryWizard({ locale }: DiscoveryWizardProps) {
 
   return (
     <section
-      className="mx-auto w-full max-w-xl space-y-8"
+      className={[
+        'mx-auto w-full space-y-8',
+        stepId === 'review' ? 'max-w-2xl' : 'max-w-xl',
+      ].join(' ')}
       aria-labelledby="active-step-title"
     >
       <div className="space-y-3" aria-label={messages.form.progressLabel}>
@@ -103,7 +109,9 @@ export function DiscoveryWizard({ locale }: DiscoveryWizardProps) {
         </p>
       </header>
 
-      {stepId === 'extras' ? (
+      {stepId === 'review' ? (
+        <ReviewStepForm locale={locale} />
+      ) : stepId === 'extras' ? (
         <ExtrasStepForm locale={locale} />
       ) : stepId === 'timeline-budget' ? (
         <TimelineBudgetStepForm locale={locale} />

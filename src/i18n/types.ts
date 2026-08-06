@@ -35,6 +35,16 @@ export type Messages = {
     reviewHint: string;
     submitError: string;
   };
+  reviewStep: {
+    hint: string;
+    sectionLabel: string;
+    emptyExtras: string;
+    trustTitle: string;
+    trustBody: string;
+    nextTitle: string;
+    nextPoints: [string, string, string];
+    privacyNote: string;
+  };
   thanks: {
     headline: string;
     supporting: string;

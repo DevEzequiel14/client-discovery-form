@@ -38,6 +38,22 @@ export const es: Messages = {
     reviewHint: 'Verifica tus respuestas antes de enviar.',
     submitError: 'No pudimos enviar el formulario. Inténtalo de nuevo.',
   },
+  reviewStep: {
+    hint: 'Revisá cada bloque. Si algo no está bien, podés editarlo y volvés acá.',
+    sectionLabel: 'Sección {n}',
+    emptyExtras: 'No agregaste notas adicionales.',
+    trustTitle: 'Estás a un paso de enviarnos tu proyecto',
+    trustBody:
+      'Con esta información armamos una propuesta a medida. Si algo quedó incompleto o cambió, mejor corregirlo ahora.',
+    nextTitle: 'Qué pasa después de enviar',
+    nextPoints: [
+      'Recibimos tu solicitud y la revisamos con calma',
+      'Te escribimos con los próximos pasos o preguntas puntuales',
+      'No hay compromiso: este envío no es un contrato',
+    ],
+    privacyNote:
+      'Usamos estos datos únicamente para responderte y preparar tu propuesta.',
+  },
   thanks: {
     headline: 'Solicitud recibida',
     supporting:
@@ -86,8 +102,9 @@ export const es: Messages = {
         'Si hay algo que no preguntamos y que cambia cómo entendemos tu proyecto — una restricción, una idea, una preocupación o un detalle que te importa — contanos acá. Lo leemos con atención.',
     },
     review: {
-      title: 'Revisión',
-      description: 'Confirma que todo esté correcto.',
+      title: 'Revisá tu información',
+      description:
+        'Un último vistazo antes de enviar. Así nos aseguramos de entender bien tu proyecto.',
     },
   },
   contactStep: {

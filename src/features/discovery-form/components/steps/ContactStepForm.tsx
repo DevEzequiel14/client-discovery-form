@@ -8,7 +8,7 @@ import {
   $discoveryForm,
   $formLocale,
   patchFormData,
-  setCurrentStep,
+  completeStepAndGo,
   setFieldErrors,
   setFormStatus,
 } from '../../stores/discovery-form.store';
@@ -93,7 +93,7 @@ export function ContactStepForm({ locale }: ContactStepFormProps) {
     setFieldErrors({});
     setErrors({});
     setFormStatus('idle');
-    setCurrentStep('business');
+    completeStepAndGo('business');
   }
 
   const privacyId = `${formId}-privacy`;

@@ -9,6 +9,7 @@ import {
   $discoveryForm,
   $formLocale,
   patchFormData,
+  completeStepAndGo,
   setCurrentStep,
   setFieldErrors,
   setFormStatus,
@@ -127,7 +128,7 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
     setFieldErrors({});
     setErrors({});
     setFormStatus('idle');
-    setCurrentStep('timeline-budget');
+    completeStepAndGo('timeline-budget');
   }
 
   return (

@@ -8,6 +8,7 @@ import {
   $discoveryForm,
   $formLocale,
   patchFormData,
+  completeStepAndGo,
   setCurrentStep,
   setFieldErrors,
   setFormStatus,
@@ -94,7 +95,7 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
     setFieldErrors({});
     setErrors({});
     setFormStatus('idle');
-    setCurrentStep('assets');
+    completeStepAndGo('assets');
   }
 
   return (

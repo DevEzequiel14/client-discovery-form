@@ -8,6 +8,7 @@ import {
   $discoveryForm,
   $formLocale,
   patchFormData,
+  completeStepAndGo,
   setCurrentStep,
   setFieldErrors,
   setFormStatus,
@@ -100,7 +101,7 @@ export function TimelineBudgetStepForm({
     setFieldErrors({});
     setErrors({});
     setFormStatus('idle');
-    setCurrentStep('extras');
+    completeStepAndGo('extras');
   }
 
   return (

@@ -6,7 +6,6 @@ import { Alert } from '@components/feedback/Alert';
 import type { Locale } from '@i18n/locales';
 import { useDiscoveryForm } from '../hooks/use-discovery-form';
 import { $formLocale } from '../stores/discovery-form.store';
-import { ReviewSummary } from './ReviewSummary';
 import { StepNavigation } from './StepNavigation';
 import { StepProgress } from './StepProgress';
 import { AssetsStepForm } from './steps/AssetsStepForm';
@@ -16,6 +15,7 @@ import { DesignStepForm } from './steps/DesignStepForm';
 import { NeedsStepForm } from './steps/NeedsStepForm';
 import { TechnicalStepForm } from './steps/TechnicalStepForm';
 import { ExtrasStepForm } from './steps/ExtrasStepForm';
+import { ReviewStepForm } from './steps/ReviewStepForm';
 import { TimelineBudgetStepForm } from './steps/TimelineBudgetStepForm';
 
 type FormWizardProps = {
@@ -30,7 +30,6 @@ export function FormWizard({ locale }: FormWizardProps) {
     currentIndex,
     isFirstStep,
     isLastStep,
-    goToStep,
     update,
     next,
     back,
@@ -48,7 +47,8 @@ export function FormWizard({ locale }: FormWizardProps) {
     state.currentStepId === 'design' ||
     state.currentStepId === 'technical' ||
     state.currentStepId === 'timeline-budget' ||
-    state.currentStepId === 'extras';
+    state.currentStepId === 'extras' ||
+    state.currentStepId === 'review';
 
   return (
     <div className="mx-auto w-full max-w-2xl space-y-8">
@@ -110,14 +110,10 @@ export function FormWizard({ locale }: FormWizardProps) {
         ) : null}
 
         {state.currentStepId === 'review' ? (
-          <ReviewSummary
-            messages={messages}
-            data={state.data}
-            onEditStep={goToStep}
-          />
+          <ReviewStepForm locale={locale} />
         ) : null}
 
-        {state.submitError ? (
+        {state.submitError && state.currentStepId !== 'review' ? (
           <div className="mt-4">
             <Alert tone="error">{state.submitError}</Alert>
           </div>

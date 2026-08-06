@@ -17,6 +17,8 @@ export type DiscoveryFormStoreValue = {
   errors: FieldErrors;
   status: FormStatus;
   submitError: string | null;
+  /** When set, finishing a step returns here instead of the next step. */
+  returnAfterEdit: StepId | null;
   meta: {
     startedAt: string;
     lastSavedAt?: string;
@@ -41,6 +43,7 @@ const initialState = (): DiscoveryFormStoreValue => {
     errors: {},
     status: 'idle',
     submitError: null,
+    returnAfterEdit: null,
     meta: {
       startedAt: persisted?.savedAt ?? new Date().toISOString(),
       lastSavedAt: persisted?.savedAt,
@@ -67,6 +70,23 @@ export function setCurrentStep(stepId: StepId): void {
   $discoveryForm.setKey('currentStepId', stepId);
   $discoveryForm.setKey('errors', {});
   persist(stepId, current.data);
+}
+
+export function editStepFromReview(stepId: StepId): void {
+  $discoveryForm.setKey('returnAfterEdit', 'review');
+  setCurrentStep(stepId);
+}
+
+/** Prefer this after validating a step so edits from review return there. */
+export function completeStepAndGo(nextStepId: StepId): void {
+  const current = $discoveryForm.get();
+  if (current.returnAfterEdit) {
+    const target = current.returnAfterEdit;
+    $discoveryForm.setKey('returnAfterEdit', null);
+    setCurrentStep(target);
+    return;
+  }
+  setCurrentStep(nextStepId);
 }
 
 export function setFieldErrors(errors: FieldErrors): void {

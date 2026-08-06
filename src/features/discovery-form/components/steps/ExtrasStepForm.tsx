@@ -5,6 +5,7 @@ import { createExtrasSchema } from '../../schemas/extras.schema';
 import {
   $discoveryForm,
   $formLocale,
+  completeStepAndGo,
   patchFormData,
   setCurrentStep,
   setFieldErrors,
@@ -29,7 +30,6 @@ export function ExtrasStepForm({ locale }: ExtrasStepFormProps) {
 
   const [notes, setNotes] = useState(form.data.additionalNotes ?? '');
   const [activePrompts, setActivePrompts] = useState<NotePrompt[]>([]);
-  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     $formLocale.set(locale);
@@ -37,7 +37,6 @@ export function ExtrasStepForm({ locale }: ExtrasStepFormProps) {
 
   function togglePrompt(prompt: NotePrompt) {
     const seed = messages.extrasStep.prompts[prompt].seed;
-    setSaved(false);
 
     setActivePrompts((current) => {
       const isActive = current.includes(prompt);
@@ -52,7 +51,6 @@ export function ExtrasStepForm({ locale }: ExtrasStepFormProps) {
   function handleContinue(event: { preventDefault: () => void }) {
     event.preventDefault();
     setFormStatus('validating');
-    setSaved(false);
 
     const schema = createExtrasSchema(messages.validation);
     const result = schema.safeParse({ additionalNotes: notes });
@@ -66,8 +64,8 @@ export function ExtrasStepForm({ locale }: ExtrasStepFormProps) {
       additionalNotes: result.data.additionalNotes,
     });
     setFieldErrors({});
-    setSaved(true);
     setFormStatus('idle');
+    completeStepAndGo('review');
   }
 
   const characterCount = notes.trim().length;
@@ -141,7 +139,6 @@ export function ExtrasStepForm({ locale }: ExtrasStepFormProps) {
             aria-describedby="additionalNotes-hint"
             className="min-h-44 w-full resize-y rounded-md border border-cdf-border bg-white px-3.5 py-3 text-base leading-relaxed text-cdf-ink shadow-sm transition placeholder:text-cdf-muted/70 hover:border-cdf-ink/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent md:text-sm"
             onChange={(event) => {
-              setSaved(false);
               setNotes(event.target.value);
             }}
           />
@@ -161,15 +158,6 @@ export function ExtrasStepForm({ locale }: ExtrasStepFormProps) {
           </div>
         </div>
       </div>
-
-      {saved ? (
-        <p
-          className="rounded-md border border-cdf-success/30 bg-green-50 px-4 py-3 text-sm text-cdf-success"
-          role="status"
-        >
-          {messages.extrasStep.savedMessage}
-        </p>
-      ) : null}
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <button

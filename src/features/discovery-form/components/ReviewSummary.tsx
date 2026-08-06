@@ -12,7 +12,7 @@ type ReviewSummaryProps = {
 type FieldKey = keyof Messages['fields'];
 
 const reviewFields: Array<{
-  stepId: StepId;
+  stepId: Exclude<StepId, 'review'>;
   keys: FieldKey[];
 }> = [
   { stepId: 'contact', keys: ['fullName', 'email', 'phone'] },
@@ -130,42 +130,97 @@ export function ReviewSummary({
   onEditStep,
 }: ReviewSummaryProps) {
   return (
-    <div className="space-y-4">
-      <p className="text-sm text-cdf-muted">{messages.form.reviewHint}</p>
-      {reviewFields.map((section) => (
-        <section
-          key={section.stepId}
-          className="rounded-md border border-cdf-border bg-white/80 p-4"
-        >
-          <div className="mb-3 flex items-center justify-between gap-3">
-            <h3 className="font-medium text-cdf-ink">
-              {messages.steps[section.stepId].title}
-            </h3>
-            <button
-              type="button"
-              className="text-sm font-medium text-cdf-accent hover:underline"
-              onClick={() => onEditStep(section.stepId)}
-            >
-              {messages.common.edit}
-            </button>
-          </div>
-          <dl className="grid gap-2 text-sm">
-            {section.keys.map((key) => {
-              const raw = data[key as keyof PartialDiscoveryForm];
-              if (!raw) return null;
+    <div className="space-y-3">
+      {reviewFields.map((section, index) => {
+        const entries = section.keys
+          .map((key) => {
+            const raw = data[key as keyof PartialDiscoveryForm];
+            if (raw === undefined || raw === null || raw === '') return null;
+            return {
+              key,
+              value: formatValue(key, String(raw), messages),
+            };
+          })
+          .filter((entry): entry is { key: FieldKey; value: string } =>
+            Boolean(entry),
+          );
 
-              return (
-                <div key={key}>
-                  <dt className="text-cdf-muted">{messages.fields[key]}</dt>
-                  <dd className="text-cdf-ink">
-                    {formatValue(key, String(raw), messages)}
+        if (entries.length === 0 && section.stepId === 'extras') {
+          return (
+            <section
+              key={section.stepId}
+              className="rounded-xl border border-dashed border-cdf-border/90 bg-white/50 p-4"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="text-xs font-medium uppercase tracking-wide text-cdf-muted">
+                    {messages.reviewStep.sectionLabel.replace(
+                      '{n}',
+                      String(index + 1),
+                    )}
+                  </p>
+                  <h3 className="mt-0.5 font-medium text-cdf-ink">
+                    {messages.steps[section.stepId].title}
+                  </h3>
+                  <p className="mt-1 text-sm text-cdf-muted">
+                    {messages.reviewStep.emptyExtras}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  className="shrink-0 rounded-md px-2.5 py-1.5 text-sm font-medium text-cdf-accent transition hover:bg-cdf-accent/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent"
+                  onClick={() => onEditStep(section.stepId)}
+                >
+                  {messages.common.edit}
+                </button>
+              </div>
+            </section>
+          );
+        }
+
+        if (entries.length === 0) return null;
+
+        return (
+          <section
+            key={section.stepId}
+            className="rounded-xl border border-cdf-border/80 bg-white/80 p-4 shadow-sm"
+          >
+            <div className="mb-3 flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <p className="text-xs font-medium uppercase tracking-wide text-cdf-muted">
+                  {messages.reviewStep.sectionLabel.replace(
+                    '{n}',
+                    String(index + 1),
+                  )}
+                </p>
+                <h3 className="mt-0.5 font-medium text-cdf-ink">
+                  {messages.steps[section.stepId].title}
+                </h3>
+              </div>
+              <button
+                type="button"
+                className="shrink-0 rounded-md px-2.5 py-1.5 text-sm font-medium text-cdf-accent transition hover:bg-cdf-accent/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent"
+                onClick={() => onEditStep(section.stepId)}
+              >
+                {messages.common.edit}
+              </button>
+            </div>
+            <dl className="grid gap-3 text-sm">
+              {entries.map((entry) => (
+                <div
+                  key={entry.key}
+                  className="grid gap-0.5 border-t border-cdf-border/60 pt-3 first:border-t-0 first:pt-0 sm:grid-cols-[11rem_1fr] sm:gap-4"
+                >
+                  <dt className="text-cdf-muted">{messages.fields[entry.key]}</dt>
+                  <dd className="whitespace-pre-wrap text-cdf-ink">
+                    {entry.value}
                   </dd>
                 </div>
-              );
-            })}
-          </dl>
-        </section>
-      ))}
+              ))}
+            </dl>
+          </section>
+        );
+      })}
     </div>
   );
 }

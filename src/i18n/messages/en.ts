@@ -38,6 +38,22 @@ export const en: Messages = {
     reviewHint: 'Check your answers before submitting.',
     submitError: 'We could not submit the form. Please try again.',
   },
+  reviewStep: {
+    hint: 'Review each block. If something is off, you can edit it and come back here.',
+    sectionLabel: 'Section {n}',
+    emptyExtras: 'You did not add extra notes.',
+    trustTitle: 'You are one step away from sending your project',
+    trustBody:
+      'With this information we prepare a tailored proposal. If anything is incomplete or has changed, it is better to fix it now.',
+    nextTitle: 'What happens after you send',
+    nextPoints: [
+      'We receive your request and review it carefully',
+      'We write back with next steps or a few focused questions',
+      'No commitment: sending this is not a contract',
+    ],
+    privacyNote:
+      'We use this information only to reply and prepare your proposal.',
+  },
   thanks: {
     headline: 'Request received',
     supporting:
@@ -86,8 +102,9 @@ export const en: Messages = {
         'If there is something we did not ask that changes how we understand your project — a constraint, an idea, a concern, or a detail that matters to you — tell us here. We read it carefully.',
     },
     review: {
-      title: 'Review',
-      description: 'Confirm everything looks right.',
+      title: 'Review your information',
+      description:
+        'One last look before sending. This helps us understand your project clearly.',
     },
   },
   contactStep: {

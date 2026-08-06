@@ -15,6 +15,7 @@ import {
   $discoveryForm,
   $formLocale,
   patchFormData,
+  completeStepAndGo,
   setCurrentStep,
   setFieldErrors,
   setFormStatus,
@@ -115,7 +116,7 @@ export function BusinessStepForm({ locale }: BusinessStepFormProps) {
     setFieldErrors({});
     setErrors({});
     setFormStatus('idle');
-    setCurrentStep('needs');
+    completeStepAndGo('needs');
   }
 
   const industryOptions = INDUSTRIES.map((industry) => ({

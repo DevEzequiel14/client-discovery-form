@@ -8,6 +8,7 @@ import {
   $discoveryForm,
   $formLocale,
   patchFormData,
+  completeStepAndGo,
   setCurrentStep,
   setFieldErrors,
   setFormStatus,
@@ -110,7 +111,7 @@ export function AssetsStepForm({ locale }: AssetsStepFormProps) {
     setFieldErrors({});
     setErrors({});
     setFormStatus('idle');
-    setCurrentStep('design');
+    completeStepAndGo('design');
   }
 
   const readinessOptions = ASSET_READINESS.map((value) => ({
