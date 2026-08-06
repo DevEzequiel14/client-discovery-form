@@ -24,6 +24,17 @@ const reviewFields: Array<{
   },
   { stepId: 'design', keys: ['designStyle', 'referenceUrls', 'designTaste'] },
   {
+    stepId: 'technical',
+    keys: [
+      'domainStatus',
+      'domainName',
+      'hostingStatus',
+      'corporateEmailStatus',
+      'siteAdmin',
+      'siteUpdates',
+    ],
+  },
+  {
     stepId: 'timeline-budget',
     keys: ['timeline', 'budget', 'additionalNotes'],
   },
@@ -68,6 +79,30 @@ function formatValue(
     return messages.designStep.styleOptions[
       value as keyof typeof messages.designStep.styleOptions
     ].label;
+  }
+
+  if (key === 'domainStatus') {
+    return messages.technicalStep.domainOptions[
+      value as keyof typeof messages.technicalStep.domainOptions
+    ];
+  }
+
+  if (key === 'hostingStatus') {
+    return messages.technicalStep.hostingOptions[
+      value as keyof typeof messages.technicalStep.hostingOptions
+    ];
+  }
+
+  if (key === 'corporateEmailStatus') {
+    return messages.technicalStep.emailOptions[
+      value as keyof typeof messages.technicalStep.emailOptions
+    ];
+  }
+
+  if (key === 'siteAdmin' || key === 'siteUpdates') {
+    return messages.technicalStep.roleOptions[
+      value as keyof typeof messages.technicalStep.roleOptions
+    ];
   }
 
   return value;

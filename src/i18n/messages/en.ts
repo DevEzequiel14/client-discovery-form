@@ -70,6 +70,11 @@ export const en: Messages = {
       description:
         'No color talk: we want references, aesthetic direction, and taste.',
     },
+    technical: {
+      title: 'A few practical details',
+      description:
+        'Just to understand where things stand technically and who will look after the site later.',
+    },
     'timeline-budget': {
       title: 'Timeline & budget',
       description: 'Time and investment expectations.',
@@ -230,6 +235,43 @@ export const en: Messages = {
       },
     },
   },
+  technicalStep: {
+    domainLegend: 'Do you already have a domain for the site?',
+    domainHint: 'For example: yourbusiness.com',
+    domainNamePlaceholder: 'yourbusiness.com',
+    domainNameHint: 'Enter it without https://, just the domain name.',
+    hostingLegend: 'Do you already have a place to host the site?',
+    hostingHint: 'If you are not sure, that option is fine.',
+    emailLegend: 'Do you use or plan to use email with your domain?',
+    emailHint: 'For example: hello@yourbusiness.com',
+    adminLegend: 'Once the site is online, who will handle day-to-day tasks?',
+    adminHint: 'Posting updates, checking messages, or simple site tasks.',
+    updatesLegend: 'And for later changes or updates, who would take care of them?',
+    updatesHint: 'Text edits, new sections, or adjustments over time.',
+    savedMessage: 'Details saved. The next step will be available soon.',
+    domainOptions: {
+      yes: 'Yes, I already have one',
+      buying: 'I am buying it',
+      no: 'Not yet',
+      unsure: 'I am not sure',
+    },
+    hostingOptions: {
+      yes: 'Yes, I already have it',
+      no: 'Not yet',
+      unsure: 'I am not sure',
+    },
+    emailOptions: {
+      yes: 'Yes, I already use it',
+      planning: 'I want to set it up',
+      no: 'Not for now',
+    },
+    roleOptions: {
+      myself: 'Me',
+      team: 'Someone on my team',
+      external: 'An external person',
+      undecided: 'I have not decided yet',
+    },
+  },
   fields: {
     fullName: 'Full name',
     email: 'Email address',
@@ -250,6 +292,12 @@ export const en: Messages = {
     designStyle: 'Visual style',
     referenceUrls: 'Reference pages or sites',
     designTaste: 'Taste and preferences',
+    domainStatus: 'Domain',
+    domainName: 'Domain name',
+    hostingStatus: 'Place to host the site',
+    corporateEmailStatus: 'Domain email',
+    siteAdmin: 'Who handles day-to-day',
+    siteUpdates: 'Who handles updates',
     timeline: 'Desired timeline',
     budget: 'Estimated budget',
     additionalNotes: 'Additional notes',

@@ -134,6 +134,43 @@ export type Messages = {
       other: { label: string; description: string };
     };
   };
+  technicalStep: {
+    domainLegend: string;
+    domainHint: string;
+    domainNamePlaceholder: string;
+    domainNameHint: string;
+    hostingLegend: string;
+    hostingHint: string;
+    emailLegend: string;
+    emailHint: string;
+    adminLegend: string;
+    adminHint: string;
+    updatesLegend: string;
+    updatesHint: string;
+    savedMessage: string;
+    domainOptions: {
+      yes: string;
+      buying: string;
+      no: string;
+      unsure: string;
+    };
+    hostingOptions: {
+      yes: string;
+      no: string;
+      unsure: string;
+    };
+    emailOptions: {
+      yes: string;
+      planning: string;
+      no: string;
+    };
+    roleOptions: {
+      myself: string;
+      team: string;
+      external: string;
+      undecided: string;
+    };
+  };
   fields: {
     fullName: string;
     email: string;
@@ -154,6 +191,12 @@ export type Messages = {
     designStyle: string;
     referenceUrls: string;
     designTaste: string;
+    domainStatus: string;
+    domainName: string;
+    hostingStatus: string;
+    corporateEmailStatus: string;
+    siteAdmin: string;
+    siteUpdates: string;
     timeline: string;
     budget: string;
     additionalNotes: string;

@@ -4,6 +4,7 @@ export const STEP_IDS = [
   'needs',
   'assets',
   'design',
+  'technical',
   'timeline-budget',
   'review',
 ] as const;
@@ -46,3 +47,15 @@ export const DESIGN_STYLES = [
 ] as const;
 
 export type DesignStyle = (typeof DESIGN_STYLES)[number];
+
+export const DOMAIN_STATUS = ['yes', 'buying', 'no', 'unsure'] as const;
+export type DomainStatus = (typeof DOMAIN_STATUS)[number];
+
+export const HOSTING_STATUS = ['yes', 'no', 'unsure'] as const;
+export type HostingStatus = (typeof HOSTING_STATUS)[number];
+
+export const CORPORATE_EMAIL_STATUS = ['yes', 'planning', 'no'] as const;
+export type CorporateEmailStatus = (typeof CORPORATE_EMAIL_STATUS)[number];
+
+export const SITE_ROLE = ['myself', 'team', 'external', 'undecided'] as const;
+export type SiteRole = (typeof SITE_ROLE)[number];

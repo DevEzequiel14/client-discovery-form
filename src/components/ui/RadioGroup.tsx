@@ -12,6 +12,8 @@ type RadioGroupProps = {
   required?: boolean;
   requiredLabel?: string;
   hint?: string;
+  /** Prefer stack for longer conversational options. */
+  layout?: 'grid' | 'stack';
   onChange: (value: string) => void;
 };
 
@@ -24,6 +26,7 @@ export function RadioGroup({
   required,
   requiredLabel,
   hint,
+  layout = 'grid',
   onChange,
 }: RadioGroupProps) {
   const showHint = Boolean(hint && !error);
@@ -48,7 +51,11 @@ export function RadioGroup({
         ) : null}
       </div>
 
-      <div className="grid gap-2 sm:grid-cols-2">
+      <div
+        className={
+          layout === 'stack' ? 'grid gap-2' : 'grid gap-2 sm:grid-cols-2'
+        }
+      >
         {options.map((option) => {
           const optionId = `${name}-${option.value}`;
           const selected = value === option.value;

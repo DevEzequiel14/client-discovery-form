@@ -37,7 +37,6 @@ export function DesignStepForm({ locale }: DesignStepFormProps) {
     referenceUrls: form.data.referenceUrls ?? '',
     designTaste: form.data.designTaste ?? '',
   });
-  const [saved, setSaved] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<DesignField, string>>>(
     {},
   );
@@ -65,7 +64,6 @@ export function DesignStepForm({ locale }: DesignStepFormProps) {
   function handleContinue(event: { preventDefault: () => void }) {
     event.preventDefault();
     setFormStatus('validating');
-    setSaved(false);
 
     const schema = createDesignSchema(messages.validation);
     const result = schema.safeParse({
@@ -98,8 +96,8 @@ export function DesignStepForm({ locale }: DesignStepFormProps) {
     patchFormData(result.data);
     setFieldErrors({});
     setErrors({});
-    setSaved(true);
     setFormStatus('idle');
+    setCurrentStep('technical');
   }
 
   return (
@@ -149,7 +147,6 @@ export function DesignStepForm({ locale }: DesignStepFormProps) {
                     checked={selected}
                     className="mt-1 size-4 shrink-0 accent-cdf-accent"
                     onChange={() => {
-                      setSaved(false);
                       setValues((current) => ({
                         ...current,
                         designStyle: style,
@@ -201,7 +198,6 @@ export function DesignStepForm({ locale }: DesignStepFormProps) {
           rows={4}
           inputMode="url"
           onChange={(event) => {
-            setSaved(false);
             setValues((current) => ({
               ...current,
               referenceUrls: event.target.value,
@@ -222,7 +218,6 @@ export function DesignStepForm({ locale }: DesignStepFormProps) {
           requiredLabel={messages.common.required}
           rows={4}
           onChange={(event) => {
-            setSaved(false);
             setValues((current) => ({
               ...current,
               designTaste: event.target.value,
@@ -231,15 +226,6 @@ export function DesignStepForm({ locale }: DesignStepFormProps) {
           }}
         />
       </div>
-
-      {saved ? (
-        <p
-          className="rounded-md border border-cdf-success/30 bg-green-50 px-4 py-3 text-sm text-cdf-success"
-          role="status"
-        >
-          {messages.designStep.savedMessage}
-        </p>
-      ) : null}
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <button

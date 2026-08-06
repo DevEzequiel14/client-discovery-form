@@ -70,6 +70,11 @@ export const es: Messages = {
       description:
         'Sin hablar de colores: queremos entender referencias, dirección estética y gustos.',
     },
+    technical: {
+      title: 'Algunos detalles prácticos',
+      description:
+        'Solo para entender cómo está hoy lo técnico y quién va a ocuparse del sitio después.',
+    },
     'timeline-budget': {
       title: 'Plazos y presupuesto',
       description: 'Expectativas de tiempo e inversión.',
@@ -234,6 +239,44 @@ export const es: Messages = {
       },
     },
   },
+  technicalStep: {
+    domainLegend: '¿Ya tenés un dominio para el sitio?',
+    domainHint: 'Por ejemplo: tunegocio.com',
+    domainNamePlaceholder: 'tunegocio.com',
+    domainNameHint: 'Escribilo sin https://, solo el nombre del dominio.',
+    hostingLegend: '¿Ya tenés un lugar donde hospedar el sitio?',
+    hostingHint: 'Si no estás seguro, no hay problema: marcá esa opción.',
+    emailLegend: '¿Usás o pensás usar correo con tu dominio?',
+    emailHint: 'Por ejemplo: hola@tunegocio.com',
+    adminLegend: 'Cuando el sitio esté online, ¿quién se va a ocupar del día a día?',
+    adminHint: 'Publicar novedades, revisar mensajes o cosas simples del sitio.',
+    updatesLegend: 'Y para cambios o actualizaciones más adelante, ¿quién se encargaría?',
+    updatesHint: 'Textos, secciones nuevas o ajustes que puedan surgir con el tiempo.',
+    savedMessage:
+      'Detalles guardados. El siguiente paso estará disponible pronto.',
+    domainOptions: {
+      yes: 'Sí, ya lo tengo',
+      buying: 'Lo estoy comprando',
+      no: 'Todavía no',
+      unsure: 'No estoy seguro',
+    },
+    hostingOptions: {
+      yes: 'Sí, ya tengo',
+      no: 'Todavía no',
+      unsure: 'No estoy seguro',
+    },
+    emailOptions: {
+      yes: 'Sí, ya lo uso',
+      planning: 'Lo quiero configurar',
+      no: 'Por ahora no',
+    },
+    roleOptions: {
+      myself: 'Yo',
+      team: 'Alguien de mi equipo',
+      external: 'Una persona externa',
+      undecided: 'Todavía no lo definí',
+    },
+  },
   fields: {
     fullName: 'Nombre completo',
     email: 'Correo electrónico',
@@ -254,6 +297,12 @@ export const es: Messages = {
     designStyle: 'Estilo visual',
     referenceUrls: 'Páginas o sitios de referencia',
     designTaste: 'Gustos y preferencias',
+    domainStatus: 'Dominio',
+    domainName: 'Nombre del dominio',
+    hostingStatus: 'Lugar para hospedar el sitio',
+    corporateEmailStatus: 'Correo con dominio',
+    siteAdmin: 'Quién se ocupa del día a día',
+    siteUpdates: 'Quién hace actualizaciones',
     timeline: 'Plazo deseado',
     budget: 'Presupuesto estimado',
     additionalNotes: 'Notas adicionales',

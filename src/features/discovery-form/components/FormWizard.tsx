@@ -14,6 +14,7 @@ import { BusinessStep } from './steps/BusinessStep';
 import { ContactStep } from './steps/ContactStep';
 import { DesignStepForm } from './steps/DesignStepForm';
 import { NeedsStepForm } from './steps/NeedsStepForm';
+import { TechnicalStepForm } from './steps/TechnicalStepForm';
 import { TimelineBudgetStep } from './steps/TimelineBudgetStep';
 
 type FormWizardProps = {
@@ -43,7 +44,8 @@ export function FormWizard({ locale }: FormWizardProps) {
   const embedsOwnNav =
     state.currentStepId === 'needs' ||
     state.currentStepId === 'assets' ||
-    state.currentStepId === 'design';
+    state.currentStepId === 'design' ||
+    state.currentStepId === 'technical';
 
   return (
     <div className="mx-auto w-full max-w-2xl space-y-8">
@@ -90,6 +92,10 @@ export function FormWizard({ locale }: FormWizardProps) {
 
         {state.currentStepId === 'design' ? (
           <DesignStepForm locale={locale} />
+        ) : null}
+
+        {state.currentStepId === 'technical' ? (
+          <TechnicalStepForm locale={locale} />
         ) : null}
 
         {state.currentStepId === 'timeline-budget' ? (

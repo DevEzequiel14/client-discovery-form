@@ -1,4 +1,13 @@
-import type { AssetKey, AssetReadiness, DesignStyle, ProjectType } from './steps';
+import type {
+  AssetKey,
+  AssetReadiness,
+  CorporateEmailStatus,
+  DesignStyle,
+  DomainStatus,
+  HostingStatus,
+  ProjectType,
+  SiteRole,
+} from './steps';
 import type { HasWebsite, Industry } from '../constants/industries';
 
 export type ContactData = {
@@ -26,17 +35,22 @@ export type AssetsData = {
   texts: AssetReadiness;
   visualIdentity: AssetReadiness;
   brandManual: AssetReadiness;
-  /** Whether they want help creating what's missing */
   needsContentHelp: 'yes' | 'no';
 };
 
 export type DesignData = {
-  /** Visual direction (no colors) */
   designStyle: DesignStyle;
-  /** Favorite pages / reference URLs */
   referenceUrls: string;
-  /** Likes, dislikes, overall taste */
   designTaste: string;
+};
+
+export type TechnicalData = {
+  domainStatus: DomainStatus;
+  domainName?: string;
+  hostingStatus: HostingStatus;
+  corporateEmailStatus: CorporateEmailStatus;
+  siteAdmin: SiteRole;
+  siteUpdates: SiteRole;
 };
 
 export type TimelineBudgetData = {
@@ -50,6 +64,7 @@ export type DiscoveryFormData = ContactData &
   NeedsData &
   AssetsData &
   DesignData &
+  TechnicalData &
   TimelineBudgetData;
 
 export type PartialDiscoveryForm = Partial<DiscoveryFormData>;
