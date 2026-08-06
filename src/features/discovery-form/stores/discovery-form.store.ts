@@ -4,7 +4,7 @@ import type {
   FormStatus,
   PartialDiscoveryForm,
 } from '../types/form';
-import type { StepId } from '../types/steps';
+import { STEP_IDS, type StepId } from '../types/steps';
 import {
   clearPersistedForm,
   loadPersistedForm,
@@ -24,11 +24,19 @@ export type DiscoveryFormStoreValue = {
   };
 };
 
+function normalizeStepId(stepId: string | undefined): StepId {
+  if (stepId === 'urgency') return 'timeline-budget';
+  if (stepId && (STEP_IDS as readonly string[]).includes(stepId)) {
+    return stepId as StepId;
+  }
+  return 'contact';
+}
+
 const initialState = (): DiscoveryFormStoreValue => {
   const persisted = loadPersistedForm();
 
   return {
-    currentStepId: persisted?.currentStepId ?? 'contact',
+    currentStepId: normalizeStepId(persisted?.currentStepId),
     data: persisted?.data ?? {},
     errors: {},
     status: 'idle',

@@ -6,11 +6,6 @@ export function createTimelineBudgetSchema(v: ValidationMessages) {
   return z.object({
     timeline: z.enum(TIMELINE_OPTIONS, { error: v.required }),
     investmentRange: z.enum(INVESTMENT_RANGES, { error: v.required }),
-    additionalNotes: z
-      .string()
-      .trim()
-      .transform((value) => (value.length === 0 ? undefined : value))
-      .optional(),
   });
 }
 

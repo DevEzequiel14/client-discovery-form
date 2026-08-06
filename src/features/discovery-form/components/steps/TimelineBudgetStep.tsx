@@ -2,7 +2,6 @@
  * Legacy stub. Active flow uses TimelineBudgetStepForm.
  */
 import { FormField } from '@components/ui/FormField';
-import { FormTextArea } from '@components/ui/FormTextArea';
 import type { Messages } from '@i18n/types';
 import type { FieldErrors, TimelineBudgetData } from '../../types/form';
 
@@ -29,7 +28,9 @@ export function TimelineBudgetStep({
         value={value.timeline ?? ''}
         error={errors.timeline}
         onChange={(event) =>
-          onChange({ timeline: event.target.value as TimelineBudgetData['timeline'] })
+          onChange({
+            timeline: event.target.value as TimelineBudgetData['timeline'],
+          })
         }
       />
       <FormField
@@ -43,17 +44,6 @@ export function TimelineBudgetStep({
             investmentRange:
               event.target.value as TimelineBudgetData['investmentRange'],
           })
-        }
-      />
-      <FormTextArea
-        id="additionalNotes"
-        name="additionalNotes"
-        label={messages.fields.additionalNotes}
-        optionalLabel={messages.common.optional}
-        value={value.additionalNotes ?? ''}
-        error={errors.additionalNotes}
-        onChange={(event) =>
-          onChange({ additionalNotes: event.target.value })
         }
       />
     </div>

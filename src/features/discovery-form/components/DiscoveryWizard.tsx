@@ -10,6 +10,7 @@ import { AssetsStepForm } from './steps/AssetsStepForm';
 import { BusinessStepForm } from './steps/BusinessStepForm';
 import { ContactStepForm } from './steps/ContactStepForm';
 import { DesignStepForm } from './steps/DesignStepForm';
+import { ExtrasStepForm } from './steps/ExtrasStepForm';
 import { NeedsStepForm } from './steps/NeedsStepForm';
 import { TechnicalStepForm } from './steps/TechnicalStepForm';
 import { TimelineBudgetStepForm } from './steps/TimelineBudgetStepForm';
@@ -26,6 +27,7 @@ const ACTIVE_STEPS = [
   'design',
   'technical',
   'timeline-budget',
+  'extras',
 ] as const;
 type ActiveStep = (typeof ACTIVE_STEPS)[number];
 
@@ -36,7 +38,8 @@ function resolveActiveStep(stepId: StepId): ActiveStep {
     stepId === 'assets' ||
     stepId === 'design' ||
     stepId === 'technical' ||
-    stepId === 'timeline-budget'
+    stepId === 'timeline-budget' ||
+    stepId === 'extras'
   ) {
     return stepId;
   }
@@ -100,7 +103,9 @@ export function DiscoveryWizard({ locale }: DiscoveryWizardProps) {
         </p>
       </header>
 
-      {stepId === 'timeline-budget' ? (
+      {stepId === 'extras' ? (
+        <ExtrasStepForm locale={locale} />
+      ) : stepId === 'timeline-budget' ? (
         <TimelineBudgetStepForm locale={locale} />
       ) : stepId === 'technical' ? (
         <TechnicalStepForm locale={locale} />

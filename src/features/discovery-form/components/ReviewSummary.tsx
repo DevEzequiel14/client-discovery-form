@@ -36,7 +36,11 @@ const reviewFields: Array<{
   },
   {
     stepId: 'timeline-budget',
-    keys: ['timeline', 'investmentRange', 'additionalNotes'],
+    keys: ['timeline', 'investmentRange'],
+  },
+  {
+    stepId: 'extras',
+    keys: ['additionalNotes'],
   },
 ];
 

@@ -58,6 +58,9 @@ export type TechnicalData = {
 export type TimelineBudgetData = {
   timeline: TimelineOption;
   investmentRange: InvestmentRange;
+};
+
+export type ExtrasData = {
   additionalNotes?: string;
 };
 
@@ -67,7 +70,8 @@ export type DiscoveryFormData = ContactData &
   AssetsData &
   DesignData &
   TechnicalData &
-  TimelineBudgetData;
+  TimelineBudgetData &
+  ExtrasData;
 
 export type PartialDiscoveryForm = Partial<DiscoveryFormData>;
 

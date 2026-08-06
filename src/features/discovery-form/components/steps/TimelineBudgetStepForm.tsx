@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { useStore } from '@nanostores/react';
-import { FormTextArea } from '@components/ui/FormTextArea';
 import { RadioGroup } from '@components/ui/RadioGroup';
 import { getMessages, type Locale } from '@i18n/index';
 import { zodErrorToFieldErrors } from '../../lib/field-errors';
@@ -27,11 +26,7 @@ type TimelineBudgetStepFormProps = {
 
 type TimelineBudgetField = keyof TimelineBudgetData;
 
-const FIELD_ORDER: TimelineBudgetField[] = [
-  'timeline',
-  'investmentRange',
-  'additionalNotes',
-];
+const FIELD_ORDER: TimelineBudgetField[] = ['timeline', 'investmentRange'];
 
 export function TimelineBudgetStepForm({
   locale,
@@ -43,9 +38,7 @@ export function TimelineBudgetStepForm({
   const [values, setValues] = useState({
     timeline: (form.data.timeline ?? '') as TimelineOption | '',
     investmentRange: (form.data.investmentRange ?? '') as InvestmentRange | '',
-    additionalNotes: form.data.additionalNotes ?? '',
   });
-  const [saved, setSaved] = useState(false);
   const [errors, setErrors] = useState<
     Partial<Record<TimelineBudgetField, string>>
   >({});
@@ -73,13 +66,11 @@ export function TimelineBudgetStepForm({
   function handleContinue(event: { preventDefault: () => void }) {
     event.preventDefault();
     setFormStatus('validating');
-    setSaved(false);
 
     const schema = createTimelineBudgetSchema(messages.validation);
     const result = schema.safeParse({
       timeline: values.timeline || undefined,
       investmentRange: values.investmentRange || undefined,
-      additionalNotes: values.additionalNotes,
     });
 
     if (!result.success) {
@@ -98,7 +89,7 @@ export function TimelineBudgetStepForm({
           ? `timeline-${TIMELINE_OPTIONS[0]}`
           : firstError === 'investmentRange'
             ? `investmentRange-${INVESTMENT_RANGES[0]}`
-            : (firstError ?? null);
+            : null;
       setErrors(nextErrors);
       setFieldErrors(fieldErrors);
       setFormStatus('idle');
@@ -108,8 +99,8 @@ export function TimelineBudgetStepForm({
     patchFormData(result.data);
     setFieldErrors({});
     setErrors({});
-    setSaved(true);
     setFormStatus('idle');
+    setCurrentStep('extras');
   }
 
   return (
@@ -129,7 +120,6 @@ export function TimelineBudgetStepForm({
             label: messages.timelineBudgetStep.timelineOptions[option],
           }))}
           onChange={(value) => {
-            setSaved(false);
             setValues((current) => ({
               ...current,
               timeline: value as TimelineOption,
@@ -188,7 +178,6 @@ export function TimelineBudgetStepForm({
                     checked={selected}
                     className="mt-1 size-4 shrink-0 accent-cdf-accent"
                     onChange={() => {
-                      setSaved(false);
                       setValues((current) => ({
                         ...current,
                         investmentRange: range,
@@ -226,36 +215,7 @@ export function TimelineBudgetStepForm({
             </p>
           )}
         </fieldset>
-
-        <FormTextArea
-          id="additionalNotes"
-          name="additionalNotes"
-          label={messages.fields.additionalNotes}
-          value={values.additionalNotes}
-          placeholder={messages.timelineBudgetStep.notesPlaceholder}
-          hint={messages.timelineBudgetStep.notesHint}
-          error={errors.additionalNotes}
-          optionalLabel={messages.common.optional}
-          rows={3}
-          onChange={(event) => {
-            setSaved(false);
-            setValues((current) => ({
-              ...current,
-              additionalNotes: event.target.value,
-            }));
-            clearError('additionalNotes');
-          }}
-        />
       </div>
-
-      {saved ? (
-        <p
-          className="rounded-md border border-cdf-success/30 bg-green-50 px-4 py-3 text-sm text-cdf-success"
-          role="status"
-        >
-          {messages.timelineBudgetStep.savedMessage}
-        </p>
-      ) : null}
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <button

@@ -177,8 +177,6 @@ export type Messages = {
     investmentLegend: string;
     investmentIntro: string;
     investmentHint: string;
-    notesPlaceholder: string;
-    notesHint: string;
     savedMessage: string;
     timelineOptions: {
       asap: string;
@@ -193,6 +191,24 @@ export type Messages = {
       complete: { label: string; description: string };
       open: { label: string; description: string };
       discuss: { label: string; description: string };
+    };
+  };
+  extrasStep: {
+    listenLabel: string;
+    listenPoints: [string, string, string];
+    promptsLabel: string;
+    promptsHint: string;
+    writeLabel: string;
+    writePlaceholder: string;
+    writeHint: string;
+    readingNote: string;
+    savedMessage: string;
+    prompts: {
+      deadline: { label: string; seed: string };
+      priorWork: { label: string; seed: string };
+      mustHave: { label: string; seed: string };
+      concern: { label: string; seed: string };
+      vision: { label: string; seed: string };
     };
   };
   fields: {

@@ -80,6 +80,11 @@ export const es: Messages = {
       description:
         'Esto nos ayuda a proponerte caminos realistas, sin pedirte un número exacto.',
     },
+    extras: {
+      title: 'Antes de cerrar…',
+      description:
+        'Si hay algo que no preguntamos y que cambia cómo entendemos tu proyecto — una restricción, una idea, una preocupación o un detalle que te importa — contanos acá. Lo leemos con atención.',
+    },
     review: {
       title: 'Revisión',
       description: 'Confirma que todo esté correcto.',
@@ -287,9 +292,6 @@ export const es: Messages = {
       'No hace falta un monto exacto. Elegí la opción que más se acerque: nos ayuda a proponerte alternativas que encajen.',
     investmentHint:
       'No es un compromiso. Si preferís dejarlo para la conversación, también está bien.',
-    notesPlaceholder:
-      'Ej. Hay una fecha de evento, o querés avanzar por etapas…',
-    notesHint: 'Cualquier detalle que nos ayude a priorizar tiempos o alcance.',
     savedMessage:
       'Respuestas guardadas. El siguiente paso estará disponible pronto.',
     timelineOptions: {
@@ -322,6 +324,46 @@ export const es: Messages = {
       },
     },
   },
+  extrasStep: {
+    listenLabel: 'Nos interesa especialmente si podés contar…',
+    listenPoints: [
+      'Algo que no entró en las preguntas anteriores',
+      'Una restricción, fecha o contexto que cambia el enfoque',
+      'Cómo imaginás el resultado o qué te preocupa evitar',
+    ],
+    promptsLabel: 'Si te sirve, empezá por uno de estos temas',
+    promptsHint: 'Tocá una idea para abrir el hilo. Podés sumar más de una.',
+    writeLabel: 'Escribí con tus palabras',
+    writePlaceholder:
+      'Por ejemplo: “Tenemos un evento en octubre y necesitamos estar online antes…”, “Ya intentamos con otra web y no funcionó porque…”, “Lo más importante para mí es…”',
+    writeHint:
+      'No hace falta que sea perfecto. Si no hay nada más, podés continuar igual.',
+    readingNote: 'Gracias: esto lo leemos al armar tu propuesta.',
+    savedMessage:
+      'Gracias por contarnos. El siguiente paso estará disponible pronto.',
+    prompts: {
+      deadline: {
+        label: 'Hay una fecha o evento importante',
+        seed: 'Fecha o evento importante:',
+      },
+      priorWork: {
+        label: 'Ya tengo experiencia previa con esto',
+        seed: 'Experiencia previa / web actual:',
+      },
+      mustHave: {
+        label: 'Hay algo que no puede faltar',
+        seed: 'No puede faltar:',
+      },
+      concern: {
+        label: 'Tengo una duda o preocupación',
+        seed: 'Duda o preocupación:',
+      },
+      vision: {
+        label: 'Quiero contar cómo imagino el resultado',
+        seed: 'Cómo imagino el resultado:',
+      },
+    },
+  },
   fields: {
     fullName: 'Nombre completo',
     email: 'Correo electrónico',
@@ -350,7 +392,7 @@ export const es: Messages = {
     siteUpdates: 'Quién hace actualizaciones',
     timeline: 'Cuándo lo necesitás',
     investmentRange: 'Rango de inversión',
-    additionalNotes: 'Algo más que quieras contar',
+    additionalNotes: 'Lo que todavía no preguntamos',
   },
   validation: {
     required: 'Este campo es obligatorio',

@@ -7,6 +7,7 @@ import { createDesignSchema } from './design.schema';
 import { createDiscoveryFormSchema } from './discovery-form.schema';
 import { createNeedsSchema } from './needs.schema';
 import { createTechnicalSchema } from './technical.schema';
+import { createExtrasSchema } from './extras.schema';
 import { createTimelineBudgetSchema } from './timeline-budget.schema';
 
 export function getStepSchema(stepId: StepId, v: ValidationMessages) {
@@ -25,6 +26,8 @@ export function getStepSchema(stepId: StepId, v: ValidationMessages) {
       return createTechnicalSchema(v);
     case 'timeline-budget':
       return createTimelineBudgetSchema(v);
+    case 'extras':
+      return createExtrasSchema(v);
     case 'review':
       return createDiscoveryFormSchema(v);
   }
@@ -36,6 +39,7 @@ export {
   createContactSchema,
   createDesignSchema,
   createDiscoveryFormSchema,
+  createExtrasSchema,
   createNeedsSchema,
   createTechnicalSchema,
   createTimelineBudgetSchema,

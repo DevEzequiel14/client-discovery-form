@@ -5,6 +5,7 @@ import { createContactSchema } from './contact.schema';
 import { createDesignSchema } from './design.schema';
 import { createNeedsSchema } from './needs.schema';
 import { createTechnicalSchema } from './technical.schema';
+import { createExtrasSchema } from './extras.schema';
 import { createTimelineBudgetSchema } from './timeline-budget.schema';
 
 export function createDiscoveryFormSchema(v: ValidationMessages) {
@@ -14,7 +15,8 @@ export function createDiscoveryFormSchema(v: ValidationMessages) {
     .and(createAssetsSchema(v))
     .and(createDesignSchema(v))
     .and(createTechnicalSchema(v))
-    .and(createTimelineBudgetSchema(v));
+    .and(createTimelineBudgetSchema(v))
+    .and(createExtrasSchema(v));
 }
 
 export type DiscoveryFormSchema = ReturnType<

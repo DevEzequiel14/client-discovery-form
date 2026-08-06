@@ -80,6 +80,11 @@ export const en: Messages = {
       description:
         'This helps us suggest realistic paths—without asking for an exact number.',
     },
+    extras: {
+      title: 'Before we wrap up…',
+      description:
+        'If there is something we did not ask that changes how we understand your project — a constraint, an idea, a concern, or a detail that matters to you — tell us here. We read it carefully.',
+    },
     review: {
       title: 'Review',
       description: 'Confirm everything looks right.',
@@ -282,9 +287,6 @@ export const en: Messages = {
       'No exact amount needed. Pick the option that feels closest—it helps us suggest paths that fit.',
     investmentHint:
       'This is not a commitment. If you prefer to leave it for the conversation, that is fine too.',
-    notesPlaceholder:
-      'e.g. There is an event date, or you want to move in stages…',
-    notesHint: 'Anything that helps us prioritize timing or scope.',
     savedMessage: 'Answers saved. The next step will be available soon.',
     timelineOptions: {
       asap: 'As soon as possible',
@@ -316,6 +318,45 @@ export const en: Messages = {
       },
     },
   },
+  extrasStep: {
+    listenLabel: 'We especially care if you can share…',
+    listenPoints: [
+      'Something that did not fit the earlier questions',
+      'A constraint, date, or context that changes the approach',
+      'How you picture the outcome, or what you want to avoid',
+    ],
+    promptsLabel: 'If it helps, start with one of these topics',
+    promptsHint: 'Tap an idea to open the thread. You can add more than one.',
+    writeLabel: 'Write in your own words',
+    writePlaceholder:
+      'For example: “We have an event in October and need to be online before…”, “We tried another site and it did not work because…”, “What matters most to me is…”',
+    writeHint:
+      'It does not need to be perfect. If there is nothing else, you can continue anyway.',
+    readingNote: 'Thank you—we read this when shaping your proposal.',
+    savedMessage: 'Thanks for sharing. The next step will be available soon.',
+    prompts: {
+      deadline: {
+        label: 'There is an important date or event',
+        seed: 'Important date or event:',
+      },
+      priorWork: {
+        label: 'I already have prior experience with this',
+        seed: 'Prior experience / current site:',
+      },
+      mustHave: {
+        label: 'Something cannot be missing',
+        seed: 'Must not be missing:',
+      },
+      concern: {
+        label: 'I have a doubt or concern',
+        seed: 'Doubt or concern:',
+      },
+      vision: {
+        label: 'I want to describe the outcome I imagine',
+        seed: 'How I picture the outcome:',
+      },
+    },
+  },
   fields: {
     fullName: 'Full name',
     email: 'Email address',
@@ -344,7 +385,7 @@ export const en: Messages = {
     siteUpdates: 'Who handles updates',
     timeline: 'When you need it',
     investmentRange: 'Investment range',
-    additionalNotes: 'Anything else you want to share',
+    additionalNotes: 'What we have not asked yet',
   },
   validation: {
     required: 'This field is required',

@@ -6,6 +6,7 @@ export const STEP_IDS = [
   'design',
   'technical',
   'timeline-budget',
+  'extras',
   'review',
 ] as const;
 
@@ -77,3 +78,12 @@ export const INVESTMENT_RANGES = [
   'discuss',
 ] as const;
 export type InvestmentRange = (typeof INVESTMENT_RANGES)[number];
+
+export const NOTE_PROMPTS = [
+  'deadline',
+  'priorWork',
+  'mustHave',
+  'concern',
+  'vision',
+] as const;
+export type NotePrompt = (typeof NOTE_PROMPTS)[number];
