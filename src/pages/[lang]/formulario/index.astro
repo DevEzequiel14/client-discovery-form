@@ -1,5 +1,5 @@
 ---
-import { FormWizard } from '../../../features/discovery-form/components/FormWizard';
+import ContactStep from '../../../features/discovery-form/components/steps/ContactStep.astro';
 import FormLayout from '../../../layouts/FormLayout.astro';
 import { LOCALES } from '../../../i18n/locales';
 import { getMessages, isLocale } from '../../../i18n';
@@ -19,8 +19,8 @@ const messages = getMessages(lang);
 
 <FormLayout
   locale={lang}
-  title={messages.meta.formTitle}
-  description={messages.meta.formDescription}
+  title={messages.steps.contact.title}
+  description={messages.steps.contact.description}
 >
-  <FormWizard client:load locale={lang} />
+  <ContactStep locale={lang} messages={messages} />
 </FormLayout>

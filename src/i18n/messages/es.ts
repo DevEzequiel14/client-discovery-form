@@ -46,8 +46,9 @@ export const es: Messages = {
   },
   steps: {
     contact: {
-      title: 'Contacto',
-      description: 'Datos básicos para poder responderte.',
+      title: '¿Cómo te contactamos?',
+      description:
+        'Solo necesitamos estos datos para responderte. No compartimos tu información.',
     },
     business: {
       title: 'Negocio',
@@ -78,9 +79,19 @@ export const es: Messages = {
       description: 'Confirma que todo esté correcto.',
     },
   },
+  contactStep: {
+    fullNamePlaceholder: 'Ej. Ana Pérez',
+    emailPlaceholder: 'ana@empresa.com',
+    phonePlaceholder: '+54 9 11 1234-5678',
+    emailHint: 'Te escribimos a este correo con la respuesta.',
+    phoneHint: 'Si preferís que te contactemos por WhatsApp o llamada.',
+    privacyNote: 'Usamos estos datos únicamente para armarte el presupuesto.',
+    savedMessage:
+      'Datos guardados. El siguiente paso estará disponible pronto.',
+  },
   fields: {
     fullName: 'Nombre completo',
-    email: 'Email',
+    email: 'Correo electrónico',
     phone: 'Teléfono',
     company: 'Empresa / marca',
     industry: 'Industria',

@@ -48,6 +48,15 @@ export type Messages = {
       description: string;
     }
   >;
+  contactStep: {
+    fullNamePlaceholder: string;
+    emailPlaceholder: string;
+    phonePlaceholder: string;
+    emailHint: string;
+    phoneHint: string;
+    privacyNote: string;
+    savedMessage: string;
+  };
   fields: {
     fullName: string;
     email: string;
