@@ -1,3 +1,7 @@
+/**
+ * Legacy presentational stub kept for FormWizard compatibility.
+ * The active Paso 2 UI lives in BusinessStepForm.tsx.
+ */
 import { TextField } from '@components/ui/TextField';
 import type { Messages } from '@i18n/types';
 import type { BusinessData, FieldErrors } from '../../types/form';
@@ -29,16 +33,11 @@ export function BusinessStep({
         label={messages.fields.industry}
         value={value.industry ?? ''}
         error={errors.industry}
-        onChange={(event) => onChange({ industry: event.target.value })}
-      />
-      <TextField
-        name="website"
-        type="url"
-        label={`${messages.fields.website} (${messages.common.optional})`}
-        value={value.website ?? ''}
-        error={errors.website}
-        placeholder="https://"
-        onChange={(event) => onChange({ website: event.target.value })}
+        onChange={(event) =>
+          onChange({
+            industry: event.target.value as BusinessData['industry'],
+          })
+        }
       />
     </div>
   );

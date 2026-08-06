@@ -51,8 +51,9 @@ export const es: Messages = {
         'Solo necesitamos estos datos para responderte. No compartimos tu información.',
     },
     business: {
-      title: 'Negocio',
-      description: 'Cuéntanos sobre tu empresa o marca.',
+      title: 'Contanos sobre tu negocio',
+      description:
+        'Con esta información entendemos el contexto de tu marca antes de hablar del proyecto.',
     },
     'project-type': {
       title: 'Tipo de proyecto',
@@ -89,13 +90,39 @@ export const es: Messages = {
     savedMessage:
       'Datos guardados. El siguiente paso estará disponible pronto.',
   },
+  businessStep: {
+    companyPlaceholder: 'Ej. Estudio Norte',
+    industryPlaceholder: 'Seleccioná una industria',
+    industryHint: 'Elegí la que mejor represente tu actividad principal.',
+    hasWebsiteLegend: '¿Tenés una página web?',
+    hasWebsiteHint: 'Si ya existe un sitio, pedimos la URL para revisarlo.',
+    websitePlaceholder: 'https://www.ejemplo.com',
+    websiteHint: 'Incluí la URL completa, con https://',
+    yes: 'Sí',
+    no: 'No',
+    savedMessage:
+      'Datos del negocio guardados. El siguiente paso estará disponible pronto.',
+    industries: {
+      retail: 'Comercio / retail',
+      services: 'Servicios',
+      technology: 'Tecnología',
+      health: 'Salud',
+      education: 'Educación',
+      food: 'Gastronomía',
+      realEstate: 'Bienes raíces',
+      construction: 'Construcción',
+      professional: 'Servicios profesionales',
+      other: 'Otra',
+    },
+  },
   fields: {
     fullName: 'Nombre completo',
     email: 'Correo electrónico',
     phone: 'Teléfono',
-    company: 'Empresa / marca',
+    company: 'Nombre del negocio',
     industry: 'Industria',
-    website: 'Sitio web actual',
+    hasWebsite: '¿Tenés una página web?',
+    website: 'URL del sitio',
     projectType: 'Tipo de proyecto',
     projectTypeOptions: {
       website: 'Sitio web',

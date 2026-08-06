@@ -18,7 +18,7 @@ const reviewFields: Array<{
   keys: FieldKey[];
 }> = [
   { stepId: 'contact', keys: ['fullName', 'email', 'phone'] },
-  { stepId: 'business', keys: ['company', 'industry', 'website'] },
+  { stepId: 'business', keys: ['company', 'industry', 'hasWebsite', 'website'] },
   { stepId: 'project-type', keys: ['projectType'] },
   { stepId: 'goals', keys: ['goals', 'targetAudience'] },
   { stepId: 'features', keys: ['features'] },
@@ -38,6 +38,18 @@ function formatValue(
     return messages.fields.projectTypeOptions[
       value as keyof typeof messages.fields.projectTypeOptions
     ];
+  }
+
+  if (key === 'industry') {
+    return messages.businessStep.industries[
+      value as keyof typeof messages.businessStep.industries
+    ];
+  }
+
+  if (key === 'hasWebsite') {
+    return value === 'yes'
+      ? messages.businessStep.yes
+      : messages.businessStep.no;
   }
 
   return value;

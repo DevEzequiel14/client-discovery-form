@@ -51,8 +51,9 @@ export const en: Messages = {
         'We only need these details to get back to you. We do not share your information.',
     },
     business: {
-      title: 'Business',
-      description: 'Tell us about your company or brand.',
+      title: 'Tell us about your business',
+      description:
+        'This helps us understand your brand context before we talk about the project.',
     },
     'project-type': {
       title: 'Project type',
@@ -88,13 +89,39 @@ export const en: Messages = {
     privacyNote: 'We only use this information to prepare your quote.',
     savedMessage: 'Details saved. The next step will be available soon.',
   },
+  businessStep: {
+    companyPlaceholder: 'e.g. Norte Studio',
+    industryPlaceholder: 'Select an industry',
+    industryHint: 'Choose the one that best matches your main activity.',
+    hasWebsiteLegend: 'Do you have a website?',
+    hasWebsiteHint: 'If a site already exists, we ask for the URL to review it.',
+    websitePlaceholder: 'https://www.example.com',
+    websiteHint: 'Include the full URL, with https://',
+    yes: 'Yes',
+    no: 'No',
+    savedMessage:
+      'Business details saved. The next step will be available soon.',
+    industries: {
+      retail: 'Retail / commerce',
+      services: 'Services',
+      technology: 'Technology',
+      health: 'Healthcare',
+      education: 'Education',
+      food: 'Food & hospitality',
+      realEstate: 'Real estate',
+      construction: 'Construction',
+      professional: 'Professional services',
+      other: 'Other',
+    },
+  },
   fields: {
     fullName: 'Full name',
     email: 'Email address',
     phone: 'Phone',
-    company: 'Company / brand',
+    company: 'Business name',
     industry: 'Industry',
-    website: 'Current website',
+    hasWebsite: 'Do you have a website?',
+    website: 'Website URL',
     projectType: 'Project type',
     projectTypeOptions: {
       website: 'Website',

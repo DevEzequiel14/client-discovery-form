@@ -1,4 +1,5 @@
 import type { ProjectType } from './steps';
+import type { HasWebsite, Industry } from '../constants/industries';
 
 export type ContactData = {
   fullName: string;
@@ -8,7 +9,8 @@ export type ContactData = {
 
 export type BusinessData = {
   company: string;
-  industry: string;
+  industry: Industry;
+  hasWebsite: HasWebsite;
   website?: string;
 };
 

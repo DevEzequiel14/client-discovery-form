@@ -33,14 +33,12 @@ export function ContactStepForm({ locale }: ContactStepFormProps) {
     email: form.data.email ?? '',
     phone: form.data.phone ?? '',
   });
-  const [saved, setSaved] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<ContactField, string>>>(
     {},
   );
 
   useEffect(() => {
     $formLocale.set(locale);
-    setCurrentStep('contact');
   }, [locale]);
 
   useEffect(() => {
@@ -51,7 +49,6 @@ export function ContactStepForm({ locale }: ContactStepFormProps) {
   }, [errors]);
 
   function updateField(field: ContactField, value: string) {
-    setSaved(false);
     setValues((current) => ({ ...current, [field]: value }));
     setErrors((current) => {
       if (!current[field]) return current;
@@ -64,7 +61,6 @@ export function ContactStepForm({ locale }: ContactStepFormProps) {
   function handleContinue(event: { preventDefault: () => void }) {
     event.preventDefault();
     setFormStatus('validating');
-    setSaved(false);
 
     const schema = createContactSchema(messages.validation);
     const result = schema.safeParse(values);
@@ -96,23 +92,17 @@ export function ContactStepForm({ locale }: ContactStepFormProps) {
     patchFormData(payload);
     setFieldErrors({});
     setErrors({});
-    setValues({
-      fullName: payload.fullName,
-      email: payload.email,
-      phone: payload.phone ?? '',
-    });
-    setSaved(true);
     setFormStatus('idle');
+    setCurrentStep('business');
   }
 
   const privacyId = `${formId}-privacy`;
-  const statusId = `${formId}-status`;
 
   return (
     <form
       className="space-y-6"
       noValidate
-      aria-describedby={`${privacyId}${saved ? ` ${statusId}` : ''}`}
+      aria-describedby={privacyId}
       onSubmit={handleContinue}
     >
       <div className="space-y-5 rounded-xl border border-cdf-border/80 bg-white/75 p-5 shadow-sm backdrop-blur sm:p-6">
@@ -169,16 +159,6 @@ export function ContactStepForm({ locale }: ContactStepFormProps) {
           {messages.contactStep.privacyNote}
         </p>
       </div>
-
-      {saved ? (
-        <p
-          id={statusId}
-          className="rounded-md border border-cdf-success/30 bg-green-50 px-4 py-3 text-sm text-cdf-success"
-          role="status"
-        >
-          {messages.contactStep.savedMessage}
-        </p>
-      ) : null}
 
       <div className="flex items-center justify-end gap-3">
         <button

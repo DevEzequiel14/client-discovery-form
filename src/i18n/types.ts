@@ -57,12 +57,37 @@ export type Messages = {
     privacyNote: string;
     savedMessage: string;
   };
+  businessStep: {
+    companyPlaceholder: string;
+    industryPlaceholder: string;
+    industryHint: string;
+    hasWebsiteLegend: string;
+    hasWebsiteHint: string;
+    websitePlaceholder: string;
+    websiteHint: string;
+    yes: string;
+    no: string;
+    savedMessage: string;
+    industries: {
+      retail: string;
+      services: string;
+      technology: string;
+      health: string;
+      education: string;
+      food: string;
+      realEstate: string;
+      construction: string;
+      professional: string;
+      other: string;
+    };
+  };
   fields: {
     fullName: string;
     email: string;
     phone: string;
     company: string;
     industry: string;
+    hasWebsite: string;
     website: string;
     projectType: string;
     projectTypeOptions: {
