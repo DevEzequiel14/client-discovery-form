@@ -1,0 +1,44 @@
+---
+import FormLayout from "../../layouts/FormLayout.astro";
+import { LOCALES } from "../../i18n/locales";
+import { getMessages, isLocale } from "../../i18n";
+
+export function getStaticPaths() {
+  return LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+
+if (!lang || !isLocale(lang)) {
+  return Astro.redirect("/es", 302);
+}
+
+const messages = getMessages(lang);
+---
+
+<FormLayout
+  locale={lang}
+  title={messages.meta.homeTitle}
+  description={messages.meta.homeDescription}
+>
+  <section class="mx-auto flex min-h-[70dvh] max-w-2xl flex-col justify-center py-10">
+    <div class="space-y-6">
+      <h1 class="font-display text-4xl leading-tight text-cdf-ink md:text-5xl">
+        {messages.home.headline}
+      </h1>
+      <p class="max-w-xl text-lg text-cdf-muted">
+        {messages.home.supporting}
+      </p>
+      <div class="space-y-1 text-sm text-cdf-muted">
+        <p>{messages.home.timeEstimate}</p>
+        <p>{messages.home.nextStep}</p>
+      </div>
+      <a
+        href={`/${lang}/formulario`}
+        class="inline-flex items-center justify-center rounded-md bg-cdf-accent px-5 py-3 text-sm font-medium text-white transition hover:bg-cdf-accent-hover"
+      >
+        {messages.common.startCta}
+      </a>
+    </div>
+  </section>
+</FormLayout>

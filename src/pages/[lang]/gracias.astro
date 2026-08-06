@@ -1,0 +1,45 @@
+---
+import FormLayout from '../../layouts/FormLayout.astro';
+import { LOCALES } from '../../i18n/locales';
+import { getMessages, isLocale } from '../../i18n';
+
+export function getStaticPaths() {
+  return LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+
+if (!lang || !isLocale(lang)) {
+  return Astro.redirect('/es/gracias', 302);
+}
+
+const messages = getMessages(lang);
+const reference = Astro.url.searchParams.get('ref');
+---
+
+<FormLayout
+  locale={lang}
+  title={messages.meta.thanksTitle}
+  description={messages.meta.thanksDescription}
+>
+  <section class="mx-auto max-w-2xl space-y-6 py-16 text-center">
+    <h1 class="font-display text-4xl text-cdf-ink md:text-5xl">
+      {messages.thanks.headline}
+    </h1>
+    <p class="text-lg text-cdf-muted">{messages.thanks.supporting}</p>
+    {
+      reference ? (
+        <p class="text-sm text-cdf-muted">
+          {messages.thanks.reference}:{' '}
+          <span class="font-medium text-cdf-ink">{reference}</span>
+        </p>
+      ) : null
+    }
+    <a
+      href={`/${lang}`}
+      class="inline-flex items-center justify-center rounded-md border border-cdf-border bg-white px-5 py-3 text-sm font-medium text-cdf-ink transition hover:bg-white/80"
+    >
+      {messages.common.goHome}
+    </a>
+  </section>
+</FormLayout>

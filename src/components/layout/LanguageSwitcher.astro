@@ -1,0 +1,51 @@
+---
+import { LOCALES, type Locale } from '../../i18n/locales';
+
+type Props = {
+  locale: Locale;
+  pathname: string;
+};
+
+const { locale, pathname } = Astro.props;
+
+function swapLocaleInPath(path: string, nextLocale: Locale): string {
+  const segments = path.split('/').filter(Boolean);
+
+  if (segments.length === 0) {
+    return `/${nextLocale}`;
+  }
+
+  if (LOCALES.includes(segments[0] as Locale)) {
+    segments[0] = nextLocale;
+  } else {
+    segments.unshift(nextLocale);
+  }
+
+  return `/${segments.join('/')}`;
+}
+---
+
+<div class="flex items-center gap-1 rounded-md border border-cdf-border bg-white/80 p-1 text-sm">
+  {
+    LOCALES.map((item) => {
+      const href = swapLocaleInPath(pathname, item);
+      const isActive = item === locale;
+
+      return (
+        <a
+          href={href}
+          hreflang={item}
+          class:list={[
+            'rounded px-2.5 py-1 uppercase transition',
+            isActive
+              ? 'bg-cdf-ink text-white'
+              : 'text-cdf-muted hover:text-cdf-ink',
+          ]}
+          aria-current={isActive ? 'page' : undefined}
+        >
+          {item}
+        </a>
+      );
+    })
+  }
+</div>
