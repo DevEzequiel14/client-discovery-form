@@ -1,4 +1,4 @@
-import { Button } from '@components/ui/Button';
+import { btnGhost, btnPrimary, stepNav } from '@lib/ui-classes';
 import type { Messages } from '@i18n/types';
 
 type StepNavigationProps = {
@@ -21,30 +21,36 @@ export function StepNavigation({
   onSubmit,
 }: StepNavigationProps) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-      <Button
+    <div className={[stepNav, 'justify-between'].join(' ')}>
+      <button
         type="button"
-        variant="ghost"
+        className={btnGhost}
         onClick={onBack}
         disabled={isFirstStep || isSubmitting}
       >
         {messages.common.back}
-      </Button>
+      </button>
 
       {isLastStep ? (
-        <Button
+        <button
           type="button"
+          className={btnPrimary}
           onClick={onSubmit}
           disabled={isSubmitting}
         >
           {isSubmitting
             ? messages.common.submitting
             : messages.common.submit}
-        </Button>
+        </button>
       ) : (
-        <Button type="button" onClick={onNext} disabled={isSubmitting}>
+        <button
+          type="button"
+          className={btnPrimary}
+          onClick={onNext}
+          disabled={isSubmitting}
+        >
           {messages.common.continue}
-        </Button>
+        </button>
       )}
     </div>
   );

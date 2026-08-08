@@ -34,6 +34,12 @@ export type Messages = {
     reviewTitle: string;
     reviewHint: string;
     submitError: string;
+    phases: {
+      contact: string;
+      business: string;
+      project: string;
+      close: string;
+    };
   };
   reviewStep: {
     hint: string;

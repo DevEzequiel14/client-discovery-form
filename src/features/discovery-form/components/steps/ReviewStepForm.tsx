@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useStore } from '@nanostores/react';
 import { Alert } from '@components/feedback/Alert';
 import { getMessages, type Locale } from '@i18n/index';
+import { btnGhost, btnPrimary, stepCard, stepNav } from '@lib/ui-classes';
 import { zodErrorToFieldErrors } from '../../lib/field-errors';
 import { createDiscoveryFormSchema } from '../../schemas/discovery-form.schema';
 import { submitDiscoveryForm } from '../../services/submit-discovery-form';
@@ -64,7 +65,7 @@ export function ReviewStepForm({ locale }: ReviewStepFormProps) {
 
   return (
     <form className="space-y-6" noValidate onSubmit={handleSubmit}>
-      <div className="rounded-xl border border-cdf-accent/20 bg-cdf-accent/[0.04] px-4 py-3.5 sm:px-5">
+      <div className="rounded-xl border border-cdf-accent/20 bg-cdf-accent-soft px-4 py-3.5 sm:px-5">
         <p className="text-sm font-medium text-cdf-ink">
           {messages.reviewStep.trustTitle}
         </p>
@@ -82,7 +83,7 @@ export function ReviewStepForm({ locale }: ReviewStepFormProps) {
         />
       </div>
 
-      <div className="rounded-xl border border-cdf-border/80 bg-white/75 p-4 shadow-sm sm:p-5">
+      <div className={stepCard}>
         <p className="text-sm font-medium text-cdf-ink">
           {messages.reviewStep.nextTitle}
         </p>
@@ -103,10 +104,10 @@ export function ReviewStepForm({ locale }: ReviewStepFormProps) {
         <Alert tone="error">{form.submitError}</Alert>
       ) : null}
 
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className={[stepNav, 'justify-between'].join(' ')}>
         <button
           type="button"
-          className="inline-flex min-h-11 items-center justify-center rounded-md px-4 py-2.5 text-sm font-medium text-cdf-ink transition hover:bg-black/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent"
+          className={btnGhost}
           onClick={() => setCurrentStep('extras')}
           disabled={isSubmitting}
         >
@@ -114,7 +115,7 @@ export function ReviewStepForm({ locale }: ReviewStepFormProps) {
         </button>
         <button
           type="submit"
-          className="inline-flex min-h-11 min-w-44 items-center justify-center rounded-md bg-cdf-accent px-5 py-2.5 text-sm font-medium text-white transition hover:bg-cdf-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent disabled:opacity-60"
+          className={[btnPrimary, 'min-w-44'].join(' ')}
           disabled={isSubmitting}
         >
           {isSubmitting ? messages.common.submitting : messages.common.submit}

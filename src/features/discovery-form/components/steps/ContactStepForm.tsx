@@ -2,6 +2,7 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { FormField } from '@components/ui/FormField';
 import { getMessages, type Locale } from '@i18n/index';
+import { btnPrimary, stepCard, stepNav } from '@lib/ui-classes';
 import { zodErrorToFieldErrors } from '../../lib/field-errors';
 import { createContactSchema } from '../../schemas/contact.schema';
 import {
@@ -105,7 +106,7 @@ export function ContactStepForm({ locale }: ContactStepFormProps) {
       aria-describedby={privacyId}
       onSubmit={handleContinue}
     >
-      <div className="space-y-5 rounded-xl border border-cdf-border/80 bg-white/75 p-5 shadow-sm backdrop-blur sm:p-6">
+      <div className={['space-y-5', stepCard].join(' ')}>
         <FormField
           id="fullName"
           name="fullName"
@@ -160,10 +161,10 @@ export function ContactStepForm({ locale }: ContactStepFormProps) {
         </p>
       </div>
 
-      <div className="flex items-center justify-end gap-3">
+      <div className={[stepNav, 'justify-end'].join(' ')}>
         <button
           type="submit"
-          className="inline-flex min-h-11 min-w-36 items-center justify-center rounded-md bg-cdf-accent px-5 py-2.5 text-sm font-medium text-white transition hover:bg-cdf-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent disabled:opacity-60"
+          className={btnPrimary}
           disabled={form.status === 'validating'}
         >
           {messages.common.continue}

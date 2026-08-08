@@ -3,9 +3,9 @@ import type { Messages } from '../types';
 export const es: Messages = {
   meta: {
     brandLabel: 'Presupuesto web',
-    homeTitle: 'Cuéntanos tu proyecto',
+    homeTitle: 'Presupuesto web — encuesta de discovery',
     homeDescription:
-      'Completá estas preguntas antes de pedir un presupuesto para tu sitio web o sistema.',
+      'Una encuesta breve para entender necesidades, preparación y expectativas antes de proponer la solución adecuada.',
     formTitle: 'Formulario del proyecto',
     formDescription:
       'Responde paso a paso para que podamos entender tu proyecto y preparar una propuesta clara.',
@@ -26,9 +26,9 @@ export const es: Messages = {
     edit: 'Editar',
   },
   home: {
-    headline: 'Cuéntanos tu proyecto',
+    headline: 'Una encuesta breve para entender tu proyecto',
     supporting:
-      'Completá estas preguntas para que podamos entender objetivos, alcance y plazos antes de armarte una propuesta.',
+      'Con tus necesidades, preparación y expectativas definimos qué solución y nivel de acompañamiento encajan mejor.',
     timeEstimate: 'Tarda unos 5–8 minutos.',
     nextStep: 'Después te escribimos con los próximos pasos.',
   },
@@ -38,6 +38,12 @@ export const es: Messages = {
     reviewTitle: 'Revisión',
     reviewHint: 'Verifica tus respuestas antes de enviar.',
     submitError: 'No pudimos enviar el formulario. Inténtalo de nuevo.',
+    phases: {
+      contact: 'Contacto',
+      business: 'Negocio',
+      project: 'Proyecto',
+      close: 'Cierre',
+    },
   },
   reviewStep: {
     hint: 'Revisá cada bloque. Si algo no está bien, podés editarlo y volvés acá.',

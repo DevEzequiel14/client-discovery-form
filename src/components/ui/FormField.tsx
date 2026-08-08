@@ -60,7 +60,7 @@ export function FormField({
         aria-invalid={error ? true : false}
         aria-describedby={describedBy}
         className={[
-          'w-full rounded-md border bg-white px-3.5 py-3 text-base text-cdf-ink shadow-sm transition placeholder:text-cdf-muted/70 md:text-sm',
+          'w-full rounded-md border bg-cdf-surface-elevated px-3.5 py-3 text-base text-cdf-ink shadow-sm transition placeholder:text-cdf-muted/70 md:text-sm',
           'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent',
           error
             ? 'border-cdf-danger ring-1 ring-cdf-danger/20'

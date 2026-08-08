@@ -61,7 +61,7 @@ export function SelectField({
         aria-describedby={describedBy}
         value={value}
         className={[
-          'w-full appearance-none rounded-md border bg-white bg-[length:1rem] bg-[right_0.75rem_center] bg-no-repeat px-3.5 py-3 pr-10 text-base text-cdf-ink shadow-sm transition md:text-sm',
+          'w-full appearance-none rounded-md border bg-cdf-surface-elevated bg-[length:1rem] bg-[right_0.75rem_center] bg-no-repeat px-3.5 py-3 pr-10 text-base text-cdf-ink shadow-sm transition md:text-sm',
           'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent',
           error
             ? 'border-cdf-danger ring-1 ring-cdf-danger/20'
@@ -70,7 +70,7 @@ export function SelectField({
           className,
         ].join(' ')}
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%235c6b7a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234a5a6a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`,
         }}
         {...props}
       >

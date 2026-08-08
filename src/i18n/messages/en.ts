@@ -3,9 +3,9 @@ import type { Messages } from '../types';
 export const en: Messages = {
   meta: {
     brandLabel: 'Web quote',
-    homeTitle: 'Tell us about your project',
+    homeTitle: 'Web quote — discovery survey',
     homeDescription:
-      'Answer a few questions before requesting a quote for your website or system.',
+      'A short survey to understand your needs, readiness, and expectations before proposing the right solution.',
     formTitle: 'Project form',
     formDescription:
       'Answer step by step so we can understand your project and prepare a clear proposal.',
@@ -26,9 +26,9 @@ export const en: Messages = {
     edit: 'Edit',
   },
   home: {
-    headline: 'Tell us about your project',
+    headline: 'A short survey to understand your project',
     supporting:
-      'Answer these questions so we can understand your goals, scope, and timeline before preparing a proposal.',
+      'Your needs, readiness, and expectations help us choose the right solution and level of support.',
     timeEstimate: 'Takes about 5–8 minutes.',
     nextStep: 'We will follow up with next steps afterward.',
   },
@@ -38,6 +38,12 @@ export const en: Messages = {
     reviewTitle: 'Review',
     reviewHint: 'Check your answers before submitting.',
     submitError: 'We could not submit the form. Please try again.',
+    phases: {
+      contact: 'Contact',
+      business: 'Business',
+      project: 'Project',
+      close: 'Wrap-up',
+    },
   },
   reviewStep: {
     hint: 'Review each block. If something is off, you can edit it and come back here.',

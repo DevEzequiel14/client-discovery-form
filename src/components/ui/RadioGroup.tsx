@@ -1,3 +1,11 @@
+import {
+  optionBase,
+  optionError,
+  optionIdle,
+  optionPad,
+  optionSelected,
+} from '@lib/ui-classes';
+
 type RadioOption = {
   value: string;
   label: string;
@@ -65,12 +73,14 @@ export function RadioGroup({
               key={option.value}
               htmlFor={optionId}
               className={[
-                'flex cursor-pointer items-center gap-3 rounded-md border bg-white px-3.5 py-3 text-sm transition',
+                'flex cursor-pointer items-center gap-3 text-sm',
+                optionBase,
+                optionPad,
                 selected
-                  ? 'border-cdf-accent ring-1 ring-cdf-accent/30'
+                  ? optionSelected
                   : error
-                    ? 'border-cdf-danger/50'
-                    : 'border-cdf-border hover:border-cdf-ink/25',
+                    ? optionError
+                    : optionIdle,
               ].join(' ')}
             >
               <input

@@ -12,7 +12,7 @@ const variants: Record<Variant, string> = {
   primary:
     'bg-cdf-accent text-white hover:bg-cdf-accent-hover disabled:bg-cdf-accent/50',
   secondary:
-    'border border-cdf-border bg-white text-cdf-ink hover:bg-white/80 disabled:opacity-50',
+    'border border-cdf-border bg-cdf-surface-elevated text-cdf-ink hover:bg-cdf-accent-soft disabled:opacity-50',
   ghost: 'text-cdf-ink hover:bg-black/5 disabled:opacity-50',
 };
 

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useStore } from '@nanostores/react';
-import { t, getMessages, type Locale } from '@i18n/index';
-import { STEP_IDS, type StepId } from '../types/steps';
+import { getMessages, type Locale } from '@i18n/index';
+import type { StepId } from '../types/steps';
 import {
   $discoveryForm,
   $formLocale,
@@ -15,6 +15,7 @@ import { NeedsStepForm } from './steps/NeedsStepForm';
 import { ReviewStepForm } from './steps/ReviewStepForm';
 import { TechnicalStepForm } from './steps/TechnicalStepForm';
 import { TimelineBudgetStepForm } from './steps/TimelineBudgetStepForm';
+import { StepProgress } from './StepProgress';
 
 type DiscoveryWizardProps = {
   locale: Locale;
@@ -59,9 +60,6 @@ export function DiscoveryWizard({ locale }: DiscoveryWizardProps) {
 
   const stepId = resolveActiveStep(form.currentStepId);
   const stepIndex = ACTIVE_STEPS.indexOf(stepId);
-  const current = stepIndex + 1;
-  const total = STEP_IDS.length;
-  const percent = Math.round((current / total) * 100);
   const step = messages.steps[stepId];
 
   return (
@@ -72,30 +70,12 @@ export function DiscoveryWizard({ locale }: DiscoveryWizardProps) {
       ].join(' ')}
       aria-labelledby="active-step-title"
     >
-      <div className="space-y-3" aria-label={messages.form.progressLabel}>
-        <div className="flex items-center justify-between gap-4 text-sm text-cdf-muted">
-          <p>
-            {t(messages.form.stepOf, {
-              current,
-              total,
-            })}
-          </p>
-          <p className="font-medium text-cdf-ink">{step.title}</p>
-        </div>
-        <div
-          className="h-1.5 overflow-hidden rounded-full bg-cdf-border/70"
-          role="progressbar"
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-valuenow={percent}
-          aria-label={messages.form.progressLabel}
-        >
-          <div
-            className="h-full rounded-full bg-cdf-accent transition-all duration-300"
-            style={{ width: `${percent}%` }}
-          />
-        </div>
-      </div>
+      <StepProgress
+        messages={messages}
+        activeSteps={[...ACTIVE_STEPS]}
+        currentStepId={stepId}
+        currentIndex={stepIndex}
+      />
 
       <header className="space-y-2">
         <h1

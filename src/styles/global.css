@@ -7,11 +7,13 @@
   --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
 
   --color-cdf-ink: #14213d;
-  --color-cdf-muted: #5c6b7a;
+  --color-cdf-muted: #4a5a6a;
   --color-cdf-surface: #f7f4ef;
+  --color-cdf-surface-elevated: #ffffff;
   --color-cdf-accent: #0f766e;
-  --color-cdf-accent-hover: #0d9488;
-  --color-cdf-border: #d9d2c5;
+  --color-cdf-accent-hover: #0e6b64;
+  --color-cdf-accent-soft: #e7f2f1;
+  --color-cdf-border: #cfc6b8;
   --color-cdf-danger: #b42318;
   --color-cdf-success: #067647;
 }
@@ -24,8 +26,8 @@
   body {
     @apply min-h-dvh bg-cdf-surface font-sans text-cdf-ink antialiased;
     background-image:
-      radial-gradient(ellipse 80% 50% at 10% -10%, rgb(15 118 110 / 0.12), transparent),
-      radial-gradient(ellipse 60% 40% at 100% 0%, rgb(20 33 61 / 0.08), transparent);
+      radial-gradient(ellipse 80% 50% at 10% -10%, rgb(15 118 110 / 0.08), transparent),
+      radial-gradient(ellipse 60% 40% at 100% 0%, rgb(20 33 61 / 0.06), transparent);
     font-feature-settings: "ss01" on, "cv01" on;
   }
 

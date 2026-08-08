@@ -2,6 +2,17 @@ import { useEffect, useRef, useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { RadioGroup } from '@components/ui/RadioGroup';
 import { getMessages, type Locale } from '@i18n/index';
+import {
+  btnGhost,
+  btnPrimary,
+  optionBase,
+  optionError,
+  optionIdle,
+  optionPad,
+  optionSelected,
+  stepCard,
+  stepNav,
+} from '@lib/ui-classes';
 import { zodErrorToFieldErrors } from '../../lib/field-errors';
 import { createTimelineBudgetSchema } from '../../schemas/timeline-budget.schema';
 import {
@@ -106,7 +117,7 @@ export function TimelineBudgetStepForm({
 
   return (
     <form className="space-y-6" noValidate onSubmit={handleContinue}>
-      <div className="space-y-6 rounded-xl border border-cdf-border/80 bg-white/75 p-5 shadow-sm backdrop-blur sm:p-6">
+      <div className={['space-y-6', stepCard].join(' ')}>
         <RadioGroup
           name="timeline"
           legend={messages.timelineBudgetStep.timelineLegend}
@@ -163,12 +174,14 @@ export function TimelineBudgetStepForm({
                   key={range}
                   htmlFor={optionId}
                   className={[
-                    'flex cursor-pointer gap-3 rounded-md border bg-white px-3.5 py-3 transition',
+                    'flex cursor-pointer gap-3',
+                    optionBase,
+                    optionPad,
                     selected
-                      ? 'border-cdf-accent ring-1 ring-cdf-accent/30'
+                      ? optionSelected
                       : errors.investmentRange
-                        ? 'border-cdf-danger/50'
-                        : 'border-cdf-border hover:border-cdf-ink/25',
+                        ? optionError
+                        : optionIdle,
                   ].join(' ')}
                 >
                   <input
@@ -218,17 +231,17 @@ export function TimelineBudgetStepForm({
         </fieldset>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className={[stepNav, 'justify-between'].join(' ')}>
         <button
           type="button"
-          className="inline-flex min-h-11 items-center justify-center rounded-md px-4 py-2.5 text-sm font-medium text-cdf-ink transition hover:bg-black/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent"
+          className={btnGhost}
           onClick={() => setCurrentStep('technical')}
         >
           {messages.common.back}
         </button>
         <button
           type="submit"
-          className="inline-flex min-h-11 min-w-36 items-center justify-center rounded-md bg-cdf-accent px-5 py-2.5 text-sm font-medium text-white transition hover:bg-cdf-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent disabled:opacity-60"
+          className={btnPrimary}
           disabled={form.status === 'validating'}
         >
           {messages.common.continue}

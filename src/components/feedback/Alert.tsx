@@ -3,9 +3,9 @@ import type { PropsWithChildren } from 'react';
 type AlertTone = 'error' | 'info' | 'success';
 
 const tones: Record<AlertTone, string> = {
-  error: 'border-cdf-danger/30 bg-red-50 text-cdf-danger',
-  info: 'border-cdf-border bg-white text-cdf-ink',
-  success: 'border-cdf-success/30 bg-green-50 text-cdf-success',
+  error: 'border-cdf-danger/30 bg-cdf-danger/5 text-cdf-danger',
+  info: 'border-cdf-border bg-cdf-surface-elevated text-cdf-ink',
+  success: 'border-cdf-success/30 bg-cdf-success/5 text-cdf-success',
 };
 
 type AlertProps = PropsWithChildren<{

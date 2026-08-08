@@ -70,7 +70,7 @@ export function ReviewSummary({
           return (
             <section
               key={section.stepId}
-              className="rounded-xl border border-dashed border-cdf-border/90 bg-white/50 p-4"
+              className="rounded-xl border border-dashed border-cdf-border/90 bg-cdf-surface-elevated/50 p-4"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
@@ -89,7 +89,7 @@ export function ReviewSummary({
                 </div>
                 <button
                   type="button"
-                  className="shrink-0 rounded-md px-2.5 py-1.5 text-sm font-medium text-cdf-accent transition hover:bg-cdf-accent/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent"
+                  className="shrink-0 rounded-md px-2.5 py-1.5 text-sm font-medium text-cdf-accent transition hover:bg-cdf-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent"
                   onClick={() => onEditStep(section.stepId)}
                 >
                   {messages.common.edit}
@@ -104,7 +104,7 @@ export function ReviewSummary({
         return (
           <section
             key={section.stepId}
-            className="rounded-xl border border-cdf-border/80 bg-white/80 p-4 shadow-sm"
+            className="rounded-xl border border-cdf-border/80 bg-cdf-surface-elevated p-4 shadow-sm"
           >
             <div className="mb-3 flex items-start justify-between gap-3">
               <div className="min-w-0">
@@ -120,7 +120,7 @@ export function ReviewSummary({
               </div>
               <button
                 type="button"
-                className="shrink-0 rounded-md px-2.5 py-1.5 text-sm font-medium text-cdf-accent transition hover:bg-cdf-accent/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent"
+                className="shrink-0 rounded-md px-2.5 py-1.5 text-sm font-medium text-cdf-accent transition hover:bg-cdf-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent"
                 onClick={() => onEditStep(section.stepId)}
               >
                 {messages.common.edit}

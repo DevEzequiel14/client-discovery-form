@@ -2,6 +2,17 @@ import { useEffect, useRef, useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { FormTextArea } from '@components/ui/FormTextArea';
 import { getMessages, type Locale } from '@i18n/index';
+import {
+  btnGhost,
+  btnPrimary,
+  optionBase,
+  optionError,
+  optionIdle,
+  optionPad,
+  optionSelected,
+  stepCard,
+  stepNav,
+} from '@lib/ui-classes';
 import { zodErrorToFieldErrors } from '../../lib/field-errors';
 import { createNeedsSchema } from '../../schemas/needs.schema';
 import {
@@ -100,7 +111,7 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
 
   return (
     <form className="space-y-6" noValidate onSubmit={handleContinue}>
-      <div className="space-y-6 rounded-xl border border-cdf-border/80 bg-white/75 p-5 shadow-sm backdrop-blur sm:p-6">
+      <div className={['space-y-6', stepCard].join(' ')}>
         <FormTextArea
           id="goals"
           name="goals"
@@ -148,12 +159,14 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
                   key={type}
                   htmlFor={optionId}
                   className={[
-                    'flex cursor-pointer gap-3 rounded-md border bg-white px-3.5 py-3 transition',
+                    'flex cursor-pointer gap-3',
+                    optionBase,
+                    optionPad,
                     selected
-                      ? 'border-cdf-accent ring-1 ring-cdf-accent/30'
+                      ? optionSelected
                       : errors.projectType
-                        ? 'border-cdf-danger/50'
-                        : 'border-cdf-border hover:border-cdf-ink/25',
+                        ? optionError
+                        : optionIdle,
                   ].join(' ')}
                 >
                   <input
@@ -223,17 +236,17 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
         />
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className={[stepNav, 'justify-between'].join(' ')}>
         <button
           type="button"
-          className="inline-flex min-h-11 items-center justify-center rounded-md px-4 py-2.5 text-sm font-medium text-cdf-ink transition hover:bg-black/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent"
+          className={btnGhost}
           onClick={() => setCurrentStep('business')}
         >
           {messages.common.back}
         </button>
         <button
           type="submit"
-          className="inline-flex min-h-11 min-w-36 items-center justify-center rounded-md bg-cdf-accent px-5 py-2.5 text-sm font-medium text-white transition hover:bg-cdf-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent disabled:opacity-60"
+          className={btnPrimary}
           disabled={form.status === 'validating'}
         >
           {messages.common.continue}

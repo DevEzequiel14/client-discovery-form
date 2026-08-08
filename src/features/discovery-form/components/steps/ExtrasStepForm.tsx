@@ -1,6 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { getMessages, type Locale } from '@i18n/index';
+import {
+  btnGhost,
+  btnPrimary,
+  optionBase,
+  optionIdle,
+  optionSelected,
+  stepCard,
+  stepNav,
+} from '@lib/ui-classes';
 import { createExtrasSchema } from '../../schemas/extras.schema';
 import {
   $discoveryForm,
@@ -72,7 +81,7 @@ export function ExtrasStepForm({ locale }: ExtrasStepFormProps) {
 
   return (
     <form className="space-y-6" noValidate onSubmit={handleContinue}>
-      <div className="space-y-5 rounded-xl border border-cdf-border/80 bg-white/75 p-5 shadow-sm backdrop-blur sm:p-6">
+      <div className={['space-y-5', stepCard].join(' ')}>
         <div className="space-y-2">
           <p className="text-sm font-medium text-cdf-ink">
             {messages.extrasStep.listenLabel}
@@ -103,10 +112,9 @@ export function ExtrasStepForm({ locale }: ExtrasStepFormProps) {
                   type="button"
                   aria-pressed={active}
                   className={[
-                    'rounded-md border px-3 py-2 text-left text-sm transition',
-                    active
-                      ? 'border-cdf-accent bg-cdf-accent/5 text-cdf-ink ring-1 ring-cdf-accent/25'
-                      : 'border-cdf-border bg-white text-cdf-ink hover:border-cdf-ink/25',
+                    'px-3 py-2 text-left text-sm',
+                    optionBase,
+                    active ? optionSelected : optionIdle,
                   ].join(' ')}
                   onClick={() => togglePrompt(prompt)}
                 >
@@ -159,17 +167,17 @@ export function ExtrasStepForm({ locale }: ExtrasStepFormProps) {
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className={[stepNav, 'justify-between'].join(' ')}>
         <button
           type="button"
-          className="inline-flex min-h-11 items-center justify-center rounded-md px-4 py-2.5 text-sm font-medium text-cdf-ink transition hover:bg-black/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent"
+          className={btnGhost}
           onClick={() => setCurrentStep('timeline-budget')}
         >
           {messages.common.back}
         </button>
         <button
           type="submit"
-          className="inline-flex min-h-11 min-w-36 items-center justify-center rounded-md bg-cdf-accent px-5 py-2.5 text-sm font-medium text-white transition hover:bg-cdf-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent disabled:opacity-60"
+          className={btnPrimary}
           disabled={form.status === 'validating'}
         >
           {messages.common.continue}

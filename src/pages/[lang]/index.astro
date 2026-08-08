@@ -23,19 +23,24 @@ const messages = getMessages(lang);
 >
   <section class="mx-auto flex min-h-[70dvh] max-w-2xl flex-col justify-center py-10">
     <div class="space-y-6">
-      <h1 class="font-display text-4xl leading-tight text-cdf-ink md:text-5xl">
-        {messages.home.headline}
-      </h1>
-      <p class="max-w-xl text-lg text-cdf-muted">
-        {messages.home.supporting}
+      <p class="font-display text-4xl leading-tight text-cdf-ink md:text-5xl">
+        {messages.meta.brandLabel}
       </p>
+      <div class="space-y-3">
+        <h1 class="max-w-xl text-xl font-medium leading-snug text-cdf-ink md:text-2xl">
+          {messages.home.headline}
+        </h1>
+        <p class="max-w-xl text-base leading-relaxed text-cdf-muted md:text-lg">
+          {messages.home.supporting}
+        </p>
+      </div>
       <div class="space-y-1 text-sm text-cdf-muted">
         <p>{messages.home.timeEstimate}</p>
         <p>{messages.home.nextStep}</p>
       </div>
       <a
         href={`/${lang}/formulario`}
-        class="inline-flex items-center justify-center rounded-md bg-cdf-accent px-5 py-3 text-sm font-medium text-white transition hover:bg-cdf-accent-hover"
+        class="inline-flex min-h-11 items-center justify-center rounded-md bg-cdf-accent px-5 py-3 text-sm font-medium text-white transition hover:bg-cdf-accent-hover"
       >
         {messages.common.startCta}
       </a>

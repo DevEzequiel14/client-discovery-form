@@ -1,6 +1,7 @@
 import { t } from '@i18n/index';
 import type { Messages } from '@i18n/types';
 import type { StepId } from '../types/steps';
+import { getStepPhase } from '../lib/step-phase';
 
 type StepProgressProps = {
   messages: Messages;
@@ -17,6 +18,7 @@ export function StepProgress({
 }: StepProgressProps) {
   const total = activeSteps.length;
   const percent = Math.round(((currentIndex + 1) / total) * 100);
+  const phase = getStepPhase(currentStepId);
 
   return (
     <div className="space-y-3" aria-label={messages.form.progressLabel}>
@@ -27,9 +29,7 @@ export function StepProgress({
             total,
           })}
         </p>
-        <p className="font-medium text-cdf-ink">
-          {messages.steps[currentStepId].title}
-        </p>
+        <p className="font-medium text-cdf-ink">{messages.form.phases[phase]}</p>
       </div>
       <div
         className="h-1.5 overflow-hidden rounded-full bg-cdf-border/70"

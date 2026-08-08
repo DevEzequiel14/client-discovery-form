@@ -3,6 +3,7 @@ import { useStore } from '@nanostores/react';
 import { FormField } from '@components/ui/FormField';
 import { RadioGroup } from '@components/ui/RadioGroup';
 import { getMessages, type Locale } from '@i18n/index';
+import { btnGhost, btnPrimary, stepCard, stepNav } from '@lib/ui-classes';
 import { zodErrorToFieldErrors } from '../../lib/field-errors';
 import { createTechnicalSchema } from '../../schemas/technical.schema';
 import {
@@ -133,7 +134,7 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
 
   return (
     <form className="space-y-6" noValidate onSubmit={handleContinue}>
-      <div className="space-y-6 rounded-xl border border-cdf-border/80 bg-white/75 p-5 shadow-sm backdrop-blur sm:p-6">
+      <div className={['space-y-6', stepCard].join(' ')}>
         <RadioGroup
           name="domainStatus"
           legend={messages.technicalStep.domainLegend}
@@ -333,17 +334,17 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
         />
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className={[stepNav, 'justify-between'].join(' ')}>
         <button
           type="button"
-          className="inline-flex min-h-11 items-center justify-center rounded-md px-4 py-2.5 text-sm font-medium text-cdf-ink transition hover:bg-black/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent"
+          className={btnGhost}
           onClick={() => setCurrentStep('design')}
         >
           {messages.common.back}
         </button>
         <button
           type="submit"
-          className="inline-flex min-h-11 min-w-36 items-center justify-center rounded-md bg-cdf-accent px-5 py-2.5 text-sm font-medium text-white transition hover:bg-cdf-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent disabled:opacity-60"
+          className={btnPrimary}
           disabled={form.status === 'validating'}
         >
           {messages.common.continue}
