@@ -9,7 +9,9 @@ export function createNeedsSchema(v: ValidationMessages) {
     expectedOutcome: z
       .string()
       .trim()
-      .min(10, v.minLength.replace('{min}', '10')),
+      .refine((val) => val === '' || val.length >= 10, {
+        message: v.minLength.replace('{min}', '10'),
+      }),
   });
 }
 

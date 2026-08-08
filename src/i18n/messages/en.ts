@@ -112,8 +112,7 @@ export const en: Messages = {
     },
     needs: {
       title: 'What do you need to solve?',
-      description:
-        'We start with your problem or goal. Then we look at the project type you imagine and the result you expect.',
+      description: '',
     },
     assets: {
       title: 'What materials do you already have?',
@@ -183,36 +182,35 @@ export const en: Messages = {
   },
   needsStep: {
     goalsPlaceholder:
-      'e.g. Today we rely on word of mouth and want a steady way to get inquiries…',
-    goalsHint:
-      'Describe the problem or opportunity. No need to talk about technology yet.',
+      'e.g. We get few web inquiries and mostly rely on word of mouth…',
+    goalsHint: 'In your own words. No need to talk about technology yet.',
     projectTypeLegend: 'What kind of project do you imagine?',
-    projectTypeHint: 'Pick the closest option. We can refine it together later.',
+    projectTypeHint: 'Pick the closest one. We can refine it later.',
     expectedOutcomePlaceholder:
-      'e.g. I want more qualified inquiries each month and a clear way to present my services…',
+      'e.g. More inquiries each month / sell online / organize orders…',
     expectedOutcomeHint:
-      'Think about the concrete result that would make you say “this worked”.',
+      'Optional. A concrete result that would make you say “this worked”.',
     savedMessage: 'Need captured. The next step will be available soon.',
     projectTypeOptions: {
       website: {
         label: 'Website',
-        description: 'Online presence, pages, and contact.',
+        description: 'Online presence and contact.',
       },
       webApp: {
         label: 'App or system',
-        description: 'Workflows, users, and information management.',
+        description: 'Workflows, users, and data.',
       },
       ecommerce: {
         label: 'Online store',
-        description: 'Catalog, payments, and online sales.',
+        description: 'Catalog, payments, and sales.',
       },
       redesign: {
         label: 'Redesign',
-        description: 'Improve an existing site or system.',
+        description: 'Improve something that already exists.',
       },
       other: {
         label: 'Other',
-        description: 'You are unsure or it is a mix.',
+        description: 'Not sure yet, or a mix.',
       },
     },
   },
@@ -423,8 +421,8 @@ export const en: Messages = {
     hasWebsite: 'Do you have a website?',
     website: 'Website URL',
     projectType: 'Project type',
-    goals: 'What do you want to achieve?',
-    expectedOutcome: 'What do you expect to get?',
+    goals: 'What problem or opportunity do you want to solve?',
+    expectedOutcome: 'How would you know the project worked?',
     logo: 'Logo',
     photos: 'Photographs',
     texts: 'Copy / texts',

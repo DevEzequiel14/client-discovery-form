@@ -114,8 +114,7 @@ export const es: Messages = {
     },
     needs: {
       title: '¿Qué necesitás resolver?',
-      description:
-        'Empezamos por tu problema u objetivo. Después vemos qué tipo de proyecto encaja y qué resultado esperás.',
+      description: '',
     },
     assets: {
       title: '¿Con qué materiales contás?',
@@ -186,37 +185,37 @@ export const es: Messages = {
   },
   needsStep: {
     goalsPlaceholder:
-      'Ej. Hoy dependemos del boca a boca y queremos captar consultas de forma constante…',
+      'Ej. Nos escriben poco por web y dependemos del boca a boca…',
     goalsHint:
-      'Contá el problema o la oportunidad. No hace falta hablar todavía de tecnología.',
+      'Contalo en tus palabras. Todavía no hace falta hablar de tecnología.',
     projectTypeLegend: '¿Qué tipo de proyecto imaginás?',
-    projectTypeHint: 'Elegí la opción más cercana. Después lo afinamos juntos.',
+    projectTypeHint: 'Elegí la más cercana. Después lo afinamos.',
     expectedOutcomePlaceholder:
-      'Ej. Quiero recibir más consultas calificadas por mes y mostrar mis servicios con claridad…',
+      'Ej. Recibir más consultas por mes / vender online / ordenar pedidos…',
     expectedOutcomeHint:
-      'Pensá en el resultado concreto que te haría decir “esto funcionó”.',
+      'Opcional. Un resultado concreto que te haría decir “esto funcionó”.',
     savedMessage:
       'Necesidad registrada. El siguiente paso estará disponible pronto.',
     projectTypeOptions: {
       website: {
         label: 'Sitio web',
-        description: 'Presencia online, páginas y contacto.',
+        description: 'Presencia online y contacto.',
       },
       webApp: {
         label: 'Aplicación o sistema',
-        description: 'Flujos, usuarios y gestión de información.',
+        description: 'Flujos, usuarios y datos.',
       },
       ecommerce: {
         label: 'Tienda online',
-        description: 'Catálogo, pagos y ventas por internet.',
+        description: 'Catálogo, pagos y ventas.',
       },
       redesign: {
         label: 'Rediseño',
-        description: 'Mejorar un sitio o sistema que ya existe.',
+        description: 'Mejorar algo que ya existe.',
       },
       other: {
         label: 'Otro',
-        description: 'Todavía no estás seguro o es una mezcla.',
+        description: 'No estoy seguro o es una mezcla.',
       },
     },
   },
@@ -432,8 +431,8 @@ export const es: Messages = {
     hasWebsite: '¿Tenés una página web?',
     website: 'URL del sitio',
     projectType: 'Tipo de proyecto',
-    goals: '¿Qué querés lograr?',
-    expectedOutcome: '¿Qué esperás obtener?',
+    goals: '¿Qué problema u oportunidad querés resolver?',
+    expectedOutcome: '¿Cómo sabrías que el proyecto funcionó?',
     logo: 'Logo',
     photos: 'Fotografías',
     texts: 'Textos',

@@ -101,7 +101,11 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
       return;
     }
 
-    const payload: NeedsData = result.data;
+    const payload: NeedsData = {
+      goals: result.data.goals,
+      projectType: result.data.projectType,
+      expectedOutcome: result.data.expectedOutcome,
+    };
     patchFormData(payload);
     setFieldErrors({});
     setErrors({});
@@ -109,9 +113,13 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
     completeStepAndGo('assets');
   }
 
+  const projectTypeHintId = errors.projectType
+    ? 'projectType-error'
+    : 'projectType-hint';
+
   return (
-    <form className="space-y-6" noValidate onSubmit={handleContinue}>
-      <div className={['space-y-6', stepCard].join(' ')}>
+    <form className="space-y-5" noValidate onSubmit={handleContinue}>
+      <div className={['space-y-5', stepCard].join(' ')}>
         <FormTextArea
           id="goals"
           name="goals"
@@ -121,8 +129,7 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
           hint={messages.needsStep.goalsHint}
           error={errors.goals}
           required
-          requiredLabel={messages.common.required}
-          rows={4}
+          rows={3}
           onChange={(event) => {
             setValues((current) => ({ ...current, goals: event.target.value }));
             clearError('goals');
@@ -133,11 +140,7 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
           className="flex flex-col gap-2"
           aria-required
           aria-invalid={errors.projectType ? true : false}
-          aria-describedby={
-            errors.projectType
-              ? 'projectType-error'
-              : 'projectType-hint'
-          }
+          aria-describedby={projectTypeHintId}
         >
           <legend className="text-sm font-medium text-cdf-ink">
             {messages.needsStep.projectTypeLegend}
@@ -146,6 +149,15 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
               *
             </span>
           </legend>
+
+          {!errors.projectType ? (
+            <p
+              id="projectType-hint"
+              className="text-xs leading-relaxed text-cdf-muted"
+            >
+              {messages.needsStep.projectTypeHint}
+            </p>
+          ) : null}
 
           <div className="grid gap-2">
             {PROJECT_TYPES.map((type) => {
@@ -196,14 +208,7 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
             })}
           </div>
 
-          {!errors.projectType ? (
-            <p
-              id="projectType-hint"
-              className="text-xs leading-relaxed text-cdf-muted"
-            >
-              {messages.needsStep.projectTypeHint}
-            </p>
-          ) : (
+          {errors.projectType ? (
             <p
               id="projectType-error"
               className="text-xs font-medium text-cdf-danger"
@@ -211,7 +216,7 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
             >
               {errors.projectType}
             </p>
-          )}
+          ) : null}
         </fieldset>
 
         <FormTextArea
@@ -222,9 +227,7 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
           placeholder={messages.needsStep.expectedOutcomePlaceholder}
           hint={messages.needsStep.expectedOutcomeHint}
           error={errors.expectedOutcome}
-          required
-          requiredLabel={messages.common.required}
-          rows={4}
+          rows={3}
           onChange={(event) => {
             setValues((current) => ({
               ...current,
