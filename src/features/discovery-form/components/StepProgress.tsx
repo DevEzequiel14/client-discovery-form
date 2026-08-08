@@ -19,8 +19,9 @@ export function StepProgress({
   const total = activeSteps.length;
   const percent = Math.round(((currentIndex + 1) / total) * 100);
   const phase = getStepPhase(currentStepId);
-  // Contact already has a clear H1; the phase label adds little there.
-  const showPhase = currentStepId !== 'contact';
+  // Single-step phases already match a clear H1; the label adds little.
+  const showPhase =
+    currentStepId !== 'contact' && currentStepId !== 'business';
 
   return (
     <div className="space-y-3" aria-label={messages.form.progressLabel}>

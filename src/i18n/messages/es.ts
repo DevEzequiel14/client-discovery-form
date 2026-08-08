@@ -110,8 +110,7 @@ export const es: Messages = {
     },
     business: {
       title: 'Contanos sobre tu negocio',
-      description:
-        'Con esta información entendemos el contexto de tu marca antes de hablar del proyecto.',
+      description: '',
     },
     needs: {
       title: '¿Qué necesitás resolver?',
@@ -163,11 +162,11 @@ export const es: Messages = {
   businessStep: {
     companyPlaceholder: 'Ej. Estudio Norte',
     industryPlaceholder: 'Seleccioná una industria',
-    industryHint: 'Elegí la que mejor represente tu actividad principal.',
+    industryHint: '',
     hasWebsiteLegend: '¿Tenés una página web?',
-    hasWebsiteHint: 'Si ya existe un sitio, pedimos la URL para revisarlo.',
+    hasWebsiteHint: 'Si ya tenés sitio, te pedimos la URL para revisarlo.',
     websitePlaceholder: 'https://www.ejemplo.com',
-    websiteHint: 'Incluí la URL completa, con https://',
+    websiteHint: 'URL completa, con https://',
     yes: 'Sí',
     no: 'No',
     savedMessage:

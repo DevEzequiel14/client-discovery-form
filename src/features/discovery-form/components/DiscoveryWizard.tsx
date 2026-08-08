@@ -67,7 +67,9 @@ export function DiscoveryWizard({ locale }: DiscoveryWizardProps) {
     <section
       className={[
         'mx-auto w-full',
-        stepId === 'contact' ? 'space-y-6' : 'space-y-8',
+        stepId === 'contact' || stepId === 'business'
+          ? 'space-y-6'
+          : 'space-y-8',
         stepId === 'review' ? 'max-w-2xl' : 'max-w-xl',
       ].join(' ')}
       aria-labelledby="active-step-title"

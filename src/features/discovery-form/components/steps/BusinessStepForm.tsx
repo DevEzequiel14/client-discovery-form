@@ -126,8 +126,8 @@ export function BusinessStepForm({ locale }: BusinessStepFormProps) {
   }));
 
   return (
-    <form className="space-y-6" noValidate onSubmit={handleContinue}>
-      <div className={['space-y-5', stepCard].join(' ')}>
+    <form className="space-y-5" noValidate onSubmit={handleContinue}>
+      <div className={['space-y-4', stepCard].join(' ')}>
         <FormField
           id="company"
           name="company"
@@ -137,7 +137,6 @@ export function BusinessStepForm({ locale }: BusinessStepFormProps) {
           placeholder={messages.businessStep.companyPlaceholder}
           error={errors.company}
           required
-          requiredLabel={messages.common.required}
           autoComplete="organization"
           onChange={(event) => {
             setValues((current) => ({
@@ -154,10 +153,8 @@ export function BusinessStepForm({ locale }: BusinessStepFormProps) {
           label={messages.fields.industry}
           value={values.industry}
           placeholder={messages.businessStep.industryPlaceholder}
-          hint={messages.businessStep.industryHint}
           error={errors.industry}
           required
-          requiredLabel={messages.common.required}
           options={industryOptions}
           onChange={(event) => {
             setValues((current) => ({
@@ -175,7 +172,6 @@ export function BusinessStepForm({ locale }: BusinessStepFormProps) {
           value={values.hasWebsite}
           error={errors.hasWebsite}
           required
-          requiredLabel={messages.common.required}
           options={[
             { value: 'yes', label: messages.businessStep.yes },
             { value: 'no', label: messages.businessStep.no },
@@ -202,7 +198,6 @@ export function BusinessStepForm({ locale }: BusinessStepFormProps) {
             hint={messages.businessStep.websiteHint}
             error={errors.website}
             required
-            requiredLabel={messages.common.required}
             autoComplete="url"
             inputMode="url"
             onChange={(event) => {

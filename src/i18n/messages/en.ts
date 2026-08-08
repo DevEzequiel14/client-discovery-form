@@ -108,8 +108,7 @@ export const en: Messages = {
     },
     business: {
       title: 'Tell us about your business',
-      description:
-        'This helps us understand your brand context before we talk about the project.',
+      description: '',
     },
     needs: {
       title: 'What do you need to solve?',
@@ -160,11 +159,11 @@ export const en: Messages = {
   businessStep: {
     companyPlaceholder: 'e.g. Norte Studio',
     industryPlaceholder: 'Select an industry',
-    industryHint: 'Choose the one that best matches your main activity.',
+    industryHint: '',
     hasWebsiteLegend: 'Do you have a website?',
-    hasWebsiteHint: 'If a site already exists, we ask for the URL to review it.',
+    hasWebsiteHint: 'If you already have a site, we ask for the URL to review it.',
     websitePlaceholder: 'https://www.example.com',
-    websiteHint: 'Include the full URL, with https://',
+    websiteHint: 'Full URL, with https://',
     yes: 'Yes',
     no: 'No',
     savedMessage:
