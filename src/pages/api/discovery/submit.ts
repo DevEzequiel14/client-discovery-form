@@ -2,6 +2,8 @@ import type { APIRoute } from 'astro';
 import { flattenError } from 'zod';
 import { getMessages, isLocale, type Locale } from '../../../i18n';
 import { createDiscoveryFormSchema } from '../../../features/discovery-form/schemas';
+import { persistDiscoverySubmission } from '../../../features/discovery-form/services/persist-discovery-submission';
+import { sendDiscoveryNotification } from '../../../features/discovery-form/services/send-discovery-notification';
 import {
   getServerEnv,
   hasEmailConfigured,
@@ -43,15 +45,58 @@ export const POST: APIRoute = async ({ request }) => {
 
   const submissionId = crypto.randomUUID();
   const env = getServerEnv();
+  const supabaseReady = hasSupabaseConfigured(env);
+  const emailReady = hasEmailConfigured(env);
 
-  // Persistence + email integrations are wired here when credentials exist.
-  // Until then, accept valid payloads so the wizard flow can be developed end-to-end.
-  if (hasSupabaseConfigured(env)) {
-    // TODO: insert into discovery_submissions with service role client
+  if (supabaseReady) {
+    const persisted = await persistDiscoverySubmission(env, {
+      submissionId,
+      locale,
+      data: parsed.data,
+    });
+
+    if (!persisted.ok) {
+      return json(
+        {
+          error: 'Failed to persist submission',
+          details: persisted.error,
+        },
+        500,
+      );
+    }
   }
 
-  if (hasEmailConfigured(env)) {
-    // TODO: send notification + optional client acknowledgement via Resend
+  if (emailReady) {
+    const notified = await sendDiscoveryNotification(env, {
+      submissionId,
+      locale,
+      data: parsed.data,
+    });
+
+    if (!notified.ok) {
+      // If we already saved to Supabase, keep the submission successful.
+      if (supabaseReady) {
+        console.error(
+          '[discovery.submit] email failed after persist',
+          notified.error,
+        );
+      } else {
+        return json(
+          {
+            error: 'Failed to send notification email',
+            details: notified.error,
+          },
+          500,
+        );
+      }
+    }
+  }
+
+  if (!supabaseReady && !emailReady) {
+    console.warn(
+      '[discovery.submit] accepted without Supabase/Resend credentials',
+      { submissionId, email: parsed.data.email },
+    );
   }
 
   console.info('[discovery.submit]', {
@@ -59,6 +104,8 @@ export const POST: APIRoute = async ({ request }) => {
     locale,
     email: parsed.data.email,
     projectType: parsed.data.projectType,
+    persisted: supabaseReady,
+    emailed: emailReady,
   });
 
   return json({ submissionId }, 201);

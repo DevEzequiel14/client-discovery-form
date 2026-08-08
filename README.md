@@ -29,6 +29,30 @@ npm run check
 
 Copia `.env.example` a `.env` y completa las claves cuando conectes Supabase/Resend.
 
+| Variable | Descripción |
+|----------|-------------|
+| `PUBLIC_SITE_URL` | URL pública del sitio |
+| `PUBLIC_SUPABASE_URL` | URL del proyecto Supabase |
+| `PUBLIC_SUPABASE_ANON_KEY` | Anon key (opcional en client; el insert usa service role) |
+| `SUPABASE_SERVICE_ROLE_KEY` | Service role (solo server; requerida para persistir) |
+| `RESEND_API_KEY` | API key de Resend |
+| `RESEND_FROM_EMAIL` | Remitente verificado en Resend |
+| `DISCOVERY_NOTIFY_EMAIL` | Tu correo para recibir cada lead |
+
+### Setup Supabase
+
+1. Creá un proyecto en [supabase.com](https://supabase.com) (plan free).
+2. Abrí **SQL Editor** y ejecutá el contenido de `supabase/schema.sql`.
+3. En **Project Settings → API**, copiá `URL` y `service_role` a tu `.env`.
+
+### Setup Resend
+
+1. Creá cuenta en [resend.com](https://resend.com) (plan free).
+2. Verificá un dominio (o usá el sandbox de prueba) y creá un API key.
+3. Completá `RESEND_API_KEY`, `RESEND_FROM_EMAIL` y `DISCOVERY_NOTIFY_EMAIL`.
+
+Sin estas claves el submit sigue aceptando payloads válidos (útil en desarrollo), pero no guarda ni notifica.
+
 ## Rutas
 
 | Ruta | Descripción |
@@ -73,4 +97,4 @@ npx vercel --prod
 
 ### Nota
 
-Supabase/Resend siguen opcionales: el formulario se puede usar y el submit valida aunque esas claves no estén.
+Supabase/Resend son opcionales en desarrollo: el submit valida igual sin claves. En producción conviene configurar ambos para no perder leads.

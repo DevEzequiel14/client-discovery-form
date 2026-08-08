@@ -59,8 +59,5 @@ export function hasEmailConfigured(env: ServerEnv): boolean {
 }
 
 export function hasSupabaseConfigured(env: ServerEnv): boolean {
-  return Boolean(
-    env.PUBLIC_SUPABASE_URL &&
-      (env.SUPABASE_SERVICE_ROLE_KEY || env.PUBLIC_SUPABASE_ANON_KEY),
-  );
+  return Boolean(env.PUBLIC_SUPABASE_URL && env.SUPABASE_SERVICE_ROLE_KEY);
 }
