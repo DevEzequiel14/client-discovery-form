@@ -37,7 +37,7 @@ export function ContactStep({
       <TextField
         name="phone"
         type="tel"
-        label={`${messages.fields.phone} (${messages.common.optional})`}
+        label={messages.fields.phone}
         value={value.phone ?? ''}
         error={errors.phone}
         autoComplete="tel"

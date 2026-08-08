@@ -123,14 +123,13 @@ export function DesignStepForm({ locale }: DesignStepFormProps) {
             errors.designStyle ? 'designStyle-error' : 'designStyle-hint'
           }
         >
-          <div className="flex flex-wrap items-baseline justify-between gap-2">
-            <legend className="text-sm font-medium text-cdf-ink">
-              {messages.designStep.styleLegend}
-            </legend>
-            <span className="text-xs font-medium text-cdf-muted">
-              {messages.common.required}
+          <legend className="text-sm font-medium text-cdf-ink">
+            {messages.designStep.styleLegend}
+            <span className="text-cdf-muted" aria-hidden="true">
+              {' '}
+              *
             </span>
-          </div>
+          </legend>
 
           <div className="grid gap-2">
             {DESIGN_STYLES.map((style) => {

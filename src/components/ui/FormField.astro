@@ -25,8 +25,6 @@ const {
   hint,
   error,
   required = false,
-  optionalLabel,
-  requiredLabel,
   autocomplete,
   inputmode,
 } = Astro.props;
@@ -38,21 +36,14 @@ const describedBy = [errorId, hintId].filter(Boolean).join(' ') || undefined;
 ---
 
 <div class="flex flex-col gap-1.5">
-  <div class="flex flex-wrap items-baseline justify-between gap-2">
-    <label for={id} class="text-sm font-medium text-cdf-ink">
-      {label}
-    </label>
+  <label for={id} class="text-sm font-medium text-cdf-ink">
+    {label}
     {
-      required && requiredLabel ? (
-        <span class="text-xs font-medium text-cdf-muted">{requiredLabel}</span>
+      required ? (
+        <span class="text-cdf-muted" aria-hidden="true"> *</span>
       ) : null
     }
-    {
-      !required && optionalLabel ? (
-        <span class="text-xs font-medium text-cdf-muted">{optionalLabel}</span>
-      ) : null
-    }
-  </div>
+  </label>
 
   <input
     id={id}

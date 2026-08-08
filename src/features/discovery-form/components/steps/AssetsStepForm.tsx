@@ -153,14 +153,13 @@ export function AssetsStepForm({ locale }: AssetsStepFormProps) {
                   error ? `${key}-error` : `${key}-hint`
                 }
               >
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <legend className="text-sm font-medium text-cdf-ink">
-                    {item.label}
-                  </legend>
-                  <span className="text-xs font-medium text-cdf-muted">
-                    {messages.common.required}
+                <legend className="text-sm font-medium text-cdf-ink">
+                  {item.label}
+                  <span className="text-cdf-muted" aria-hidden="true">
+                    {' '}
+                    *
                   </span>
-                </div>
+                </legend>
 
                 <div className="grid grid-cols-3 gap-2">
                   {readinessOptions.map((option) => {

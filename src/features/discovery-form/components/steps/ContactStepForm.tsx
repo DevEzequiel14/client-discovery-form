@@ -101,12 +101,12 @@ export function ContactStepForm({ locale }: ContactStepFormProps) {
 
   return (
     <form
-      className="space-y-6"
+      className="space-y-5"
       noValidate
       aria-describedby={privacyId}
       onSubmit={handleContinue}
     >
-      <div className={['space-y-5', stepCard].join(' ')}>
+      <div className={['space-y-4', stepCard].join(' ')}>
         <FormField
           id="fullName"
           name="fullName"
@@ -116,7 +116,6 @@ export function ContactStepForm({ locale }: ContactStepFormProps) {
           placeholder={messages.contactStep.fullNamePlaceholder}
           error={errors.fullName}
           required
-          requiredLabel={messages.common.required}
           autoComplete="name"
           inputMode="text"
           onChange={(event) => updateField('fullName', event.target.value)}
@@ -132,7 +131,6 @@ export function ContactStepForm({ locale }: ContactStepFormProps) {
           hint={messages.contactStep.emailHint}
           error={errors.email}
           required
-          requiredLabel={messages.common.required}
           autoComplete="email"
           inputMode="email"
           onChange={(event) => updateField('email', event.target.value)}
@@ -147,7 +145,6 @@ export function ContactStepForm({ locale }: ContactStepFormProps) {
           placeholder={messages.contactStep.phonePlaceholder}
           hint={messages.contactStep.phoneHint}
           error={errors.phone}
-          optionalLabel={messages.common.optional}
           autoComplete="tel"
           inputMode="tel"
           onChange={(event) => updateField('phone', event.target.value)}
@@ -155,7 +152,7 @@ export function ContactStepForm({ locale }: ContactStepFormProps) {
 
         <p
           id={privacyId}
-          className="border-t border-cdf-border/60 pt-4 text-xs leading-relaxed text-cdf-muted"
+          className="border-t border-cdf-border/60 pt-3.5 text-xs leading-relaxed text-cdf-muted"
         >
           {messages.contactStep.privacyNote}
         </p>

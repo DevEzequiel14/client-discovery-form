@@ -18,6 +18,7 @@ type RadioGroupProps = {
   value?: string;
   error?: string;
   required?: boolean;
+  /** @deprecated Required fields show an asterisk; this prop is ignored. */
   requiredLabel?: string;
   hint?: string;
   /** Prefer stack for longer conversational options. */
@@ -32,7 +33,7 @@ export function RadioGroup({
   value,
   error,
   required,
-  requiredLabel,
+  requiredLabel: _requiredLabel,
   hint,
   layout = 'grid',
   onChange,
@@ -50,14 +51,15 @@ export function RadioGroup({
       aria-invalid={error ? true : false}
       aria-describedby={describedBy}
     >
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <legend className="text-sm font-medium text-cdf-ink">{legend}</legend>
-        {required && requiredLabel ? (
-          <span className="text-xs font-medium text-cdf-muted">
-            {requiredLabel}
+      <legend className="text-sm font-medium text-cdf-ink">
+        {legend}
+        {required ? (
+          <span className="text-cdf-muted" aria-hidden="true">
+            {' '}
+            *
           </span>
         ) : null}
-      </div>
+      </legend>
 
       <div
         className={

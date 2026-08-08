@@ -126,17 +126,12 @@ export function ExtrasStepForm({ locale }: ExtrasStepFormProps) {
         </div>
 
         <div className="flex flex-col gap-2">
-          <div className="flex flex-wrap items-baseline justify-between gap-2">
-            <label
-              htmlFor="additionalNotes"
-              className="text-sm font-medium text-cdf-ink"
-            >
-              {messages.extrasStep.writeLabel}
-            </label>
-            <span className="text-xs font-medium text-cdf-muted">
-              {messages.common.optional}
-            </span>
-          </div>
+          <label
+            htmlFor="additionalNotes"
+            className="text-sm font-medium text-cdf-ink"
+          >
+            {messages.extrasStep.writeLabel}
+          </label>
 
           <textarea
             id="additionalNotes"

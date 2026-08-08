@@ -61,11 +61,13 @@ export function DiscoveryWizard({ locale }: DiscoveryWizardProps) {
   const stepId = resolveActiveStep(form.currentStepId);
   const stepIndex = ACTIVE_STEPS.indexOf(stepId);
   const step = messages.steps[stepId];
+  const stepDescription = step.description.trim();
 
   return (
     <section
       className={[
-        'mx-auto w-full space-y-8',
+        'mx-auto w-full',
+        stepId === 'contact' ? 'space-y-6' : 'space-y-8',
         stepId === 'review' ? 'max-w-2xl' : 'max-w-xl',
       ].join(' ')}
       aria-labelledby="active-step-title"
@@ -77,16 +79,18 @@ export function DiscoveryWizard({ locale }: DiscoveryWizardProps) {
         currentIndex={stepIndex}
       />
 
-      <header className="space-y-2">
+      <header className={stepDescription ? 'space-y-2' : undefined}>
         <h1
           id="active-step-title"
           className="font-display text-3xl leading-tight text-cdf-ink md:text-4xl"
         >
           {step.title}
         </h1>
-        <p className="max-w-prose text-base text-cdf-muted md:text-lg">
-          {step.description}
-        </p>
+        {stepDescription ? (
+          <p className="max-w-prose text-base text-cdf-muted md:text-lg">
+            {stepDescription}
+          </p>
+        ) : null}
       </header>
 
       {stepId === 'review' ? (

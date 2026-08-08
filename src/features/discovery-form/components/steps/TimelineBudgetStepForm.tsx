@@ -150,14 +150,13 @@ export function TimelineBudgetStepForm({
               : 'investmentRange-hint'
           }
         >
-          <div className="flex flex-wrap items-baseline justify-between gap-2">
-            <legend className="text-sm font-medium text-cdf-ink">
-              {messages.timelineBudgetStep.investmentLegend}
-            </legend>
-            <span className="text-xs font-medium text-cdf-muted">
-              {messages.common.required}
+          <legend className="text-sm font-medium text-cdf-ink">
+            {messages.timelineBudgetStep.investmentLegend}
+            <span className="text-cdf-muted" aria-hidden="true">
+              {' '}
+              *
             </span>
-          </div>
+          </legend>
 
           <p className="text-xs leading-relaxed text-cdf-muted">
             {messages.timelineBudgetStep.investmentIntro}

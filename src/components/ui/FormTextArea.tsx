@@ -9,7 +9,9 @@ type FormTextAreaProps = Omit<
   label: string;
   hint?: string;
   error?: string;
+  /** @deprecated Required fields show an asterisk; this prop is ignored. */
   requiredLabel?: string;
+  /** @deprecated Optional fields stay unmarked; this prop is ignored. */
   optionalLabel?: string;
 };
 
@@ -20,8 +22,8 @@ export function FormTextArea({
   hint,
   error,
   required,
-  requiredLabel,
-  optionalLabel,
+  requiredLabel: _requiredLabel,
+  optionalLabel: _optionalLabel,
   className = '',
   ...props
 }: FormTextAreaProps) {
@@ -33,21 +35,15 @@ export function FormTextArea({
 
   return (
     <div className="flex flex-col gap-1.5">
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <label htmlFor={id} className="text-sm font-medium text-cdf-ink">
-          {label}
-        </label>
-        {required && requiredLabel ? (
-          <span className="text-xs font-medium text-cdf-muted">
-            {requiredLabel}
+      <label htmlFor={id} className="text-sm font-medium text-cdf-ink">
+        {label}
+        {required ? (
+          <span className="text-cdf-muted" aria-hidden="true">
+            {' '}
+            *
           </span>
         ) : null}
-        {!required && optionalLabel ? (
-          <span className="text-xs font-medium text-cdf-muted">
-            {optionalLabel}
-          </span>
-        ) : null}
-      </div>
+      </label>
 
       <textarea
         id={id}

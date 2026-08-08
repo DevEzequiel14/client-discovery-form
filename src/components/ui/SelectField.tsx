@@ -16,6 +16,7 @@ type SelectFieldProps = Omit<
   placeholder?: string;
   hint?: string;
   error?: string;
+  /** @deprecated Required fields show an asterisk; this prop is ignored. */
   requiredLabel?: string;
 };
 
@@ -28,7 +29,7 @@ export function SelectField({
   hint,
   error,
   required,
-  requiredLabel,
+  requiredLabel: _requiredLabel,
   className = '',
   value,
   ...props
@@ -41,16 +42,15 @@ export function SelectField({
 
   return (
     <div className="flex flex-col gap-1.5">
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <label htmlFor={id} className="text-sm font-medium text-cdf-ink">
-          {label}
-        </label>
-        {required && requiredLabel ? (
-          <span className="text-xs font-medium text-cdf-muted">
-            {requiredLabel}
+      <label htmlFor={id} className="text-sm font-medium text-cdf-ink">
+        {label}
+        {required ? (
+          <span className="text-cdf-muted" aria-hidden="true">
+            {' '}
+            *
           </span>
         ) : null}
-      </div>
+      </label>
 
       <select
         id={id}

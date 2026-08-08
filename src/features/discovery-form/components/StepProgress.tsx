@@ -19,17 +19,28 @@ export function StepProgress({
   const total = activeSteps.length;
   const percent = Math.round(((currentIndex + 1) / total) * 100);
   const phase = getStepPhase(currentStepId);
+  // Contact already has a clear H1; the phase label adds little there.
+  const showPhase = currentStepId !== 'contact';
 
   return (
     <div className="space-y-3" aria-label={messages.form.progressLabel}>
-      <div className="flex items-center justify-between gap-4 text-sm text-cdf-muted">
+      <div
+        className={[
+          'flex items-center gap-4 text-sm text-cdf-muted',
+          showPhase ? 'justify-between' : '',
+        ].join(' ')}
+      >
         <p>
           {t(messages.form.stepOf, {
             current: currentIndex + 1,
             total,
           })}
         </p>
-        <p className="font-medium text-cdf-ink">{messages.form.phases[phase]}</p>
+        {showPhase ? (
+          <p className="font-medium text-cdf-ink">
+            {messages.form.phases[phase]}
+          </p>
+        ) : null}
       </div>
       <div
         className="h-1.5 overflow-hidden rounded-full bg-cdf-border/70"

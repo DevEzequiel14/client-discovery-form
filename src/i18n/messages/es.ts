@@ -106,8 +106,7 @@ export const es: Messages = {
   steps: {
     contact: {
       title: '¿Cómo te contactamos?',
-      description:
-        'Solo necesitamos estos datos para responderte. No compartimos tu información.',
+      description: '',
     },
     business: {
       title: 'Contanos sobre tu negocio',
@@ -154,9 +153,10 @@ export const es: Messages = {
     fullNamePlaceholder: 'Ej. Ana Pérez',
     emailPlaceholder: 'ana@empresa.com',
     phonePlaceholder: '+54 9 11 1234-5678',
-    emailHint: 'Te escribimos a este correo con la respuesta.',
-    phoneHint: 'Si preferís que te contactemos por WhatsApp o llamada.',
-    privacyNote: 'Usamos estos datos únicamente para armarte el presupuesto.',
+    emailHint: 'Te respondemos por este correo.',
+    phoneHint: 'Si preferís WhatsApp o llamada.',
+    privacyNote:
+      'Solo usamos estos datos para responderte y armarte el presupuesto. No los compartimos.',
     savedMessage:
       'Datos guardados. El siguiente paso estará disponible pronto.',
   },
