@@ -127,14 +127,21 @@ export type Messages = {
     };
   };
   assetsStep: {
-    matrixLegend: string;
-    matrixHint: string;
     helpLegend: string;
     helpHint: string;
     savedMessage: string;
-    readiness: {
-      ready: string;
-      partial: string;
+    logoOptions: {
+      yes: string;
+      no: string;
+    };
+    contentOptions: {
+      all: string;
+      some: string;
+      none: string;
+    };
+    styleOptions: {
+      defined: string;
+      ideas: string;
       none: string;
     };
     items: {
@@ -142,7 +149,6 @@ export type Messages = {
       photos: { label: string; hint: string };
       texts: { label: string; hint: string };
       visualIdentity: { label: string; hint: string };
-      brandManual: { label: string; hint: string };
     };
   };
   designStep: {
@@ -256,7 +262,6 @@ export type Messages = {
     photos: string;
     texts: string;
     visualIdentity: string;
-    brandManual: string;
     needsContentHelp: string;
     designStyle: string;
     referenceUrls: string;

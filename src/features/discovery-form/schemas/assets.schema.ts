@@ -1,17 +1,17 @@
 import { z } from 'zod';
-import { ASSET_READINESS } from '../types/steps';
+import {
+  BRAND_STYLE_STATUS,
+  CONTENT_AMOUNT,
+  LOGO_STATUS,
+} from '../types/steps';
 import type { ValidationMessages } from './messages';
-
-const readiness = (v: ValidationMessages) =>
-  z.enum(ASSET_READINESS, { error: v.required });
 
 export function createAssetsSchema(v: ValidationMessages) {
   return z.object({
-    logo: readiness(v),
-    photos: readiness(v),
-    texts: readiness(v),
-    visualIdentity: readiness(v),
-    brandManual: readiness(v),
+    logo: z.enum(LOGO_STATUS, { error: v.required }),
+    photos: z.enum(CONTENT_AMOUNT, { error: v.required }),
+    texts: z.enum(CONTENT_AMOUNT, { error: v.required }),
+    visualIdentity: z.enum(BRAND_STYLE_STATUS, { error: v.required }),
     needsContentHelp: z.enum(['yes', 'no'], { error: v.required }),
   });
 }

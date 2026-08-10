@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { useStore } from '@nanostores/react';
-import { RadioGroup } from '@components/ui/RadioGroup';
 import { getMessages, type Locale } from '@i18n/index';
 import {
   btnGhost,
@@ -26,9 +25,13 @@ import {
 import type { AssetsData } from '../../types/form';
 import {
   ASSET_KEYS,
-  ASSET_READINESS,
+  BRAND_STYLE_STATUS,
+  CONTENT_AMOUNT,
+  LOGO_STATUS,
   type AssetKey,
-  type AssetReadiness,
+  type BrandStyleStatus,
+  type ContentAmount,
+  type LogoStatus,
 } from '../../types/steps';
 
 type AssetsStepFormProps = {
@@ -37,25 +40,45 @@ type AssetsStepFormProps = {
 
 type AssetsField = keyof AssetsData;
 
-const FIELD_ORDER: AssetsField[] = [
-  ...ASSET_KEYS,
-  'needsContentHelp',
-];
+const FIELD_ORDER: AssetsField[] = [...ASSET_KEYS, 'needsContentHelp'];
+
+type AssetValue = LogoStatus | ContentAmount | BrandStyleStatus | '';
+
+function optionsForKey(
+  key: AssetKey,
+  messages: ReturnType<typeof getMessages>,
+): Array<{ value: string; label: string }> {
+  if (key === 'logo') {
+    return LOGO_STATUS.map((value) => ({
+      value,
+      label: messages.assetsStep.logoOptions[value],
+    }));
+  }
+
+  if (key === 'visualIdentity') {
+    return BRAND_STYLE_STATUS.map((value) => ({
+      value,
+      label: messages.assetsStep.styleOptions[value],
+    }));
+  }
+
+  return CONTENT_AMOUNT.map((value) => ({
+    value,
+    label: messages.assetsStep.contentOptions[value],
+  }));
+}
 
 export function AssetsStepForm({ locale }: AssetsStepFormProps) {
   const form = useStore($discoveryForm);
   const messages = getMessages(locale);
   const firstErrorRef = useRef<string | null>(null);
 
-  const [values, setValues] = useState<Record<AssetKey, AssetReadiness | ''> & {
-    needsContentHelp: 'yes' | 'no' | '';
-  }>({
-    logo: form.data.logo ?? '',
-    photos: form.data.photos ?? '',
-    texts: form.data.texts ?? '',
-    visualIdentity: form.data.visualIdentity ?? '',
-    brandManual: form.data.brandManual ?? '',
-    needsContentHelp: form.data.needsContentHelp ?? '',
+  const [values, setValues] = useState({
+    logo: (form.data.logo ?? '') as LogoStatus | '',
+    photos: (form.data.photos ?? '') as ContentAmount | '',
+    texts: (form.data.texts ?? '') as ContentAmount | '',
+    visualIdentity: (form.data.visualIdentity ?? '') as BrandStyleStatus | '',
+    needsContentHelp: (form.data.needsContentHelp ?? '') as 'yes' | 'no' | '',
   });
   const [errors, setErrors] = useState<Partial<Record<AssetsField, string>>>(
     {},
@@ -91,7 +114,6 @@ export function AssetsStepForm({ locale }: AssetsStepFormProps) {
       photos: values.photos || undefined,
       texts: values.texts || undefined,
       visualIdentity: values.visualIdentity || undefined,
-      brandManual: values.brandManual || undefined,
       needsContentHelp: values.needsContentHelp || undefined,
     });
 
@@ -106,52 +128,49 @@ export function AssetsStepForm({ locale }: AssetsStepFormProps) {
       }
 
       const firstError = FIELD_ORDER.find((field) => nextErrors[field]);
-      firstErrorRef.current = firstError
-        ? firstError === 'needsContentHelp'
-          ? 'needsContentHelp-yes'
-          : `${firstError}-ready`
-        : null;
+      if (firstError === 'needsContentHelp') {
+        firstErrorRef.current = 'needsContentHelp-yes';
+      } else if (firstError === 'logo') {
+        firstErrorRef.current = 'logo-yes';
+      } else if (firstError === 'visualIdentity') {
+        firstErrorRef.current = 'visualIdentity-defined';
+      } else if (firstError) {
+        firstErrorRef.current = `${firstError}-all`;
+      } else {
+        firstErrorRef.current = null;
+      }
+
       setErrors(nextErrors);
       setFieldErrors(fieldErrors);
       setFormStatus('idle');
       return;
     }
 
-    patchFormData(result.data);
+    const payload: AssetsData = result.data;
+    patchFormData(payload);
     setFieldErrors({});
     setErrors({});
     setFormStatus('idle');
     completeStepAndGo('design');
   }
 
-  const readinessOptions = ASSET_READINESS.map((value) => ({
-    value,
-    label: messages.assetsStep.readiness[value],
-  }));
-
   return (
-    <form className="space-y-6" noValidate onSubmit={handleContinue}>
-      <div className={['space-y-6', stepCard].join(' ')}>
-        <div className="space-y-1">
-          <p className="text-sm font-medium text-cdf-ink">
-            {messages.assetsStep.matrixLegend}
-          </p>
-          <p className="text-xs text-cdf-muted">{messages.assetsStep.matrixHint}</p>
-        </div>
-
+    <form className="space-y-5" noValidate onSubmit={handleContinue}>
+      <div className={['space-y-5', stepCard].join(' ')}>
         <div className="space-y-5">
           {ASSET_KEYS.map((key) => {
             const item = messages.assetsStep.items[key];
             const error = errors[key];
+            const options = optionsForKey(key, messages);
+            const cols =
+              options.length === 2 ? 'grid-cols-2' : 'grid-cols-3';
 
             return (
               <fieldset
                 key={key}
-                className="space-y-2 border-b border-cdf-border/50 pb-5 last:border-b-0 last:pb-0"
+                className="space-y-1 border-b border-cdf-border/50 pb-5 last:border-b-0 last:pb-0"
                 aria-invalid={error ? true : false}
-                aria-describedby={
-                  error ? `${key}-error` : `${key}-hint`
-                }
+                aria-describedby={error ? `${key}-error` : `${key}-hint`}
               >
                 <legend className="text-sm font-medium text-cdf-ink">
                   {item.label}
@@ -161,8 +180,14 @@ export function AssetsStepForm({ locale }: AssetsStepFormProps) {
                   </span>
                 </legend>
 
-                <div className="grid grid-cols-3 gap-2">
-                  {readinessOptions.map((option) => {
+                {!error && item.hint ? (
+                  <p id={`${key}-hint`} className="text-xs text-cdf-muted">
+                    {item.hint}
+                  </p>
+                ) : null}
+
+                <div className={['grid gap-2', cols].join(' ')}>
+                  {options.map((option) => {
                     const optionId = `${key}-${option.value}`;
                     const selected = values[key] === option.value;
 
@@ -177,9 +202,10 @@ export function AssetsStepForm({ locale }: AssetsStepFormProps) {
                             ? optionSelected
                             : error
                               ? optionError
-                              : [optionIdle, 'text-cdf-muted hover:text-cdf-ink'].join(
-                                  ' ',
-                                ),
+                              : [
+                                  optionIdle,
+                                  'text-cdf-muted hover:text-cdf-ink',
+                                ].join(' '),
                         ].join(' ')}
                       >
                         <input
@@ -192,7 +218,7 @@ export function AssetsStepForm({ locale }: AssetsStepFormProps) {
                           onChange={() => {
                             setValues((current) => ({
                               ...current,
-                              [key]: option.value,
+                              [key]: option.value as AssetValue,
                             }));
                             clearError(key);
                           }}
@@ -203,11 +229,7 @@ export function AssetsStepForm({ locale }: AssetsStepFormProps) {
                   })}
                 </div>
 
-                {!error ? (
-                  <p id={`${key}-hint`} className="text-xs text-cdf-muted">
-                    {item.hint}
-                  </p>
-                ) : (
+                {error ? (
                   <p
                     id={`${key}-error`}
                     className="text-xs font-medium text-cdf-danger"
@@ -215,32 +237,98 @@ export function AssetsStepForm({ locale }: AssetsStepFormProps) {
                   >
                     {error}
                   </p>
-                )}
+                ) : null}
               </fieldset>
             );
           })}
         </div>
 
-        <RadioGroup
-          name="needsContentHelp"
-          legend={messages.assetsStep.helpLegend}
-          hint={messages.assetsStep.helpHint}
-          value={values.needsContentHelp}
-          error={errors.needsContentHelp}
-          required
-          requiredLabel={messages.common.required}
-          options={[
-            { value: 'yes', label: messages.businessStep.yes },
-            { value: 'no', label: messages.businessStep.no },
-          ]}
-          onChange={(value) => {
-            setValues((current) => ({
-              ...current,
-              needsContentHelp: value as 'yes' | 'no',
-            }));
-            clearError('needsContentHelp');
-          }}
-        />
+        <fieldset
+          className="space-y-1"
+          aria-required
+          aria-invalid={errors.needsContentHelp ? true : false}
+          aria-describedby={
+            errors.needsContentHelp
+              ? 'needsContentHelp-error'
+              : 'needsContentHelp-hint'
+          }
+        >
+          <legend className="text-sm font-medium text-cdf-ink">
+            {messages.assetsStep.helpLegend}
+            <span className="text-cdf-muted" aria-hidden="true">
+              {' '}
+              *
+            </span>
+          </legend>
+
+          {!errors.needsContentHelp ? (
+            <p
+              id="needsContentHelp-hint"
+              className="text-xs leading-relaxed text-cdf-muted"
+            >
+              {messages.assetsStep.helpHint}
+            </p>
+          ) : null}
+
+          <div className="grid grid-cols-2 gap-2">
+            {(
+              [
+                { value: 'yes', label: messages.businessStep.yes },
+                { value: 'no', label: messages.businessStep.no },
+              ] as const
+            ).map((option) => {
+              const optionId = `needsContentHelp-${option.value}`;
+              const selected = values.needsContentHelp === option.value;
+              const error = errors.needsContentHelp;
+
+              return (
+                <label
+                  key={option.value}
+                  htmlFor={optionId}
+                  className={[
+                    'flex cursor-pointer items-center justify-center px-2 py-2.5 text-center text-xs font-medium sm:text-sm',
+                    optionBase,
+                    selected
+                      ? optionSelected
+                      : error
+                        ? optionError
+                        : [
+                            optionIdle,
+                            'text-cdf-muted hover:text-cdf-ink',
+                          ].join(' '),
+                  ].join(' ')}
+                >
+                  <input
+                    id={optionId}
+                    type="radio"
+                    name="needsContentHelp"
+                    value={option.value}
+                    checked={selected}
+                    className="sr-only"
+                    onChange={() => {
+                      setValues((current) => ({
+                        ...current,
+                        needsContentHelp: option.value,
+                      }));
+                      clearError('needsContentHelp');
+                    }}
+                  />
+                  {option.label}
+                </label>
+              );
+            })}
+          </div>
+
+          {errors.needsContentHelp ? (
+            <p
+              id="needsContentHelp-error"
+              className="text-xs font-medium text-cdf-danger"
+              role="alert"
+            >
+              {errors.needsContentHelp}
+            </p>
+          ) : null}
+        </fieldset>
       </div>
 
       <div className={[stepNav, 'justify-between'].join(' ')}>

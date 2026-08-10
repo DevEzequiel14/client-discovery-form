@@ -69,7 +69,8 @@ export function DiscoveryWizard({ locale }: DiscoveryWizardProps) {
         'mx-auto w-full',
         stepId === 'contact' ||
         stepId === 'business' ||
-        stepId === 'needs'
+        stepId === 'needs' ||
+        stepId === 'assets'
           ? 'space-y-6'
           : 'space-y-8',
         stepId === 'review' ? 'max-w-2xl' : 'max-w-xl',

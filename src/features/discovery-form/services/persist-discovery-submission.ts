@@ -34,7 +34,8 @@ export async function persistDiscoverySubmission(
     photos: data.photos,
     texts: data.texts,
     visual_identity: data.visualIdentity,
-    brand_manual: data.brandManual,
+    // Column kept for existing DBs; form no longer collects a brand manual.
+    brand_manual: 'none',
     needs_content_help: data.needsContentHelp,
     design_style: data.designStyle,
     reference_urls: data.referenceUrls,

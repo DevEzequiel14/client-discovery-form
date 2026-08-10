@@ -115,9 +115,8 @@ export const en: Messages = {
       description: '',
     },
     assets: {
-      title: 'What materials do you already have?',
-      description:
-        'This shows how ready you are to produce and whether you need help with content and brand.',
+      title: 'What do you already have ready for the project?',
+      description: '',
     },
     design: {
       title: 'What visual style are you after?',
@@ -215,37 +214,41 @@ export const en: Messages = {
     },
   },
   assetsStep: {
-    matrixLegend: 'Status of each asset',
-    matrixHint: 'Choose the option closest to your current situation.',
-    helpLegend: 'Would you like help creating or completing what’s missing?',
+    helpLegend:
+      'If you’re missing any of the above, would you like help putting it together?',
     helpHint:
-      'If you prefer to focus on your business, we can handle content and brand.',
+      'No problem if you don’t have everything ready. We can help with what’s missing.',
     savedMessage: 'Assets recorded. The next step will be available soon.',
-    readiness: {
-      ready: 'Ready',
-      partial: 'Partial',
-      none: 'Don’t have',
+    logoOptions: {
+      yes: 'Yes',
+      no: 'No',
+    },
+    contentOptions: {
+      all: 'I have it all',
+      some: 'I have some',
+      none: 'I don’t have any',
+    },
+    styleOptions: {
+      defined: 'I have them',
+      ideas: 'I have ideas',
+      none: 'Not yet',
     },
     items: {
       logo: {
-        label: 'Logo',
-        hint: 'A usable file (SVG, PNG, or AI), not just a cropped photo.',
+        label: 'Do you have a logo?',
+        hint: 'A usable file (PNG, SVG, or similar), not just a cropped photo.',
       },
       photos: {
-        label: 'Photographs',
-        hint: 'Original images of the business, products, or team.',
+        label: 'Photos of the business, products, or team',
+        hint: 'Original images you can use on the site.',
       },
       texts: {
-        label: 'Copy / texts',
-        hint: 'Service copy, about text, benefits, or offers.',
+        label: 'Texts (services, about, benefits…)',
+        hint: 'Even drafts or notes in WhatsApp count.',
       },
       visualIdentity: {
-        label: 'Visual identity',
-        hint: 'Defined colors, typography, or visual style.',
-      },
-      brandManual: {
-        label: 'Brand guidelines',
-        hint: 'A document with brand usage rules.',
+        label: 'Colors and fonts',
+        hint: 'If you already have brand colors, a preferred typeface, or know the font name.',
       },
     },
   },
@@ -426,8 +429,7 @@ export const en: Messages = {
     logo: 'Logo',
     photos: 'Photographs',
     texts: 'Copy / texts',
-    visualIdentity: 'Visual identity',
-    brandManual: 'Brand guidelines',
+    visualIdentity: 'Colors and fonts',
     needsContentHelp: 'Help with materials',
     designStyle: 'Visual style',
     referenceUrls: 'Reference pages or sites',

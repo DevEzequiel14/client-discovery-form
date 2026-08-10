@@ -117,9 +117,8 @@ export const es: Messages = {
       description: '',
     },
     assets: {
-      title: '¿Con qué materiales contás?',
-      description:
-        'Esto nos dice cuánto hay listo para producir y si hace falta acompañarte en contenidos y marca.',
+      title: '¿Qué tenés listo para el proyecto?',
+      description: '',
     },
     design: {
       title: '¿Qué estilo visual buscás?',
@@ -220,38 +219,41 @@ export const es: Messages = {
     },
   },
   assetsStep: {
-    matrixLegend: 'Estado de cada material',
-    matrixHint: 'Marcá la opción más cercana a tu situación actual.',
-    helpLegend: '¿Querés que te ayudemos a crear o completar lo que falte?',
+    helpLegend: 'Si te falta algo de lo anterior, ¿querés que te ayudemos a armarlo?',
     helpHint:
-      'Si preferís enfocarte en tu negocio, podemos encargarnos de contenidos y marca.',
+      'No pasa nada si no tenés todo listo. Podemos darte una mano con lo que haga falta.',
     savedMessage:
       'Materiales registrados. El siguiente paso estará disponible pronto.',
-    readiness: {
-      ready: 'Listo',
-      partial: 'Parcial',
+    logoOptions: {
+      yes: 'Sí',
+      no: 'No',
+    },
+    contentOptions: {
+      all: 'Tengo todo',
+      some: 'Tengo algo',
       none: 'No tengo',
+    },
+    styleOptions: {
+      defined: 'Los tengo',
+      ideas: 'Tengo ideas',
+      none: 'Todavía no',
     },
     items: {
       logo: {
-        label: 'Logo',
-        hint: 'Archivo usable (SVG, PNG o AI), no solo una foto recortada.',
+        label: '¿Tenés un logo?',
+        hint: 'Un archivo usable (PNG, SVG o similar), no solo una foto recortada.',
       },
       photos: {
-        label: 'Fotografías',
-        hint: 'Imágenes propias del negocio, productos o equipo.',
+        label: 'Fotos del negocio, productos o equipo',
+        hint: 'Imágenes propias que se puedan usar en el sitio.',
       },
       texts: {
-        label: 'Textos',
-        hint: 'Copy de servicios, acerca de, beneficios o propuestas.',
+        label: 'Textos (servicios, acerca de, beneficios…)',
+        hint: 'Aunque estén en borrador o en WhatsApp, cuenta.',
       },
       visualIdentity: {
-        label: 'Identidad visual',
-        hint: 'Colores, tipografías o estilo visual definidos.',
-      },
-      brandManual: {
-        label: 'Manual de marca',
-        hint: 'Documento con reglas de uso de la marca.',
+        label: 'Colores y tipografías',
+        hint: 'Si ya tenés colores definidos, una tipografía preferida o sabés el nombre de la letra.',
       },
     },
   },
@@ -436,8 +438,7 @@ export const es: Messages = {
     logo: 'Logo',
     photos: 'Fotografías',
     texts: 'Textos',
-    visualIdentity: 'Identidad visual',
-    brandManual: 'Manual de marca',
+    visualIdentity: 'Colores y tipografías',
     needsContentHelp: 'Ayuda con materiales',
     designStyle: 'Estilo visual',
     referenceUrls: 'Páginas o sitios de referencia',

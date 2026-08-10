@@ -22,16 +22,23 @@ export const PROJECT_TYPES = [
 
 export type ProjectType = (typeof PROJECT_TYPES)[number];
 
-export const ASSET_READINESS = ['ready', 'partial', 'none'] as const;
+/** Logo: binary — you have a usable file or you don't. */
+export const LOGO_STATUS = ['yes', 'no'] as const;
+export type LogoStatus = (typeof LOGO_STATUS)[number];
 
-export type AssetReadiness = (typeof ASSET_READINESS)[number];
+/** Photos / texts: how much material is ready. */
+export const CONTENT_AMOUNT = ['all', 'some', 'none'] as const;
+export type ContentAmount = (typeof CONTENT_AMOUNT)[number];
+
+/** Colors & fonts: defined, some ideas, or nothing yet. */
+export const BRAND_STYLE_STATUS = ['defined', 'ideas', 'none'] as const;
+export type BrandStyleStatus = (typeof BRAND_STYLE_STATUS)[number];
 
 export const ASSET_KEYS = [
   'logo',
   'photos',
   'texts',
   'visualIdentity',
-  'brandManual',
 ] as const;
 
 export type AssetKey = (typeof ASSET_KEYS)[number];

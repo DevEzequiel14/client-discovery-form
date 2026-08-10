@@ -19,21 +19,21 @@ export function formatDiscoveryFieldValue(
     ];
   }
 
-  if (key === 'hasWebsite' || key === 'needsContentHelp') {
+  if (key === 'hasWebsite' || key === 'needsContentHelp' || key === 'logo') {
     return value === 'yes'
       ? messages.businessStep.yes
       : messages.businessStep.no;
   }
 
-  if (
-    key === 'logo' ||
-    key === 'photos' ||
-    key === 'texts' ||
-    key === 'visualIdentity' ||
-    key === 'brandManual'
-  ) {
-    return messages.assetsStep.readiness[
-      value as keyof typeof messages.assetsStep.readiness
+  if (key === 'photos' || key === 'texts') {
+    return messages.assetsStep.contentOptions[
+      value as keyof typeof messages.assetsStep.contentOptions
+    ];
+  }
+
+  if (key === 'visualIdentity') {
+    return messages.assetsStep.styleOptions[
+      value as keyof typeof messages.assetsStep.styleOptions
     ];
   }
 

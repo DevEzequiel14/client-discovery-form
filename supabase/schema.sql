@@ -26,7 +26,8 @@ create table if not exists public.discovery_submissions (
   photos text not null,
   texts text not null,
   visual_identity text not null,
-  brand_manual text not null,
+  -- Legacy column: form no longer asks for a brand manual (inserts 'none').
+  brand_manual text not null default 'none',
   needs_content_help text not null,
 
   design_style text not null,

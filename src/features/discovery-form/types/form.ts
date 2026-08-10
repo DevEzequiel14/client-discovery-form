@@ -1,11 +1,13 @@
 import type {
   AssetKey,
-  AssetReadiness,
+  BrandStyleStatus,
+  ContentAmount,
   CorporateEmailStatus,
   DesignStyle,
   DomainStatus,
   HostingStatus,
   InvestmentRange,
+  LogoStatus,
   ProjectType,
   SiteRole,
   TimelineOption,
@@ -32,11 +34,11 @@ export type NeedsData = {
 };
 
 export type AssetsData = {
-  logo: AssetReadiness;
-  photos: AssetReadiness;
-  texts: AssetReadiness;
-  visualIdentity: AssetReadiness;
-  brandManual: AssetReadiness;
+  logo: LogoStatus;
+  photos: ContentAmount;
+  texts: ContentAmount;
+  /** Colors / fonts — not a formal brand system. */
+  visualIdentity: BrandStyleStatus;
   needsContentHelp: 'yes' | 'no';
 };
 
