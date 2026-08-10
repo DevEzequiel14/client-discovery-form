@@ -122,8 +122,7 @@ export const es: Messages = {
     },
     design: {
       title: '¿Qué estilo visual buscás?',
-      description:
-        'Sin hablar de colores: queremos entender referencias, dirección estética y gustos.',
+      description: '',
     },
     technical: {
       title: 'Algunos detalles prácticos',
@@ -259,15 +258,22 @@ export const es: Messages = {
   },
   designStep: {
     styleLegend: '¿Qué estilo se acerca más a lo que imaginás?',
-    styleHint: 'Elegí la dirección general. Después lo afinamos con referencias.',
+    styleHint: 'Elegí la dirección general. Después lo afinamos juntos.',
+    styleNoteLabel: 'Contanos un poco más',
+    styleNotePlaceholder:
+      'Ej. Una mezcla de limpio y con personalidad, o algo que no encaja en las opciones…',
+    styleNoteHint: 'Opcional. Cualquier detalle que nos ayude a entenderlo.',
+    hasReferencesLegend: '¿Tenés alguna página o sitio de referencia?',
+    hasReferencesHint:
+      'Si hay sitios que te gusten, los usamos como punto de partida.',
+    yes: 'Sí',
+    no: 'No',
     urlsPlaceholder:
       'https://ejemplo.com\nhttps://otra-referencia.com/pagina',
-    urlsHint:
-      'Pegá una o más URLs de sitios o páginas que te gusten (una por línea).',
+    urlsHint: 'Pegá una o más URLs (una por línea).',
     tastePlaceholder:
-      'Ej. Me gusta lo limpio y con buena tipografía. Prefiero evitar diseños cargados o muy corporativos…',
-    tasteHint:
-      'Contá qué te gusta, qué evitarías y la sensación que debería transmitir.',
+      'Ej. Me gusta lo limpio y claro. Prefiero evitar diseños cargados o muy corporativos…',
+    tasteHint: 'Opcional. Qué te gusta, qué evitarías o la sensación que buscás.',
     savedMessage:
       'Estilo registrado. El siguiente paso estará disponible pronto.',
     styleOptions: {
@@ -276,28 +282,16 @@ export const es: Messages = {
         description: 'Espacio, claridad y pocos elementos.',
       },
       modern: {
-        label: 'Moderno',
-        description: 'Actual, limpio y con buen ritmo visual.',
+        label: 'Moderno / impactante',
+        description: 'Actual, limpio o con mucha personalidad.',
       },
       classic: {
-        label: 'Clásico',
-        description: 'Sobrio, ordenado y atemporal.',
-      },
-      bold: {
-        label: 'Impactante',
-        description: 'Fuerte, expresivo y con mucha personalidad.',
-      },
-      elegant: {
-        label: 'Elegante',
-        description: 'Refinado, premium y cuidado en los detalles.',
+        label: 'Clásico / elegante',
+        description: 'Sobrio, atemporal y cuidado en los detalles.',
       },
       friendly: {
         label: 'Cercano',
         description: 'Cálido, accesible y fácil de recorrer.',
-      },
-      editorial: {
-        label: 'Editorial',
-        description: 'Enfocado en tipografía, lectura y composición.',
       },
       other: {
         label: 'Otro / mezcla',
@@ -441,8 +435,10 @@ export const es: Messages = {
     visualIdentity: 'Colores y tipografías',
     needsContentHelp: 'Ayuda con materiales',
     designStyle: 'Estilo visual',
+    designStyleNote: 'Detalle del estilo',
+    hasReferences: '¿Tenés referencias?',
     referenceUrls: 'Páginas o sitios de referencia',
-    designTaste: 'Gustos y preferencias',
+    designTaste: '¿Hay algo que te guste o quieras evitar?',
     domainStatus: 'Dominio',
     domainName: 'Nombre del dominio',
     hostingStatus: 'Lugar para hospedar el sitio',

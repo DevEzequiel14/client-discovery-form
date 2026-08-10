@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { FormTextArea } from '@components/ui/FormTextArea';
+import { RadioGroup } from '@components/ui/RadioGroup';
 import { getMessages, type Locale } from '@i18n/index';
 import {
   btnGhost,
@@ -25,7 +26,11 @@ import {
   setFormStatus,
 } from '../../stores/discovery-form.store';
 import type { DesignData } from '../../types/form';
-import { DESIGN_STYLES, type DesignStyle } from '../../types/steps';
+import {
+  DESIGN_STYLES,
+  type DesignStyle,
+  type HasReferences,
+} from '../../types/steps';
 
 type DesignStepFormProps = {
   locale: Locale;
@@ -35,6 +40,8 @@ type DesignField = keyof DesignData;
 
 const FIELD_ORDER: DesignField[] = [
   'designStyle',
+  'designStyleNote',
+  'hasReferences',
   'referenceUrls',
   'designTaste',
 ];
@@ -46,6 +53,8 @@ export function DesignStepForm({ locale }: DesignStepFormProps) {
 
   const [values, setValues] = useState({
     designStyle: (form.data.designStyle ?? '') as DesignStyle | '',
+    designStyleNote: form.data.designStyleNote ?? '',
+    hasReferences: (form.data.hasReferences ?? '') as HasReferences | '',
     referenceUrls: form.data.referenceUrls ?? '',
     designTaste: form.data.designTaste ?? '',
   });
@@ -80,6 +89,8 @@ export function DesignStepForm({ locale }: DesignStepFormProps) {
     const schema = createDesignSchema(messages.validation);
     const result = schema.safeParse({
       designStyle: values.designStyle || undefined,
+      designStyleNote: values.designStyleNote,
+      hasReferences: values.hasReferences || undefined,
       referenceUrls: values.referenceUrls,
       designTaste: values.designTaste,
     });
@@ -98,30 +109,55 @@ export function DesignStepForm({ locale }: DesignStepFormProps) {
       firstErrorRef.current =
         firstError === 'designStyle'
           ? `designStyle-${DESIGN_STYLES[0]}`
-          : (firstError ?? null);
+          : firstError === 'hasReferences'
+            ? 'hasReferences-yes'
+            : (firstError ?? null);
       setErrors(nextErrors);
       setFieldErrors(fieldErrors);
       setFormStatus('idle');
       return;
     }
 
-    patchFormData(result.data);
+    const payload: DesignData = {
+      designStyle: result.data.designStyle,
+      designStyleNote:
+        result.data.designStyle === 'other'
+          ? result.data.designStyleNote
+          : undefined,
+      hasReferences: result.data.hasReferences,
+      referenceUrls:
+        result.data.hasReferences === 'yes'
+          ? result.data.referenceUrls
+          : undefined,
+      designTaste: result.data.designTaste,
+    };
+
+    patchFormData({
+      ...payload,
+      designStyleNote:
+        payload.designStyle === 'other' ? (payload.designStyleNote ?? '') : '',
+      referenceUrls:
+        payload.hasReferences === 'yes' ? (payload.referenceUrls ?? '') : '',
+      designTaste: payload.designTaste ?? '',
+    });
     setFieldErrors({});
     setErrors({});
     setFormStatus('idle');
     completeStepAndGo('technical');
   }
 
+  const styleHintId = errors.designStyle
+    ? 'designStyle-error'
+    : 'designStyle-hint';
+
   return (
-    <form className="space-y-6" noValidate onSubmit={handleContinue}>
-      <div className={['space-y-6', stepCard].join(' ')}>
+    <form className="space-y-5" noValidate onSubmit={handleContinue}>
+      <div className={['space-y-4', stepCard].join(' ')}>
         <fieldset
           className="flex flex-col gap-2"
           aria-required
           aria-invalid={errors.designStyle ? true : false}
-          aria-describedby={
-            errors.designStyle ? 'designStyle-error' : 'designStyle-hint'
-          }
+          aria-describedby={styleHintId}
         >
           <legend className="text-sm font-medium text-cdf-ink">
             {messages.designStep.styleLegend}
@@ -130,6 +166,15 @@ export function DesignStepForm({ locale }: DesignStepFormProps) {
               *
             </span>
           </legend>
+
+          {!errors.designStyle ? (
+            <p
+              id="designStyle-hint"
+              className="text-xs leading-relaxed text-cdf-muted"
+            >
+              {messages.designStep.styleHint}
+            </p>
+          ) : null}
 
           <div className="grid gap-2">
             {DESIGN_STYLES.map((style) => {
@@ -163,8 +208,11 @@ export function DesignStepForm({ locale }: DesignStepFormProps) {
                       setValues((current) => ({
                         ...current,
                         designStyle: style,
+                        designStyleNote:
+                          style === 'other' ? current.designStyleNote : '',
                       }));
                       clearError('designStyle');
+                      if (style !== 'other') clearError('designStyleNote');
                     }}
                   />
                   <span className="min-w-0">
@@ -180,14 +228,7 @@ export function DesignStepForm({ locale }: DesignStepFormProps) {
             })}
           </div>
 
-          {!errors.designStyle ? (
-            <p
-              id="designStyle-hint"
-              className="text-xs leading-relaxed text-cdf-muted"
-            >
-              {messages.designStep.styleHint}
-            </p>
-          ) : (
+          {errors.designStyle ? (
             <p
               id="designStyle-error"
               className="text-xs font-medium text-cdf-danger"
@@ -195,29 +236,72 @@ export function DesignStepForm({ locale }: DesignStepFormProps) {
             >
               {errors.designStyle}
             </p>
-          )}
+          ) : null}
         </fieldset>
 
-        <FormTextArea
-          id="referenceUrls"
-          name="referenceUrls"
-          label={messages.fields.referenceUrls}
-          value={values.referenceUrls}
-          placeholder={messages.designStep.urlsPlaceholder}
-          hint={messages.designStep.urlsHint}
-          error={errors.referenceUrls}
+        {values.designStyle === 'other' ? (
+          <FormTextArea
+            id="designStyleNote"
+            name="designStyleNote"
+            label={messages.designStep.styleNoteLabel}
+            value={values.designStyleNote}
+            placeholder={messages.designStep.styleNotePlaceholder}
+            hint={messages.designStep.styleNoteHint}
+            error={errors.designStyleNote}
+            rows={3}
+            onChange={(event) => {
+              setValues((current) => ({
+                ...current,
+                designStyleNote: event.target.value,
+              }));
+              clearError('designStyleNote');
+            }}
+          />
+        ) : null}
+
+        <RadioGroup
+          name="hasReferences"
+          legend={messages.designStep.hasReferencesLegend}
+          hint={messages.designStep.hasReferencesHint}
+          value={values.hasReferences}
+          error={errors.hasReferences}
           required
-          requiredLabel={messages.common.required}
-          rows={4}
-          inputMode="url"
-          onChange={(event) => {
+          options={[
+            { value: 'yes', label: messages.designStep.yes },
+            { value: 'no', label: messages.designStep.no },
+          ]}
+          onChange={(value) => {
             setValues((current) => ({
               ...current,
-              referenceUrls: event.target.value,
+              hasReferences: value as HasReferences,
+              referenceUrls: value === 'no' ? '' : current.referenceUrls,
             }));
-            clearError('referenceUrls');
+            clearError('hasReferences');
+            if (value === 'no') clearError('referenceUrls');
           }}
         />
+
+        {values.hasReferences === 'yes' ? (
+          <FormTextArea
+            id="referenceUrls"
+            name="referenceUrls"
+            label={messages.fields.referenceUrls}
+            value={values.referenceUrls}
+            placeholder={messages.designStep.urlsPlaceholder}
+            hint={messages.designStep.urlsHint}
+            error={errors.referenceUrls}
+            required
+            rows={3}
+            inputMode="url"
+            onChange={(event) => {
+              setValues((current) => ({
+                ...current,
+                referenceUrls: event.target.value,
+              }));
+              clearError('referenceUrls');
+            }}
+          />
+        ) : null}
 
         <FormTextArea
           id="designTaste"
@@ -227,9 +311,7 @@ export function DesignStepForm({ locale }: DesignStepFormProps) {
           placeholder={messages.designStep.tastePlaceholder}
           hint={messages.designStep.tasteHint}
           error={errors.designTaste}
-          required
-          requiredLabel={messages.common.required}
-          rows={4}
+          rows={3}
           onChange={(event) => {
             setValues((current) => ({
               ...current,

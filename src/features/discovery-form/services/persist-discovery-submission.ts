@@ -38,8 +38,10 @@ export async function persistDiscoverySubmission(
     brand_manual: 'none',
     needs_content_help: data.needsContentHelp,
     design_style: data.designStyle,
-    reference_urls: data.referenceUrls,
-    design_taste: data.designTaste,
+    // has_references + design_style_note live in payload; denormalized columns
+    // appear in schema.sql (run ALTER on existing DBs if you want them as columns).
+    reference_urls: data.referenceUrls ?? '',
+    design_taste: data.designTaste ?? '',
     domain_status: data.domainStatus,
     domain_name: data.domainName ?? null,
     hosting_status: data.hostingStatus,

@@ -5,6 +5,7 @@ import type {
   CorporateEmailStatus,
   DesignStyle,
   DomainStatus,
+  HasReferences,
   HostingStatus,
   InvestmentRange,
   LogoStatus,
@@ -44,8 +45,11 @@ export type AssetsData = {
 
 export type DesignData = {
   designStyle: DesignStyle;
-  referenceUrls: string;
-  designTaste: string;
+  /** Optional note when style is `other`, or extra nuance. */
+  designStyleNote?: string;
+  hasReferences: HasReferences;
+  referenceUrls?: string;
+  designTaste?: string;
 };
 
 export type TechnicalData = {

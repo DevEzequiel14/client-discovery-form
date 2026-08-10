@@ -1,25 +1,58 @@
 import { z } from 'zod';
-import { DESIGN_STYLES } from '../types/steps';
+import { DESIGN_STYLES, HAS_REFERENCES_OPTIONS } from '../types/steps';
 import type { ValidationMessages } from './messages';
 
+function hasValidReferenceToken(value: string): boolean {
+  return value
+    .split(/\n|,/)
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .some((part) => z.url().safeParse(part).success || part.includes('.'));
+}
+
 export function createDesignSchema(v: ValidationMessages) {
-  return z.object({
-    designStyle: z.enum(DESIGN_STYLES, { error: v.required }),
-    referenceUrls: z
-      .string()
-      .trim()
-      .min(5, v.required)
-      .refine(
-        (value) =>
-          value
-            .split(/\n|,/)
-            .map((part) => part.trim())
-            .filter(Boolean)
-            .some((part) => z.url().safeParse(part).success || part.includes('.')),
-        v.urlInvalid,
-      ),
-    designTaste: z.string().trim().min(10, v.minLength.replace('{min}', '10')),
-  });
+  return z
+    .object({
+      designStyle: z.enum(DESIGN_STYLES, { error: v.required }),
+      designStyleNote: z
+        .string()
+        .trim()
+        .transform((value) => (value.length === 0 ? undefined : value))
+        .optional(),
+      hasReferences: z.enum(HAS_REFERENCES_OPTIONS, { error: v.required }),
+      referenceUrls: z
+        .string()
+        .trim()
+        .transform((value) => (value.length === 0 ? undefined : value))
+        .optional(),
+      designTaste: z
+        .string()
+        .trim()
+        .refine((val) => val === '' || val.length >= 10, {
+          message: v.minLength.replace('{min}', '10'),
+        })
+        .transform((value) => (value.length === 0 ? undefined : value)),
+    })
+    .superRefine((data, ctx) => {
+      if (data.hasReferences !== 'yes') return;
+
+      if (!data.referenceUrls) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['referenceUrls'],
+          message: v.required,
+        });
+        return;
+      }
+
+      if (!hasValidReferenceToken(data.referenceUrls)) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['referenceUrls'],
+          message: v.urlInvalid,
+        });
+      }
+    });
 }
 
 export type DesignSchema = ReturnType<typeof createDesignSchema>;

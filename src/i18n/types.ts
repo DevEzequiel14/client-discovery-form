@@ -154,6 +154,13 @@ export type Messages = {
   designStep: {
     styleLegend: string;
     styleHint: string;
+    styleNoteLabel: string;
+    styleNotePlaceholder: string;
+    styleNoteHint: string;
+    hasReferencesLegend: string;
+    hasReferencesHint: string;
+    yes: string;
+    no: string;
     urlsPlaceholder: string;
     urlsHint: string;
     tastePlaceholder: string;
@@ -163,10 +170,7 @@ export type Messages = {
       minimal: { label: string; description: string };
       modern: { label: string; description: string };
       classic: { label: string; description: string };
-      bold: { label: string; description: string };
-      elegant: { label: string; description: string };
       friendly: { label: string; description: string };
-      editorial: { label: string; description: string };
       other: { label: string; description: string };
     };
   };
@@ -264,6 +268,8 @@ export type Messages = {
     visualIdentity: string;
     needsContentHelp: string;
     designStyle: string;
+    designStyleNote: string;
+    hasReferences: string;
     referenceUrls: string;
     designTaste: string;
     domainStatus: string;

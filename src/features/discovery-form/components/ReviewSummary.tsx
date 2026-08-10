@@ -23,7 +23,7 @@ const reviewFields: Array<{
     stepId: 'assets',
     keys: [...ASSET_KEYS, 'needsContentHelp'],
   },
-  { stepId: 'design', keys: ['designStyle', 'referenceUrls', 'designTaste'] },
+  { stepId: 'design', keys: ['designStyle', 'designStyleNote', 'hasReferences', 'referenceUrls', 'designTaste'] },
   {
     stepId: 'technical',
     keys: [

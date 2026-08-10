@@ -19,7 +19,7 @@ export function formatDiscoveryFieldValue(
     ];
   }
 
-  if (key === 'hasWebsite' || key === 'needsContentHelp' || key === 'logo') {
+  if (key === 'hasWebsite' || key === 'needsContentHelp' || key === 'logo' || key === 'hasReferences') {
     return value === 'yes'
       ? messages.businessStep.yes
       : messages.businessStep.no;

@@ -20,14 +20,16 @@ export function DesignStep({
 }: DesignStepProps) {
   return (
     <div className="grid gap-4">
-      <FormTextArea
-        id="referenceUrls"
-        name="referenceUrls"
-        label={messages.fields.referenceUrls}
-        value={value.referenceUrls ?? ''}
-        error={errors.referenceUrls}
-        onChange={(event) => onChange({ referenceUrls: event.target.value })}
-      />
+      {value.hasReferences === 'yes' ? (
+        <FormTextArea
+          id="referenceUrls"
+          name="referenceUrls"
+          label={messages.fields.referenceUrls}
+          value={value.referenceUrls ?? ''}
+          error={errors.referenceUrls}
+          onChange={(event) => onChange({ referenceUrls: event.target.value })}
+        />
+      ) : null}
       <FormTextArea
         id="designTaste"
         name="designTaste"

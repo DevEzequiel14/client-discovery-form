@@ -61,6 +61,12 @@ export function RadioGroup({
         ) : null}
       </legend>
 
+      {showHint ? (
+        <p id={hintId} className="text-xs leading-relaxed text-cdf-muted">
+          {hint}
+        </p>
+      ) : null}
+
       <div
         className={
           layout === 'stack' ? 'grid gap-2' : 'grid gap-2 sm:grid-cols-2'
@@ -99,12 +105,6 @@ export function RadioGroup({
           );
         })}
       </div>
-
-      {showHint ? (
-        <p id={hintId} className="text-xs leading-relaxed text-cdf-muted">
-          {hint}
-        </p>
-      ) : null}
 
       {error ? (
         <p

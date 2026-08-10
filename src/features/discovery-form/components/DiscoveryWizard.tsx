@@ -70,7 +70,8 @@ export function DiscoveryWizard({ locale }: DiscoveryWizardProps) {
         stepId === 'contact' ||
         stepId === 'business' ||
         stepId === 'needs' ||
-        stepId === 'assets'
+        stepId === 'assets' ||
+        stepId === 'design'
           ? 'space-y-6'
           : 'space-y-8',
         stepId === 'review' ? 'max-w-2xl' : 'max-w-xl',

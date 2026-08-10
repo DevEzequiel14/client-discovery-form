@@ -31,8 +31,10 @@ create table if not exists public.discovery_submissions (
   needs_content_help text not null,
 
   design_style text not null,
-  reference_urls text not null,
-  design_taste text not null,
+  has_references text not null,
+  reference_urls text not null default '',
+  design_taste text not null default '',
+  design_style_note text,
 
   domain_status text not null,
   domain_name text,
@@ -71,3 +73,13 @@ alter table public.discovery_submissions enable row level security;
 
 -- No policies for anon/authenticated: inserts go through the service role key
 -- from the Astro API route (bypasses RLS).
+
+-- Existing DBs created before design-step simplification:
+-- alter table public.discovery_submissions
+--   add column if not exists has_references text not null default 'no';
+-- alter table public.discovery_submissions
+--   add column if not exists design_style_note text;
+-- alter table public.discovery_submissions
+--   alter column reference_urls set default '';
+-- alter table public.discovery_submissions
+--   alter column design_taste set default '';

@@ -120,8 +120,7 @@ export const en: Messages = {
     },
     design: {
       title: 'What visual style are you after?',
-      description:
-        'No color talk: we want references, aesthetic direction, and taste.',
+      description: '',
     },
     technical: {
       title: 'A few practical details',
@@ -254,15 +253,22 @@ export const en: Messages = {
   },
   designStep: {
     styleLegend: 'Which style feels closest to what you imagine?',
-    styleHint: 'Pick a general direction. We will refine it with references.',
+    styleHint: 'Pick a general direction. We will refine it together.',
+    styleNoteLabel: 'Tell us a bit more',
+    styleNotePlaceholder:
+      'e.g. A mix of clean and bold, or something that does not fit the options…',
+    styleNoteHint: 'Optional. Any detail that helps us understand.',
+    hasReferencesLegend: 'Do you have any reference pages or sites?',
+    hasReferencesHint:
+      'If there are sites you like, we use them as a starting point.',
+    yes: 'Yes',
+    no: 'No',
     urlsPlaceholder:
       'https://example.com\nhttps://another-reference.com/page',
-    urlsHint:
-      'Paste one or more URLs of sites or pages you like (one per line).',
+    urlsHint: 'Paste one or more URLs (one per line).',
     tastePlaceholder:
-      'e.g. I like clean layouts with strong typography. I prefer to avoid cluttered or overly corporate looks…',
-    tasteHint:
-      'Tell us what you like, what to avoid, and the feeling it should convey.',
+      'e.g. I like clean and clear layouts. I prefer to avoid cluttered or overly corporate looks…',
+    tasteHint: 'Optional. What you like, what to avoid, or the feeling you want.',
     savedMessage: 'Style captured. The next step will be available soon.',
     styleOptions: {
       minimal: {
@@ -270,28 +276,16 @@ export const en: Messages = {
         description: 'Space, clarity, and few elements.',
       },
       modern: {
-        label: 'Modern',
-        description: 'Current, clean, and visually paced.',
+        label: 'Modern / bold',
+        description: 'Current, clean, or full of personality.',
       },
       classic: {
-        label: 'Classic',
-        description: 'Sober, ordered, and timeless.',
-      },
-      bold: {
-        label: 'Bold',
-        description: 'Strong, expressive, and full of personality.',
-      },
-      elegant: {
-        label: 'Elegant',
-        description: 'Refined, premium, and detail-oriented.',
+        label: 'Classic / elegant',
+        description: 'Sober, timeless, and detail-oriented.',
       },
       friendly: {
         label: 'Friendly',
         description: 'Warm, approachable, and easy to browse.',
-      },
-      editorial: {
-        label: 'Editorial',
-        description: 'Focused on type, reading, and composition.',
       },
       other: {
         label: 'Other / mix',
@@ -432,8 +426,10 @@ export const en: Messages = {
     visualIdentity: 'Colors and fonts',
     needsContentHelp: 'Help with materials',
     designStyle: 'Visual style',
+    designStyleNote: 'Style detail',
+    hasReferences: 'Do you have references?',
     referenceUrls: 'Reference pages or sites',
-    designTaste: 'Taste and preferences',
+    designTaste: 'Anything you like or want to avoid?',
     domainStatus: 'Domain',
     domainName: 'Domain name',
     hostingStatus: 'Place to host the site',

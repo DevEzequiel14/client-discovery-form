@@ -29,6 +29,8 @@ const summaryFields: FieldKey[] = [
   ...ASSET_KEYS,
   'needsContentHelp',
   'designStyle',
+  'designStyleNote',
+  'hasReferences',
   'referenceUrls',
   'designTaste',
   'domainStatus',

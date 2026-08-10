@@ -47,14 +47,14 @@ export const DESIGN_STYLES = [
   'minimal',
   'modern',
   'classic',
-  'bold',
-  'elegant',
   'friendly',
-  'editorial',
   'other',
 ] as const;
 
 export type DesignStyle = (typeof DESIGN_STYLES)[number];
+
+export const HAS_REFERENCES_OPTIONS = ['yes', 'no'] as const;
+export type HasReferences = (typeof HAS_REFERENCES_OPTIONS)[number];
 
 export const DOMAIN_STATUS = ['yes', 'buying', 'no', 'unsure'] as const;
 export type DomainStatus = (typeof DOMAIN_STATUS)[number];
