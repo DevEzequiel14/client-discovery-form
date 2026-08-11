@@ -73,7 +73,8 @@ export function DiscoveryWizard({ locale }: DiscoveryWizardProps) {
         stepId === 'assets' ||
         stepId === 'design' ||
         stepId === 'technical' ||
-        stepId === 'timeline-budget'
+        stepId === 'timeline-budget' ||
+        stepId === 'extras'
           ? 'space-y-6'
           : 'space-y-8',
         stepId === 'review' ? 'max-w-2xl' : 'max-w-xl',

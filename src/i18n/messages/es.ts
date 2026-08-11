@@ -133,9 +133,8 @@ export const es: Messages = {
       description: '',
     },
     extras: {
-      title: 'Antes de cerrar…',
-      description:
-        'Si hay algo que no preguntamos y que cambia cómo entendemos tu proyecto — una restricción, una idea, una preocupación o un detalle que te importa — contanos acá. Lo leemos con atención.',
+      title: '¿Algo más?',
+      description: '',
     },
     review: {
       title: 'Revisá tu información',
@@ -351,42 +350,24 @@ export const es: Messages = {
     },
   },
   extrasStep: {
-    listenLabel: 'Nos interesa especialmente si podés contar…',
-    listenPoints: [
-      'Algo que no entró en las preguntas anteriores',
-      'Una restricción, fecha o contexto que cambia el enfoque',
-      'Cómo imaginás el resultado o qué te preocupa evitar',
-    ],
-    promptsLabel: 'Si te sirve, empezá por uno de estos temas',
-    promptsHint: 'Tocá una idea para abrir el hilo. Podés sumar más de una.',
-    writeLabel: 'Escribí con tus palabras',
-    writePlaceholder:
-      'Por ejemplo: “Tenemos un evento en octubre y necesitamos estar online antes…”, “Ya intentamos con otra web y no funcionó porque…”, “Lo más importante para mí es…”',
-    writeHint:
-      'No hace falta que sea perfecto. Si no hay nada más, podés continuar igual.',
-    readingNote: 'Gracias: esto lo leemos al armar tu propuesta.',
+    promptsLabel: 'Si te ayuda:',
+    writeLabel: '¿Hay algo que debamos saber?',
+    writePlaceholder: 'Ej. Necesitamos estar online antes de octubre…',
+    writeHint: 'Opcional. Si no hay nada más, podés seguir.',
     savedMessage:
       'Gracias por contarnos. El siguiente paso estará disponible pronto.',
     prompts: {
       deadline: {
-        label: 'Hay una fecha o evento importante',
-        seed: 'Fecha o evento importante:',
-      },
-      priorWork: {
-        label: 'Ya tengo experiencia previa con esto',
-        seed: 'Experiencia previa / web actual:',
+        label: 'Fecha o evento',
+        seed: 'Fecha o evento: ',
       },
       mustHave: {
-        label: 'Hay algo que no puede faltar',
-        seed: 'No puede faltar:',
+        label: 'No puede faltar',
+        seed: 'No puede faltar: ',
       },
       concern: {
-        label: 'Tengo una duda o preocupación',
-        seed: 'Duda o preocupación:',
-      },
-      vision: {
-        label: 'Quiero contar cómo imagino el resultado',
-        seed: 'Cómo imagino el resultado:',
+        label: 'Duda o preocupación',
+        seed: 'Duda o preocupación: ',
       },
     },
   },

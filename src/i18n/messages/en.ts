@@ -131,9 +131,8 @@ export const en: Messages = {
       description: '',
     },
     extras: {
-      title: 'Before we wrap up…',
-      description:
-        'If there is something we did not ask that changes how we understand your project — a constraint, an idea, a concern, or a detail that matters to you — tell us here. We read it carefully.',
+      title: 'Anything else?',
+      description: '',
     },
     review: {
       title: 'Review your information',
@@ -342,41 +341,23 @@ export const en: Messages = {
     },
   },
   extrasStep: {
-    listenLabel: 'We especially care if you can share…',
-    listenPoints: [
-      'Something that did not fit the earlier questions',
-      'A constraint, date, or context that changes the approach',
-      'How you picture the outcome, or what you want to avoid',
-    ],
-    promptsLabel: 'If it helps, start with one of these topics',
-    promptsHint: 'Tap an idea to open the thread. You can add more than one.',
-    writeLabel: 'Write in your own words',
-    writePlaceholder:
-      'For example: “We have an event in October and need to be online before…”, “We tried another site and it did not work because…”, “What matters most to me is…”',
-    writeHint:
-      'It does not need to be perfect. If there is nothing else, you can continue anyway.',
-    readingNote: 'Thank you—we read this when shaping your proposal.',
+    promptsLabel: 'If it helps:',
+    writeLabel: 'Is there anything else we should know?',
+    writePlaceholder: 'E.g. We need to be online before October…',
+    writeHint: 'Optional. If there is nothing else, you can continue.',
     savedMessage: 'Thanks for sharing. The next step will be available soon.',
     prompts: {
       deadline: {
-        label: 'There is an important date or event',
-        seed: 'Important date or event:',
-      },
-      priorWork: {
-        label: 'I already have prior experience with this',
-        seed: 'Prior experience / current site:',
+        label: 'Date or event',
+        seed: 'Date or event: ',
       },
       mustHave: {
-        label: 'Something cannot be missing',
-        seed: 'Must not be missing:',
+        label: 'Must not be missing',
+        seed: 'Must not be missing: ',
       },
       concern: {
-        label: 'I have a doubt or concern',
-        seed: 'Doubt or concern:',
-      },
-      vision: {
-        label: 'I want to describe the outcome I imagine',
-        seed: 'How I picture the outcome:',
+        label: 'Doubt or concern',
+        seed: 'Doubt or concern: ',
       },
     },
   },

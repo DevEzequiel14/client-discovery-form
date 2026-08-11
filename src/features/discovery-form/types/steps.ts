@@ -92,11 +92,5 @@ export const INVESTMENT_RANGES = [
 ] as const;
 export type InvestmentRange = (typeof INVESTMENT_RANGES)[number];
 
-export const NOTE_PROMPTS = [
-  'deadline',
-  'priorWork',
-  'mustHave',
-  'concern',
-  'vision',
-] as const;
+export const NOTE_PROMPTS = ['deadline', 'mustHave', 'concern'] as const;
 export type NotePrompt = (typeof NOTE_PROMPTS)[number];

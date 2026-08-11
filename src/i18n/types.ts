@@ -223,21 +223,15 @@ export type Messages = {
     };
   };
   extrasStep: {
-    listenLabel: string;
-    listenPoints: [string, string, string];
     promptsLabel: string;
-    promptsHint: string;
     writeLabel: string;
     writePlaceholder: string;
     writeHint: string;
-    readingNote: string;
     savedMessage: string;
     prompts: {
       deadline: { label: string; seed: string };
-      priorWork: { label: string; seed: string };
       mustHave: { label: string; seed: string };
       concern: { label: string; seed: string };
-      vision: { label: string; seed: string };
     };
   };
   fields: {
