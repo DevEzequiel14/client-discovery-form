@@ -46,20 +46,10 @@ export const es: Messages = {
     },
   },
   reviewStep: {
-    hint: 'Revisá cada bloque. Si algo no está bien, podés editarlo y volvés acá.',
-    sectionLabel: 'Sección {n}',
-    emptyExtras: 'No agregaste notas adicionales.',
-    trustTitle: 'Estás a un paso de enviarnos tu proyecto',
-    trustBody:
-      'Con esta información armamos una propuesta a medida. Si algo quedó incompleto o cambió, mejor corregirlo ahora.',
-    nextTitle: 'Qué pasa después de enviar',
-    nextPoints: [
-      'Recibimos tu solicitud y la revisamos con calma',
-      'Te escribimos con los próximos pasos o preguntas puntuales',
-      'No hay compromiso: este envío no es un contrato',
-    ],
+    hint: 'Si algo no está bien, editalo y volvés acá.',
+    afterSend: 'Después de enviar, te escribimos con los próximos pasos. No hay compromiso.',
     privacyNote:
-      'Usamos estos datos únicamente para responderte y preparar tu propuesta.',
+      'Usamos estos datos solo para responderte y preparar tu propuesta.',
   },
   thanks: {
     eyebrow: 'Recibido con éxito',
@@ -138,8 +128,7 @@ export const es: Messages = {
     },
     review: {
       title: 'Revisá tu información',
-      description:
-        'Un último vistazo antes de enviar. Así nos aseguramos de entender bien tu proyecto.',
+      description: '',
     },
   },
   contactStep: {

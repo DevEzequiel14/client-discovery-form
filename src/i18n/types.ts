@@ -43,12 +43,7 @@ export type Messages = {
   };
   reviewStep: {
     hint: string;
-    sectionLabel: string;
-    emptyExtras: string;
-    trustTitle: string;
-    trustBody: string;
-    nextTitle: string;
-    nextPoints: [string, string, string];
+    afterSend: string;
     privacyNote: string;
   };
   thanks: {

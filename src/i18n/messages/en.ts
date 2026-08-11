@@ -46,18 +46,9 @@ export const en: Messages = {
     },
   },
   reviewStep: {
-    hint: 'Review each block. If something is off, you can edit it and come back here.',
-    sectionLabel: 'Section {n}',
-    emptyExtras: 'You did not add extra notes.',
-    trustTitle: 'You are one step away from sending your project',
-    trustBody:
-      'With this information we prepare a tailored proposal. If anything is incomplete or has changed, it is better to fix it now.',
-    nextTitle: 'What happens after you send',
-    nextPoints: [
-      'We receive your request and review it carefully',
-      'We write back with next steps or a few focused questions',
-      'No commitment: sending this is not a contract',
-    ],
+    hint: 'If something is off, edit it and come back here.',
+    afterSend:
+      'After you send, we write back with next steps. No commitment.',
     privacyNote:
       'We use this information only to reply and prepare your proposal.',
   },
@@ -136,8 +127,7 @@ export const en: Messages = {
     },
     review: {
       title: 'Review your information',
-      description:
-        'One last look before sending. This helps us understand your project clearly.',
+      description: '',
     },
   },
   contactStep: {

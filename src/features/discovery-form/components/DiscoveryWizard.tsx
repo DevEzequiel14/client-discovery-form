@@ -66,17 +66,7 @@ export function DiscoveryWizard({ locale }: DiscoveryWizardProps) {
   return (
     <section
       className={[
-        'mx-auto w-full',
-        stepId === 'contact' ||
-        stepId === 'business' ||
-        stepId === 'needs' ||
-        stepId === 'assets' ||
-        stepId === 'design' ||
-        stepId === 'technical' ||
-        stepId === 'timeline-budget' ||
-        stepId === 'extras'
-          ? 'space-y-6'
-          : 'space-y-8',
+        'mx-auto w-full space-y-6',
         stepId === 'review' ? 'max-w-2xl' : 'max-w-xl',
       ].join(' ')}
       aria-labelledby="active-step-title"
