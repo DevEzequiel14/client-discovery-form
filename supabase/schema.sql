@@ -36,12 +36,10 @@ create table if not exists public.discovery_submissions (
   design_taste text not null default '',
   design_style_note text,
 
-  domain_status text not null,
+  infra_status text not null,
   domain_name text,
-  hosting_status text not null,
   corporate_email_status text not null,
-  site_admin text not null,
-  site_updates text not null,
+  site_maintenance text not null,
 
   timeline text not null,
   investment_range text not null,
@@ -83,3 +81,11 @@ alter table public.discovery_submissions enable row level security;
 --   alter column reference_urls set default '';
 -- alter table public.discovery_submissions
 --   alter column design_taste set default '';
+
+-- Existing DBs created before technical-step simplification:
+-- alter table public.discovery_submissions
+--   add column if not exists infra_status text not null default 'unsure';
+-- alter table public.discovery_submissions
+--   add column if not exists site_maintenance text not null default 'undecided';
+-- Optional: drop legacy columns after backfill
+--   (domain_status, hosting_status, site_admin, site_updates).

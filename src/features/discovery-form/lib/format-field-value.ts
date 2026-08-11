@@ -43,15 +43,9 @@ export function formatDiscoveryFieldValue(
     ].label;
   }
 
-  if (key === 'domainStatus') {
-    return messages.technicalStep.domainOptions[
-      value as keyof typeof messages.technicalStep.domainOptions
-    ];
-  }
-
-  if (key === 'hostingStatus') {
-    return messages.technicalStep.hostingOptions[
-      value as keyof typeof messages.technicalStep.hostingOptions
+  if (key === 'infraStatus') {
+    return messages.technicalStep.infraOptions[
+      value as keyof typeof messages.technicalStep.infraOptions
     ];
   }
 
@@ -61,9 +55,9 @@ export function formatDiscoveryFieldValue(
     ];
   }
 
-  if (key === 'siteAdmin' || key === 'siteUpdates') {
-    return messages.technicalStep.roleOptions[
-      value as keyof typeof messages.technicalStep.roleOptions
+  if (key === 'siteMaintenance') {
+    return messages.technicalStep.maintenanceOptions[
+      value as keyof typeof messages.technicalStep.maintenanceOptions
     ];
   }
 

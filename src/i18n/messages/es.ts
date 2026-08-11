@@ -126,8 +126,7 @@ export const es: Messages = {
     },
     technical: {
       title: 'Algunos detalles prácticos',
-      description:
-        'Solo para entender cómo está hoy lo técnico y quién va a ocuparse del sitio después.',
+      description: '',
     },
     'timeline-budget': {
       title: 'Tiempos e inversión',
@@ -300,40 +299,33 @@ export const es: Messages = {
     },
   },
   technicalStep: {
-    domainLegend: '¿Ya tenés un dominio para el sitio?',
-    domainHint: 'Por ejemplo: tunegocio.com',
+    infraLegend: '¿Qué tenés hoy listo para el sitio?',
+    infraHint: 'Si no estás seguro, marcá esa opción; lo vemos juntos.',
     domainNamePlaceholder: 'tunegocio.com',
     domainNameHint: 'Escribilo sin https://, solo el nombre del dominio.',
-    hostingLegend: '¿Ya tenés un lugar donde hospedar el sitio?',
-    hostingHint: 'Si no estás seguro, no hay problema: marcá esa opción.',
-    emailLegend: '¿Usás o pensás usar correo con tu dominio?',
+    emailLegend: '¿Querés correo con el dominio?',
     emailHint: 'Por ejemplo: hola@tunegocio.com',
-    adminLegend: 'Cuando el sitio esté online, ¿quién se va a ocupar del día a día?',
-    adminHint: 'Publicar novedades, revisar mensajes o cosas simples del sitio.',
-    updatesLegend: 'Y para cambios o actualizaciones más adelante, ¿quién se encargaría?',
-    updatesHint: 'Textos, secciones nuevas o ajustes que puedan surgir con el tiempo.',
+    maintenanceLegend:
+      'Cuando el sitio esté online, ¿quién se ocuparía de mantenerlo y actualizarlo?',
+    maintenanceHint:
+      'Textos, novedades, ajustes o el cuidado del día a día.',
     savedMessage:
       'Detalles guardados. El siguiente paso estará disponible pronto.',
-    domainOptions: {
-      yes: 'Sí, ya lo tengo',
-      buying: 'Lo estoy comprando',
-      no: 'Todavía no',
-      unsure: 'No estoy seguro',
-    },
-    hostingOptions: {
-      yes: 'Sí, ya tengo',
-      no: 'Todavía no',
+    infraOptions: {
+      both: 'Dominio y hosting',
+      domainOnly: 'Solo dominio',
+      hostingOnly: 'Solo hosting',
+      none: 'Todavía nada',
       unsure: 'No estoy seguro',
     },
     emailOptions: {
-      yes: 'Sí, ya lo uso',
-      planning: 'Lo quiero configurar',
-      no: 'Por ahora no',
+      yes: 'Sí',
+      unsure: 'Todavía no lo sé',
+      no: 'No hace falta',
     },
-    roleOptions: {
-      myself: 'Yo',
-      team: 'Alguien de mi equipo',
-      external: 'Una persona externa',
+    maintenanceOptions: {
+      client: 'Yo o mi equipo',
+      agency: 'Ustedes',
       undecided: 'Todavía no lo definí',
     },
   },
@@ -439,12 +431,10 @@ export const es: Messages = {
     hasReferences: '¿Tenés referencias?',
     referenceUrls: 'Páginas o sitios de referencia',
     designTaste: '¿Hay algo que te guste o quieras evitar?',
-    domainStatus: 'Dominio',
+    infraStatus: 'Qué tenés hoy listo',
     domainName: 'Nombre del dominio',
-    hostingStatus: 'Lugar para hospedar el sitio',
     corporateEmailStatus: 'Correo con dominio',
-    siteAdmin: 'Quién se ocupa del día a día',
-    siteUpdates: 'Quién hace actualizaciones',
+    siteMaintenance: 'Quién mantiene y actualiza el sitio',
     timeline: 'Cuándo lo necesitás',
     investmentRange: 'Rango de inversión',
     additionalNotes: 'Lo que todavía no preguntamos',

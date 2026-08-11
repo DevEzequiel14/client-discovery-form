@@ -4,13 +4,12 @@ import type {
   ContentAmount,
   CorporateEmailStatus,
   DesignStyle,
-  DomainStatus,
   HasReferences,
-  HostingStatus,
+  InfraStatus,
   InvestmentRange,
   LogoStatus,
   ProjectType,
-  SiteRole,
+  SiteMaintenance,
   TimelineOption,
 } from './steps';
 import type { HasWebsite, Industry } from '../constants/industries';
@@ -53,12 +52,10 @@ export type DesignData = {
 };
 
 export type TechnicalData = {
-  domainStatus: DomainStatus;
+  infraStatus: InfraStatus;
   domainName?: string;
-  hostingStatus: HostingStatus;
   corporateEmailStatus: CorporateEmailStatus;
-  siteAdmin: SiteRole;
-  siteUpdates: SiteRole;
+  siteMaintenance: SiteMaintenance;
 };
 
 export type TimelineBudgetData = {

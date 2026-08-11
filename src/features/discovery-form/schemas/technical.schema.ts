@@ -1,30 +1,28 @@
 import { z } from 'zod';
 import {
   CORPORATE_EMAIL_STATUS,
-  DOMAIN_STATUS,
-  HOSTING_STATUS,
-  SITE_ROLE,
+  INFRA_STATUS,
+  SITE_MAINTENANCE,
+  infraIncludesDomain,
 } from '../types/steps';
 import type { ValidationMessages } from './messages';
 
 export function createTechnicalSchema(v: ValidationMessages) {
   return z
     .object({
-      domainStatus: z.enum(DOMAIN_STATUS, { error: v.required }),
+      infraStatus: z.enum(INFRA_STATUS, { error: v.required }),
       domainName: z
         .string()
         .trim()
         .transform((value) => (value.length === 0 ? undefined : value))
         .optional(),
-      hostingStatus: z.enum(HOSTING_STATUS, { error: v.required }),
       corporateEmailStatus: z.enum(CORPORATE_EMAIL_STATUS, {
         error: v.required,
       }),
-      siteAdmin: z.enum(SITE_ROLE, { error: v.required }),
-      siteUpdates: z.enum(SITE_ROLE, { error: v.required }),
+      siteMaintenance: z.enum(SITE_MAINTENANCE, { error: v.required }),
     })
     .superRefine((data, ctx) => {
-      if (data.domainStatus !== 'yes') return;
+      if (!infraIncludesDomain(data.infraStatus)) return;
       if (!data.domainName) {
         ctx.addIssue({
           code: 'custom',

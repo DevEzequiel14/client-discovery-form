@@ -56,17 +56,24 @@ export type DesignStyle = (typeof DESIGN_STYLES)[number];
 export const HAS_REFERENCES_OPTIONS = ['yes', 'no'] as const;
 export type HasReferences = (typeof HAS_REFERENCES_OPTIONS)[number];
 
-export const DOMAIN_STATUS = ['yes', 'buying', 'no', 'unsure'] as const;
-export type DomainStatus = (typeof DOMAIN_STATUS)[number];
+export const INFRA_STATUS = [
+  'both',
+  'domainOnly',
+  'hostingOnly',
+  'none',
+  'unsure',
+] as const;
+export type InfraStatus = (typeof INFRA_STATUS)[number];
 
-export const HOSTING_STATUS = ['yes', 'no', 'unsure'] as const;
-export type HostingStatus = (typeof HOSTING_STATUS)[number];
+export function infraIncludesDomain(status: InfraStatus): boolean {
+  return status === 'both' || status === 'domainOnly';
+}
 
-export const CORPORATE_EMAIL_STATUS = ['yes', 'planning', 'no'] as const;
+export const CORPORATE_EMAIL_STATUS = ['yes', 'unsure', 'no'] as const;
 export type CorporateEmailStatus = (typeof CORPORATE_EMAIL_STATUS)[number];
 
-export const SITE_ROLE = ['myself', 'team', 'external', 'undecided'] as const;
-export type SiteRole = (typeof SITE_ROLE)[number];
+export const SITE_MAINTENANCE = ['client', 'agency', 'undecided'] as const;
+export type SiteMaintenance = (typeof SITE_MAINTENANCE)[number];
 
 export const TIMELINE_OPTIONS = [
   'asap',

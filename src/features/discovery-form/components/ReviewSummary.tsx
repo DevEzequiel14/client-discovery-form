@@ -27,12 +27,10 @@ const reviewFields: Array<{
   {
     stepId: 'technical',
     keys: [
-      'domainStatus',
+      'infraStatus',
       'domainName',
-      'hostingStatus',
       'corporateEmailStatus',
-      'siteAdmin',
-      'siteUpdates',
+      'siteMaintenance',
     ],
   },
   {

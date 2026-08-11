@@ -16,11 +16,11 @@ import {
   setFormStatus,
 } from '../../stores/discovery-form.store';
 import type { TechnicalData } from '../../types/form';
-import type {
-  CorporateEmailStatus,
-  DomainStatus,
-  HostingStatus,
-  SiteRole,
+import {
+  infraIncludesDomain,
+  type CorporateEmailStatus,
+  type InfraStatus,
+  type SiteMaintenance,
 } from '../../types/steps';
 
 type TechnicalStepFormProps = {
@@ -30,12 +30,10 @@ type TechnicalStepFormProps = {
 type TechnicalField = keyof TechnicalData;
 
 const FIELD_ORDER: TechnicalField[] = [
-  'domainStatus',
+  'infraStatus',
   'domainName',
-  'hostingStatus',
   'corporateEmailStatus',
-  'siteAdmin',
-  'siteUpdates',
+  'siteMaintenance',
 ];
 
 export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
@@ -44,13 +42,11 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
   const firstErrorRef = useRef<string | null>(null);
 
   const [values, setValues] = useState({
-    domainStatus: (form.data.domainStatus ?? '') as DomainStatus | '',
+    infraStatus: (form.data.infraStatus ?? '') as InfraStatus | '',
     domainName: form.data.domainName ?? '',
-    hostingStatus: (form.data.hostingStatus ?? '') as HostingStatus | '',
     corporateEmailStatus: (form.data.corporateEmailStatus ??
       '') as CorporateEmailStatus | '',
-    siteAdmin: (form.data.siteAdmin ?? '') as SiteRole | '',
-    siteUpdates: (form.data.siteUpdates ?? '') as SiteRole | '',
+    siteMaintenance: (form.data.siteMaintenance ?? '') as SiteMaintenance | '',
   });
   const [errors, setErrors] = useState<
     Partial<Record<TechnicalField, string>>
@@ -82,12 +78,10 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
 
     const schema = createTechnicalSchema(messages.validation);
     const result = schema.safeParse({
-      domainStatus: values.domainStatus || undefined,
+      infraStatus: values.infraStatus || undefined,
       domainName: values.domainName,
-      hostingStatus: values.hostingStatus || undefined,
       corporateEmailStatus: values.corporateEmailStatus || undefined,
-      siteAdmin: values.siteAdmin || undefined,
-      siteUpdates: values.siteUpdates || undefined,
+      siteMaintenance: values.siteMaintenance || undefined,
     });
 
     if (!result.success) {
@@ -106,13 +100,11 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
           ? 'domainName'
           : firstError
             ? `${firstError}-${
-                firstError === 'domainStatus'
-                  ? 'yes'
-                  : firstError === 'hostingStatus'
+                firstError === 'infraStatus'
+                  ? 'both'
+                  : firstError === 'corporateEmailStatus'
                     ? 'yes'
-                    : firstError === 'corporateEmailStatus'
-                      ? 'yes'
-                      : 'myself'
+                    : 'client'
               }`
             : null;
       setErrors(nextErrors);
@@ -121,10 +113,11 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
       return;
     }
 
+    const includesDomain = infraIncludesDomain(result.data.infraStatus);
+
     patchFormData({
       ...result.data,
-      domainName:
-        result.data.domainStatus === 'yes' ? result.data.domainName : '',
+      domainName: includesDomain ? (result.data.domainName ?? '') : '',
     });
     setFieldErrors({});
     setErrors({});
@@ -132,48 +125,55 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
     completeStepAndGo('timeline-budget');
   }
 
+  const showDomainName =
+    values.infraStatus !== '' && infraIncludesDomain(values.infraStatus);
+
   return (
-    <form className="space-y-6" noValidate onSubmit={handleContinue}>
-      <div className={['space-y-6', stepCard].join(' ')}>
+    <form className="space-y-5" noValidate onSubmit={handleContinue}>
+      <div className={['space-y-4', stepCard].join(' ')}>
         <RadioGroup
-          name="domainStatus"
-          legend={messages.technicalStep.domainLegend}
-          hint={messages.technicalStep.domainHint}
-          value={values.domainStatus}
-          error={errors.domainStatus}
+          name="infraStatus"
+          legend={messages.technicalStep.infraLegend}
+          hint={messages.technicalStep.infraHint}
+          value={values.infraStatus}
+          error={errors.infraStatus}
           required
-          requiredLabel={messages.common.required}
           layout="stack"
           options={[
             {
-              value: 'yes',
-              label: messages.technicalStep.domainOptions.yes,
+              value: 'both',
+              label: messages.technicalStep.infraOptions.both,
             },
             {
-              value: 'buying',
-              label: messages.technicalStep.domainOptions.buying,
+              value: 'domainOnly',
+              label: messages.technicalStep.infraOptions.domainOnly,
             },
             {
-              value: 'no',
-              label: messages.technicalStep.domainOptions.no,
+              value: 'hostingOnly',
+              label: messages.technicalStep.infraOptions.hostingOnly,
+            },
+            {
+              value: 'none',
+              label: messages.technicalStep.infraOptions.none,
             },
             {
               value: 'unsure',
-              label: messages.technicalStep.domainOptions.unsure,
+              label: messages.technicalStep.infraOptions.unsure,
             },
           ]}
           onChange={(value) => {
+            const next = value as InfraStatus;
             setValues((current) => ({
               ...current,
-              domainStatus: value as DomainStatus,
-              domainName: value === 'yes' ? current.domainName : '',
+              infraStatus: next,
+              domainName: infraIncludesDomain(next) ? current.domainName : '',
             }));
-            clearError('domainStatus');
-            if (value !== 'yes') clearError('domainName');
+            clearError('infraStatus');
+            if (!infraIncludesDomain(next)) clearError('domainName');
           }}
         />
 
-        {values.domainStatus === 'yes' ? (
+        {showDomainName ? (
           <FormField
             id="domainName"
             name="domainName"
@@ -184,7 +184,6 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
             hint={messages.technicalStep.domainNameHint}
             error={errors.domainName}
             required
-            requiredLabel={messages.common.required}
             autoComplete="url"
             inputMode="url"
             onChange={(event) => {
@@ -198,45 +197,12 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
         ) : null}
 
         <RadioGroup
-          name="hostingStatus"
-          legend={messages.technicalStep.hostingLegend}
-          hint={messages.technicalStep.hostingHint}
-          value={values.hostingStatus}
-          error={errors.hostingStatus}
-          required
-          requiredLabel={messages.common.required}
-          layout="stack"
-          options={[
-            {
-              value: 'yes',
-              label: messages.technicalStep.hostingOptions.yes,
-            },
-            {
-              value: 'no',
-              label: messages.technicalStep.hostingOptions.no,
-            },
-            {
-              value: 'unsure',
-              label: messages.technicalStep.hostingOptions.unsure,
-            },
-          ]}
-          onChange={(value) => {
-            setValues((current) => ({
-              ...current,
-              hostingStatus: value as HostingStatus,
-            }));
-            clearError('hostingStatus');
-          }}
-        />
-
-        <RadioGroup
           name="corporateEmailStatus"
           legend={messages.technicalStep.emailLegend}
           hint={messages.technicalStep.emailHint}
           value={values.corporateEmailStatus}
           error={errors.corporateEmailStatus}
           required
-          requiredLabel={messages.common.required}
           layout="stack"
           options={[
             {
@@ -244,8 +210,8 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
               label: messages.technicalStep.emailOptions.yes,
             },
             {
-              value: 'planning',
-              label: messages.technicalStep.emailOptions.planning,
+              value: 'unsure',
+              label: messages.technicalStep.emailOptions.unsure,
             },
             {
               value: 'no',
@@ -262,74 +228,33 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
         />
 
         <RadioGroup
-          name="siteAdmin"
-          legend={messages.technicalStep.adminLegend}
-          hint={messages.technicalStep.adminHint}
-          value={values.siteAdmin}
-          error={errors.siteAdmin}
+          name="siteMaintenance"
+          legend={messages.technicalStep.maintenanceLegend}
+          hint={messages.technicalStep.maintenanceHint}
+          value={values.siteMaintenance}
+          error={errors.siteMaintenance}
           required
-          requiredLabel={messages.common.required}
           layout="stack"
           options={[
             {
-              value: 'myself',
-              label: messages.technicalStep.roleOptions.myself,
+              value: 'client',
+              label: messages.technicalStep.maintenanceOptions.client,
             },
             {
-              value: 'team',
-              label: messages.technicalStep.roleOptions.team,
-            },
-            {
-              value: 'external',
-              label: messages.technicalStep.roleOptions.external,
+              value: 'agency',
+              label: messages.technicalStep.maintenanceOptions.agency,
             },
             {
               value: 'undecided',
-              label: messages.technicalStep.roleOptions.undecided,
+              label: messages.technicalStep.maintenanceOptions.undecided,
             },
           ]}
           onChange={(value) => {
             setValues((current) => ({
               ...current,
-              siteAdmin: value as SiteRole,
+              siteMaintenance: value as SiteMaintenance,
             }));
-            clearError('siteAdmin');
-          }}
-        />
-
-        <RadioGroup
-          name="siteUpdates"
-          legend={messages.technicalStep.updatesLegend}
-          hint={messages.technicalStep.updatesHint}
-          value={values.siteUpdates}
-          error={errors.siteUpdates}
-          required
-          requiredLabel={messages.common.required}
-          layout="stack"
-          options={[
-            {
-              value: 'myself',
-              label: messages.technicalStep.roleOptions.myself,
-            },
-            {
-              value: 'team',
-              label: messages.technicalStep.roleOptions.team,
-            },
-            {
-              value: 'external',
-              label: messages.technicalStep.roleOptions.external,
-            },
-            {
-              value: 'undecided',
-              label: messages.technicalStep.roleOptions.undecided,
-            },
-          ]}
-          onChange={(value) => {
-            setValues((current) => ({
-              ...current,
-              siteUpdates: value as SiteRole,
-            }));
-            clearError('siteUpdates');
+            clearError('siteMaintenance');
           }}
         />
       </div>

@@ -175,39 +175,30 @@ export type Messages = {
     };
   };
   technicalStep: {
-    domainLegend: string;
-    domainHint: string;
+    infraLegend: string;
+    infraHint: string;
     domainNamePlaceholder: string;
     domainNameHint: string;
-    hostingLegend: string;
-    hostingHint: string;
     emailLegend: string;
     emailHint: string;
-    adminLegend: string;
-    adminHint: string;
-    updatesLegend: string;
-    updatesHint: string;
+    maintenanceLegend: string;
+    maintenanceHint: string;
     savedMessage: string;
-    domainOptions: {
-      yes: string;
-      buying: string;
-      no: string;
-      unsure: string;
-    };
-    hostingOptions: {
-      yes: string;
-      no: string;
+    infraOptions: {
+      both: string;
+      domainOnly: string;
+      hostingOnly: string;
+      none: string;
       unsure: string;
     };
     emailOptions: {
       yes: string;
-      planning: string;
+      unsure: string;
       no: string;
     };
-    roleOptions: {
-      myself: string;
-      team: string;
-      external: string;
+    maintenanceOptions: {
+      client: string;
+      agency: string;
       undecided: string;
     };
   };
@@ -272,12 +263,10 @@ export type Messages = {
     hasReferences: string;
     referenceUrls: string;
     designTaste: string;
-    domainStatus: string;
+    infraStatus: string;
     domainName: string;
-    hostingStatus: string;
     corporateEmailStatus: string;
-    siteAdmin: string;
-    siteUpdates: string;
+    siteMaintenance: string;
     timeline: string;
     investmentRange: string;
     additionalNotes: string;
