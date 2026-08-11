@@ -70,7 +70,7 @@ export function formatDiscoveryFieldValue(
   if (key === 'investmentRange') {
     return messages.timelineBudgetStep.investmentOptions[
       value as keyof typeof messages.timelineBudgetStep.investmentOptions
-    ].label;
+    ];
   }
 
   return value;

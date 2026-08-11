@@ -128,8 +128,7 @@ export const en: Messages = {
     },
     'timeline-budget': {
       title: 'Timing and investment',
-      description:
-        'This helps us suggest realistic paths—without asking for an exact number.',
+      description: '',
     },
     extras: {
       title: 'Before we wrap up…',
@@ -323,42 +322,23 @@ export const en: Messages = {
   },
   timelineBudgetStep: {
     timelineLegend: 'When would you like it ready?',
-    timelineHint: 'A rough idea is enough; we can refine it together later.',
-    investmentLegend:
-      'Which investment range feels comfortable for this project?',
-    investmentIntro:
-      'No exact amount needed. Pick the option that feels closest—it helps us suggest paths that fit.',
+    timelineHint: 'A rough idea is enough; we can refine it later.',
+    investmentLegend: 'Which investment range feels comfortable?',
     investmentHint:
-      'This is not a commitment. If you prefer to leave it for the conversation, that is fine too.',
+      'A rough guide, not a commitment. Prefer to discuss later? That is fine too.',
     savedMessage: 'Answers saved. The next step will be available soon.',
     timelineOptions: {
       asap: 'As soon as possible',
-      oneMonth: 'In about a month',
       oneToThreeMonths: 'In 1 to 3 months',
-      flexible: 'No rush; I am flexible',
+      flexible: 'No rush',
       unsure: 'I am not sure yet',
     },
     investmentOptions: {
-      starter: {
-        label: 'A contained starting point',
-        description: 'Rough guide: up to ~USD 1,000',
-      },
-      focused: {
-        label: 'A mid-scope project',
-        description: 'Rough guide: ~USD 1,000 – 2,500',
-      },
-      complete: {
-        label: 'Something more complete',
-        description: 'Rough guide: ~USD 2,500 – 5,000',
-      },
-      open: {
-        label: 'I am open to a broader investment',
-        description: 'Rough guide: more than ~USD 5,000',
-      },
-      discuss: {
-        label: 'I prefer to talk about it later',
-        description: 'No problem—we can cover it in the conversation.',
-      },
+      starter: 'Up to ~USD 1,000',
+      focused: '~USD 1,000 – 2,500',
+      complete: '~USD 2,500 – 5,000',
+      open: 'More than ~USD 5,000',
+      discuss: 'I prefer to talk about it later',
     },
   },
   extrasStep: {

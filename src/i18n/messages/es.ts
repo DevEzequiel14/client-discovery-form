@@ -130,8 +130,7 @@ export const es: Messages = {
     },
     'timeline-budget': {
       title: 'Tiempos e inversión',
-      description:
-        'Esto nos ayuda a proponerte caminos realistas, sin pedirte un número exacto.',
+      description: '',
     },
     extras: {
       title: 'Antes de cerrar…',
@@ -331,43 +330,24 @@ export const es: Messages = {
   },
   timelineBudgetStep: {
     timelineLegend: '¿Para cuándo te gustaría tenerlo listo?',
-    timelineHint: 'Una idea aproximada alcanza; después lo afinamos juntos.',
-    investmentLegend:
-      '¿En qué rango te sentís cómodo invertir en este proyecto?',
-    investmentIntro:
-      'No hace falta un monto exacto. Elegí la opción que más se acerque: nos ayuda a proponerte alternativas que encajen.',
+    timelineHint: 'Una idea aproximada alcanza; después lo afinamos.',
+    investmentLegend: '¿En qué rango te sentís cómodo invertir?',
     investmentHint:
-      'No es un compromiso. Si preferís dejarlo para la conversación, también está bien.',
+      'Orientativo, no es un compromiso. Si preferís, lo hablamos después.',
     savedMessage:
       'Respuestas guardadas. El siguiente paso estará disponible pronto.',
     timelineOptions: {
       asap: 'Lo antes posible',
-      oneMonth: 'En aproximadamente un mes',
       oneToThreeMonths: 'En 1 a 3 meses',
-      flexible: 'No hay apuro; soy flexible',
-      unsure: 'Todavía no lo tengo claro',
+      flexible: 'Sin apuro',
+      unsure: 'Todavía no lo sé',
     },
     investmentOptions: {
-      starter: {
-        label: 'Un punto de partida contenido',
-        description: 'Orientativo: hasta ~USD 1.000',
-      },
-      focused: {
-        label: 'Un proyecto de alcance medio',
-        description: 'Orientativo: ~USD 1.000 – 2.500',
-      },
-      complete: {
-        label: 'Algo más completo',
-        description: 'Orientativo: ~USD 2.500 – 5.000',
-      },
-      open: {
-        label: 'Estoy abierto a una inversión más amplia',
-        description: 'Orientativo: más de ~USD 5.000',
-      },
-      discuss: {
-        label: 'Prefiero hablarlo después',
-        description: 'Sin problema: lo vemos juntos en la conversación.',
-      },
+      starter: 'Hasta ~USD 1.000',
+      focused: '~USD 1.000 – 2.500',
+      complete: '~USD 2.500 – 5.000',
+      open: 'Más de ~USD 5.000',
+      discuss: 'Prefiero hablarlo después',
     },
   },
   extrasStep: {

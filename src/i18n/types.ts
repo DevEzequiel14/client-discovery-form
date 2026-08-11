@@ -206,22 +206,20 @@ export type Messages = {
     timelineLegend: string;
     timelineHint: string;
     investmentLegend: string;
-    investmentIntro: string;
     investmentHint: string;
     savedMessage: string;
     timelineOptions: {
       asap: string;
-      oneMonth: string;
       oneToThreeMonths: string;
       flexible: string;
       unsure: string;
     };
     investmentOptions: {
-      starter: { label: string; description: string };
-      focused: { label: string; description: string };
-      complete: { label: string; description: string };
-      open: { label: string; description: string };
-      discuss: { label: string; description: string };
+      starter: string;
+      focused: string;
+      complete: string;
+      open: string;
+      discuss: string;
     };
   };
   extrasStep: {

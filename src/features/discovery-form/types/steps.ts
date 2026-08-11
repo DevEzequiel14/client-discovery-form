@@ -77,7 +77,6 @@ export type SiteMaintenance = (typeof SITE_MAINTENANCE)[number];
 
 export const TIMELINE_OPTIONS = [
   'asap',
-  'oneMonth',
   'oneToThreeMonths',
   'flexible',
   'unsure',
