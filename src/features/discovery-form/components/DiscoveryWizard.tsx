@@ -5,6 +5,7 @@ import type { StepId } from '../types/steps';
 import {
   $discoveryForm,
   $formLocale,
+  hydrateDiscoveryFormFromStorage,
 } from '../stores/discovery-form.store';
 import { AssetsStepForm } from './steps/AssetsStepForm';
 import { BusinessStepForm } from './steps/BusinessStepForm';
@@ -56,6 +57,7 @@ export function DiscoveryWizard({ locale }: DiscoveryWizardProps) {
 
   useEffect(() => {
     $formLocale.set(locale);
+    hydrateDiscoveryFormFromStorage();
   }, [locale]);
 
   const stepId = resolveActiveStep(form.currentStepId);

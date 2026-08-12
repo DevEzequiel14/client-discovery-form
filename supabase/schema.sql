@@ -72,20 +72,6 @@ alter table public.discovery_submissions enable row level security;
 -- No policies for anon/authenticated: inserts go through the service role key
 -- from the Astro API route (bypasses RLS).
 
--- Existing DBs created before design-step simplification:
--- alter table public.discovery_submissions
---   add column if not exists has_references text not null default 'no';
--- alter table public.discovery_submissions
---   add column if not exists design_style_note text;
--- alter table public.discovery_submissions
---   alter column reference_urls set default '';
--- alter table public.discovery_submissions
---   alter column design_taste set default '';
-
--- Existing DBs created before technical-step simplification:
--- alter table public.discovery_submissions
---   add column if not exists infra_status text not null default 'unsure';
--- alter table public.discovery_submissions
---   add column if not exists site_maintenance text not null default 'undecided';
--- Optional: drop legacy columns after backfill
---   (domain_status, hosting_status, site_admin, site_updates).
+-- Existing projects: run supabase/migrations/20260812_technical_step.sql
+-- in the Supabase SQL Editor (adds infra_status / site_maintenance and drops
+-- legacy technical columns). Also covers design-step columns if missing.

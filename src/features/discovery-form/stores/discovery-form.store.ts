@@ -34,27 +34,56 @@ function normalizeStepId(stepId: string | undefined): StepId {
   return 'contact';
 }
 
-const initialState = (): DiscoveryFormStoreValue => {
-  const persisted = loadPersistedForm();
-
+/** SSR-safe empty state — never read localStorage here (hydration mismatch). */
+function createEmptyState(): DiscoveryFormStoreValue {
   return {
-    currentStepId: normalizeStepId(persisted?.currentStepId),
-    data: persisted?.data ?? {},
+    currentStepId: 'contact',
+    data: {},
     errors: {},
     status: 'idle',
     submitError: null,
     returnAfterEdit: null,
     meta: {
-      startedAt: persisted?.savedAt ?? new Date().toISOString(),
-      lastSavedAt: persisted?.savedAt,
+      startedAt: '',
     },
   };
-};
+}
 
-export const $discoveryForm = map<DiscoveryFormStoreValue>(initialState());
+export const $discoveryForm = map<DiscoveryFormStoreValue>(createEmptyState());
 
 /** Locale for validation messages inside the island */
 export const $formLocale = atom<'es' | 'en'>('es');
+
+let didHydrateFromStorage = false;
+
+/** Restore draft from localStorage after mount (client only). */
+export function hydrateDiscoveryFormFromStorage(): void {
+  if (didHydrateFromStorage) return;
+  didHydrateFromStorage = true;
+
+  const persisted = loadPersistedForm();
+
+  if (!persisted) {
+    $discoveryForm.setKey('meta', {
+      ...$discoveryForm.get().meta,
+      startedAt: new Date().toISOString(),
+    });
+    return;
+  }
+
+  $discoveryForm.set({
+    currentStepId: normalizeStepId(persisted.currentStepId),
+    data: persisted.data ?? {},
+    errors: {},
+    status: 'idle',
+    submitError: null,
+    returnAfterEdit: null,
+    meta: {
+      startedAt: persisted.savedAt ?? new Date().toISOString(),
+      lastSavedAt: persisted.savedAt,
+    },
+  });
+}
 
 export function patchFormData(patch: PartialDiscoveryForm): void {
   const current = $discoveryForm.get();
@@ -113,7 +142,11 @@ export function markSubmitted(submissionId: string): void {
 
 export function resetDiscoveryForm(): void {
   clearPersistedForm();
-  $discoveryForm.set(initialState());
+  didHydrateFromStorage = true;
+  $discoveryForm.set({
+    ...createEmptyState(),
+    meta: { startedAt: new Date().toISOString() },
+  });
 }
 
 function persist(stepId: StepId, data: PartialDiscoveryForm): void {

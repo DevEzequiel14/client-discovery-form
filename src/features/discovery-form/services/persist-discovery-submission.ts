@@ -39,9 +39,10 @@ export async function persistDiscoverySubmission(
     needs_content_help: data.needsContentHelp,
     design_style: data.designStyle,
     // has_references + design_style_note live in payload; denormalized columns
-    // appear in schema.sql (run ALTER on existing DBs if you want them as columns).
+    // appear in schema.sql (run migrations/20260812_technical_step.sql on existing DBs).
     reference_urls: data.referenceUrls ?? '',
     design_taste: data.designTaste ?? '',
+    // Requires infra_status / site_maintenance columns (see migration above).
     infra_status: data.infraStatus,
     domain_name: data.domainName ?? null,
     corporate_email_status: data.corporateEmailStatus,
