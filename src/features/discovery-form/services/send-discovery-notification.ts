@@ -207,7 +207,7 @@ function buildClientAckHtml(opts: {
       <p>${escapeHtml(greeting)}</p>
       <p>${escapeHtml(body)}</p>
       <p style="color:#6b7280;">${escapeHtml(ref)}</p>
-      <p>${escapeHtml(opts.messages.thanks.ctaSupporting)}</p>
+      <p>${escapeHtml(opts.messages.thanks.supporting)}</p>
     </div>
   `;
 }

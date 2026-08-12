@@ -11,7 +11,7 @@ export const es: Messages = {
       'Responde paso a paso para que podamos entender tu proyecto y preparar una propuesta clara.',
     thanksTitle: 'Solicitud recibida',
     thanksDescription:
-      'Recibimos tu proyecto. Te contamos qué sigue y cuándo vas a tener novedades.',
+      'Recibimos tu información. Te escribimos en 1–2 días hábiles con una propuesta clara.',
   },
   common: {
     continue: 'Continuar',
@@ -52,46 +52,12 @@ export const es: Messages = {
       'Usamos estos datos solo para responderte y preparar tu propuesta.',
   },
   thanks: {
-    eyebrow: 'Recibido con éxito',
-    headline: 'Gracias. Ya tenemos tu proyecto.',
+    headline: 'Bien, ya tenemos tu información.',
     supporting:
-      'Leímos tu información con atención. A partir de acá armamos una propuesta clara, sin vueltas innecesarias.',
-    referenceLabel: 'Tu número de referencia',
-    referenceHint:
-      'Guardalo por si nos escribís: nos ayuda a ubicar tu solicitud al instante.',
-    nowTitle: 'Qué ocurre ahora',
-    nowIntro:
-      'Un proceso simple, con tiempos realistas para que sepas qué esperar.',
-    timeline: [
-      {
-        title: 'Revisamos tu solicitud',
-        timing: 'Hoy – 24 h',
-        description:
-          'Leemos objetivos, alcance, materiales y contexto para entender el proyecto completo.',
-      },
-      {
-        title: 'Te escribimos',
-        timing: '1 – 2 días hábiles',
-        description:
-          'Vas a recibir un mensaje con los próximos pasos o, si hace falta, una o dos preguntas puntuales.',
-      },
-      {
-        title: 'Preparamos la propuesta',
-        timing: '2 – 4 días hábiles',
-        description:
-          'Con todo claro, armamos una propuesta alineada a tu alcance, plazos e inversión.',
-      },
-    ],
-    nextTitle: 'Mientras tanto, te puede ayudar',
-    nextSteps: [
-      'Reunir logo, fotos y textos si todavía no están listos',
-      'Tener a mano acceso al dominio o hosting, si ya los tenés',
-      'Pensar 1 o 2 sitios de referencia que te gusten de verdad',
-    ],
-    ctaSupporting:
-      'No tenés que hacer nada más por ahora. Nosotros te contactamos.',
+      'Vamos a leer con atención y a partir de acá armamos una propuesta clara. Te escribimos en 1–2 días hábiles. Gracias.',
+    referenceLabel: 'Referencia',
     ctaPrimary: 'Volver al inicio',
-    ctaNote: 'Opcional: podés cerrar esta página con tranquilidad.',
+    ctaNote: 'También podés cerrar esta pestaña sin problema.',
   },
   steps: {
     contact: {

@@ -11,7 +11,7 @@ export const en: Messages = {
       'Answer step by step so we can understand your project and prepare a clear proposal.',
     thanksTitle: 'Request received',
     thanksDescription:
-      'We received your project. Here is what happens next and when you will hear from us.',
+      'We received your information. We write within 1–2 business days with a clear proposal.',
   },
   common: {
     continue: 'Continue',
@@ -53,44 +53,12 @@ export const en: Messages = {
       'We use this information only to reply and prepare your proposal.',
   },
   thanks: {
-    eyebrow: 'Successfully received',
-    headline: 'Thank you. We have your project.',
+    headline: 'Good — we have your information.',
     supporting:
-      'We will read your information carefully. From here we prepare a clear proposal—without unnecessary back-and-forth.',
-    referenceLabel: 'Your reference number',
-    referenceHint:
-      'Save it in case you write to us: it helps us find your request instantly.',
-    nowTitle: 'What happens now',
-    nowIntro: 'A simple path, with realistic timing so you know what to expect.',
-    timeline: [
-      {
-        title: 'We review your request',
-        timing: 'Today – 24 h',
-        description:
-          'We read goals, scope, materials, and context to understand the full project.',
-      },
-      {
-        title: 'We write to you',
-        timing: '1 – 2 business days',
-        description:
-          'You will get a message with next steps or, if needed, one or two focused questions.',
-      },
-      {
-        title: 'We prepare the proposal',
-        timing: '2 – 4 business days',
-        description:
-          'Once everything is clear, we shape a proposal aligned with your scope, timing, and investment.',
-      },
-    ],
-    nextTitle: 'In the meantime, this can help',
-    nextSteps: [
-      'Gather logo, photos, and copy if they are not ready yet',
-      'Have domain or hosting access handy, if you already have them',
-      'Think of 1 or 2 reference sites you genuinely like',
-    ],
-    ctaSupporting: 'You do not need to do anything else for now. We will reach out.',
+      'We will read it carefully and put together a clear proposal from here. We write within 1–2 business days. Thank you.',
+    referenceLabel: 'Reference',
     ctaPrimary: 'Back to home',
-    ctaNote: 'Optional: you can close this page with peace of mind.',
+    ctaNote: 'You can also close this tab — no worries.',
   },
   steps: {
     contact: {
