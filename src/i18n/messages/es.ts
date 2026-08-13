@@ -3,13 +3,13 @@ import type { Messages } from '../types';
 export const es: Messages = {
   meta: {
     brandLabel: 'Presupuesto web',
-    homeTitle: 'Presupuesto web — encuesta de discovery',
+    homeTitle: 'Presupuesto web',
     homeDescription:
       'Una encuesta breve para entender necesidades, preparación y expectativas antes de proponer la solución adecuada.',
-    formTitle: 'Formulario del proyecto',
+    formTitle: 'Encuesta del proyecto',
     formDescription:
       'Responde paso a paso para que podamos entender tu proyecto y preparar una propuesta clara.',
-    thanksTitle: 'Solicitud recibida',
+    thanksTitle: 'Solicitud enviada',
     thanksDescription:
       'Recibimos tu información. Te escribimos en 1–2 días hábiles con una propuesta clara.',
   },

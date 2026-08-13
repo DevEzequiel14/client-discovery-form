@@ -3,13 +3,13 @@ import type { Messages } from '../types';
 export const en: Messages = {
   meta: {
     brandLabel: 'Web quote',
-    homeTitle: 'Web quote — discovery survey',
+    homeTitle: 'Web quote',
     homeDescription:
       'A short survey to understand your needs, readiness, and expectations before proposing the right solution.',
-    formTitle: 'Project form',
+    formTitle: 'Project survey',
     formDescription:
       'Answer step by step so we can understand your project and prepare a clear proposal.',
-    thanksTitle: 'Request received',
+    thanksTitle: 'Request sent',
     thanksDescription:
       'We received your information. We write within 1–2 business days with a clear proposal.',
   },
