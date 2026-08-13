@@ -21,16 +21,33 @@ export const en: Messages = {
     required: 'Required',
     optional: 'Optional',
     language: 'Language',
-    startCta: 'Get started',
+    startCta: 'Start the survey',
     goHome: 'Back to home',
     edit: 'Edit',
+    draftContinue: 'Continue',
+    draftRestart: 'Start over',
   },
   home: {
     headline: 'A short survey to understand your project',
     supporting:
       'Your needs, readiness, and expectations help us choose the right solution and level of support.',
-    timeEstimate: 'Takes about 5–8 minutes.',
-    nextStep: 'We will follow up with next steps afterward.',
+    timeEstimate: 'Takes about 5 minutes.',
+    nextStep: 'We will follow up with next steps afterward. No commitment.',
+    afterTitle: 'What happens next',
+    afterSteps: [
+      {
+        title: 'You complete the survey',
+        body: 'Five steps. Your answers are enough for us to understand the project.',
+      },
+      {
+        title: 'We read it carefully',
+        body: 'We write within 1–2 business days. If something is missing, we ask.',
+      },
+      {
+        title: 'You get a clear proposal',
+        body: 'Scope, timing, and a tentative investment. No commitment.',
+      },
+    ],
   },
   form: {
     progressLabel: 'Form progress',
@@ -38,10 +55,21 @@ export const en: Messages = {
     reviewTitle: 'Review',
     reviewHint: 'Check your answers before submitting.',
     submitError: 'We could not submit the form. Please try again.',
+    draftBanner: 'You have a draft saved on this device.',
+    sections: {
+      contact: 'Your details',
+      business: 'Your business',
+      assets: 'Materials',
+      design: 'Visual style',
+      technical: 'Practical details',
+      timing: 'Timeline and investment',
+      notes: 'Anything else',
+    },
     phases: {
-      contact: 'Contact',
-      business: 'Business',
-      project: 'Project',
+      identity: 'Who you are',
+      needs: 'Need',
+      readiness: 'Readiness',
+      approach: 'Approach',
       close: 'Wrap-up',
     },
   },
@@ -61,41 +89,29 @@ export const en: Messages = {
     ctaNote: 'You can also close this tab — no worries.',
   },
   steps: {
-    contact: {
-      title: 'How can we reach you?',
-      description: '',
-    },
-    business: {
-      title: 'Tell us about your business',
-      description: '',
+    identity: {
+      title: 'Tell us who you are',
+      description:
+        'Your details and a quick snapshot of the business, so we know how to reply.',
     },
     needs: {
       title: 'What do you need to solve?',
-      description: '',
+      description: 'Say it in your own words. No need to talk about technology yet.',
     },
-    assets: {
-      title: 'What do you already have ready for the project?',
-      description: '',
+    readiness: {
+      title: 'What do you already have?',
+      description:
+        'Materials and a visual direction. It is fine if not everything is ready.',
     },
-    design: {
-      title: 'What visual style are you after?',
-      description: '',
+    approach: {
+      title: 'How we should approach it',
+      description:
+        'Practical details, timing, and a rough range. Not a commitment.',
     },
-    technical: {
-      title: 'A few practical details',
-      description: '',
-    },
-    'timeline-budget': {
-      title: 'Timing and investment',
-      description: '',
-    },
-    extras: {
-      title: 'Anything else?',
-      description: '',
-    },
-    review: {
-      title: 'Review your information',
-      description: '',
+    close: {
+      title: 'Review and send',
+      description:
+        'If something is off, edit it. We will write back with next steps.',
     },
   },
   contactStep: {
@@ -208,7 +224,8 @@ export const en: Messages = {
   },
   designStep: {
     styleLegend: 'Which style feels closest to what you imagine?',
-    styleHint: 'Pick a general direction. We will refine it together.',
+    styleHint:
+      'Pick the sample that feels closest. It is a direction, not a final design.',
     styleNoteLabel: 'Tell us a bit more',
     styleNotePlaceholder:
       'e.g. A mix of clean and bold, or something that does not fit the options…',
@@ -282,7 +299,7 @@ export const en: Messages = {
     timelineHint: 'A rough idea is enough; we can refine it later.',
     investmentLegend: 'Which investment range feels comfortable?',
     investmentHint:
-      'A rough guide, not a commitment. Prefer to discuss later? That is fine too.',
+      'USD amounts are a reference, not a quote. We can agree in USD or a local equivalent. Not sure? Choose “let’s talk later”.',
     savedMessage: 'Answers saved. The next step will be available soon.',
     timelineOptions: {
       asap: 'As soon as possible',
@@ -291,11 +308,31 @@ export const en: Messages = {
       unsure: 'I am not sure yet',
     },
     investmentOptions: {
-      starter: 'Up to ~USD 1,000',
-      focused: '~USD 1,000 – 2,500',
-      complete: '~USD 2,500 – 5,000',
-      open: 'More than ~USD 5,000',
-      discuss: 'I prefer to talk about it later',
+      starter: {
+        label: 'Initial presence',
+        range: 'Up to ~USD 1,000',
+        example: 'Landing page or small site',
+      },
+      focused: {
+        label: 'Focused site',
+        range: '~USD 1,000 – 2,500',
+        example: 'Several pages and a clear goal',
+      },
+      complete: {
+        label: 'Full project',
+        range: '~USD 2,500 – 5,000',
+        example: 'A site or system with more moving parts',
+      },
+      open: {
+        label: 'Custom',
+        range: 'More than ~USD 5,000',
+        example: 'Broader or longer-term scope',
+      },
+      discuss: {
+        label: 'Let’s talk later',
+        range: '',
+        example: 'No number for now',
+      },
     },
   },
   extrasStep: {

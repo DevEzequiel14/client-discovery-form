@@ -9,6 +9,7 @@ import {
 type RadioOption = {
   value: string;
   label: string;
+  description?: string;
 };
 
 type RadioGroupProps = {
@@ -97,10 +98,19 @@ export function RadioGroup({
                 name={name}
                 value={option.value}
                 checked={selected}
-                className="size-4 accent-cdf-accent"
+                className="mt-0.5 size-4 shrink-0 accent-cdf-accent"
                 onChange={() => onChange(option.value)}
               />
-              <span className="font-medium text-cdf-ink">{option.label}</span>
+              <span className="min-w-0">
+                <span className="block font-medium text-cdf-ink">
+                  {option.label}
+                </span>
+                {option.description ? (
+                  <span className="mt-0.5 block text-xs leading-relaxed text-cdf-muted">
+                    {option.description}
+                  </span>
+                ) : null}
+              </span>
             </label>
           );
         })}

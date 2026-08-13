@@ -13,19 +13,27 @@ type ReviewSummaryProps = {
 type FieldKey = keyof Messages['fields'];
 
 const reviewFields: Array<{
-  stepId: Exclude<StepId, 'review'>;
+  stepId: Exclude<StepId, 'close'>;
   keys: FieldKey[];
 }> = [
-  { stepId: 'contact', keys: ['fullName', 'email', 'phone'] },
-  { stepId: 'business', keys: ['company', 'industry', 'hasWebsite', 'website'] },
+  {
+    stepId: 'identity',
+    keys: [
+      'fullName',
+      'email',
+      'phone',
+      'company',
+      'industry',
+      'hasWebsite',
+      'website',
+    ],
+  },
   { stepId: 'needs', keys: ['goals', 'projectType', 'expectedOutcome'] },
   {
-    stepId: 'assets',
-    keys: [...ASSET_KEYS, 'needsContentHelp'],
-  },
-  {
-    stepId: 'design',
+    stepId: 'readiness',
     keys: [
+      ...ASSET_KEYS,
+      'needsContentHelp',
       'designStyle',
       'designStyleNote',
       'hasReferences',
@@ -34,21 +42,15 @@ const reviewFields: Array<{
     ],
   },
   {
-    stepId: 'technical',
+    stepId: 'approach',
     keys: [
       'infraStatus',
       'domainName',
       'corporateEmailStatus',
       'siteMaintenance',
+      'timeline',
+      'investmentRange',
     ],
-  },
-  {
-    stepId: 'timeline-budget',
-    keys: ['timeline', 'investmentRange'],
-  },
-  {
-    stepId: 'extras',
-    keys: ['additionalNotes'],
   },
 ];
 

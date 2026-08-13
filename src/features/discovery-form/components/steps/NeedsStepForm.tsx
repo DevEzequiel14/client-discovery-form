@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { FormTextArea } from '@components/ui/FormTextArea';
 import { getMessages, type Locale } from '@i18n/index';
@@ -13,15 +12,13 @@ import {
   stepCard,
   stepNav,
 } from '@lib/ui-classes';
-import { zodErrorToFieldErrors } from '../../lib/field-errors';
+import { useStepErrors } from '../../hooks/use-step-errors';
 import { createNeedsSchema } from '../../schemas/needs.schema';
 import {
   $discoveryForm,
-  $formLocale,
-  patchFormData,
   completeStepAndGo,
+  patchFormData,
   setCurrentStep,
-  setFieldErrors,
   setFormStatus,
 } from '../../stores/discovery-form.store';
 import type { NeedsData } from '../../types/form';
@@ -33,84 +30,44 @@ type NeedsStepFormProps = {
 
 type NeedsField = keyof NeedsData;
 
-const FIELD_ORDER: NeedsField[] = ['goals', 'projectType', 'expectedOutcome'];
+const FIELD_ORDER = [
+  'goals',
+  'projectType',
+  'expectedOutcome',
+] as const satisfies readonly NeedsField[];
 
 export function NeedsStepForm({ locale }: NeedsStepFormProps) {
   const form = useStore($discoveryForm);
   const messages = getMessages(locale);
-  const firstErrorRef = useRef<string | null>(null);
+  const { errors, clearError, applyZodFailure, clearAll } =
+    useStepErrors(FIELD_ORDER);
 
-  const [values, setValues] = useState({
+  const values = {
     goals: form.data.goals ?? '',
     projectType: (form.data.projectType ?? '') as ProjectType | '',
     expectedOutcome: form.data.expectedOutcome ?? '',
-  });
-  const [errors, setErrors] = useState<Partial<Record<NeedsField, string>>>(
-    {},
-  );
-
-  useEffect(() => {
-    $formLocale.set(locale);
-  }, [locale]);
-
-  useEffect(() => {
-    if (!firstErrorRef.current) return;
-    const field = document.getElementById(firstErrorRef.current);
-    field?.focus();
-    firstErrorRef.current = null;
-  }, [errors]);
-
-  function clearError(field: NeedsField) {
-    setErrors((current) => {
-      if (!current[field]) return current;
-      const next = { ...current };
-      delete next[field];
-      return next;
-    });
-  }
+  };
 
   function handleContinue(event: { preventDefault: () => void }) {
     event.preventDefault();
     setFormStatus('validating');
 
-    const schema = createNeedsSchema(messages.validation);
-    const result = schema.safeParse({
+    const result = createNeedsSchema(messages.validation).safeParse({
       goals: values.goals,
       projectType: values.projectType || undefined,
       expectedOutcome: values.expectedOutcome,
     });
 
     if (!result.success) {
-      const fieldErrors = zodErrorToFieldErrors(result.error);
-      const nextErrors: Partial<Record<NeedsField, string>> = {};
-
-      for (const field of FIELD_ORDER) {
-        if (fieldErrors[field]) {
-          nextErrors[field] = fieldErrors[field];
-        }
-      }
-
-      const firstError = FIELD_ORDER.find((field) => nextErrors[field]);
-      firstErrorRef.current =
-        firstError === 'projectType'
-          ? `projectType-${PROJECT_TYPES[0]}`
-          : (firstError ?? null);
-      setErrors(nextErrors);
-      setFieldErrors(fieldErrors);
+      applyZodFailure(result.error);
       setFormStatus('idle');
       return;
     }
 
-    const payload: NeedsData = {
-      goals: result.data.goals,
-      projectType: result.data.projectType,
-      expectedOutcome: result.data.expectedOutcome,
-    };
-    patchFormData(payload);
-    setFieldErrors({});
-    setErrors({});
+    patchFormData(result.data);
+    clearAll();
     setFormStatus('idle');
-    completeStepAndGo('assets');
+    completeStepAndGo('readiness');
   }
 
   const projectTypeHintId = errors.projectType
@@ -131,7 +88,7 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
           required
           rows={3}
           onChange={(event) => {
-            setValues((current) => ({ ...current, goals: event.target.value }));
+            patchFormData({ goals: event.target.value });
             clearError('goals');
           }}
         />
@@ -188,10 +145,7 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
                     checked={selected}
                     className="mt-1 size-4 shrink-0 accent-cdf-accent"
                     onChange={() => {
-                      setValues((current) => ({
-                        ...current,
-                        projectType: type,
-                      }));
+                      patchFormData({ projectType: type });
                       clearError('projectType');
                     }}
                   />
@@ -229,10 +183,7 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
           error={errors.expectedOutcome}
           rows={3}
           onChange={(event) => {
-            setValues((current) => ({
-              ...current,
-              expectedOutcome: event.target.value,
-            }));
+            patchFormData({ expectedOutcome: event.target.value });
             clearError('expectedOutcome');
           }}
         />
@@ -242,7 +193,7 @@ export function NeedsStepForm({ locale }: NeedsStepFormProps) {
         <button
           type="button"
           className={btnGhost}
-          onClick={() => setCurrentStep('business')}
+          onClick={() => setCurrentStep('identity')}
         >
           {messages.common.back}
         </button>
