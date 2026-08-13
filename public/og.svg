@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f7f4ef"/>
+  <text x="88" y="200" fill="#4a5a6a" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600" letter-spacing="0.5">Presupuesto web</text>
+  <rect x="88" y="228" width="72" height="4" fill="#0f766e"/>
+  <text x="88" y="320" fill="#14213d" font-family="Georgia, Times New Roman, serif" font-size="56" font-weight="600">Una encuesta breve</text>
+  <text x="88" y="392" fill="#14213d" font-family="Georgia, Times New Roman, serif" font-size="56" font-weight="600">para entender tu proyecto</text>
+  <text x="88" y="540" fill="#4a5a6a" font-family="Arial, Helvetica, sans-serif" font-size="20">5 minutos  |  ES / EN</text>
+</svg>

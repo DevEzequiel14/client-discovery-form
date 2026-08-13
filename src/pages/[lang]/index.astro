@@ -22,25 +22,49 @@ const messages = getMessages(lang);
   description={messages.meta.homeDescription}
 >
   <section class="mx-auto flex min-h-[70dvh] max-w-2xl flex-col justify-center py-10">
-    <div class="space-y-6">
-      <p class="font-display text-4xl leading-tight text-cdf-ink md:text-5xl">
-        {messages.meta.brandLabel}
-      </p>
-      <div class="space-y-3">
-        <h1 class="max-w-xl text-xl font-medium leading-snug text-cdf-ink md:text-2xl">
-          {messages.home.headline}
-        </h1>
-        <p class="max-w-xl text-base leading-relaxed text-cdf-muted md:text-lg">
-          {messages.home.supporting}
-        </p>
+    <div class="space-y-8">
+      <div class="space-y-6">
+        <div class="space-y-3">
+          <h1 class="max-w-xl font-display text-3xl leading-tight text-cdf-ink md:text-5xl">
+            {messages.home.headline}
+          </h1>
+          <p class="max-w-xl text-base leading-relaxed text-cdf-muted md:text-lg">
+            {messages.home.supporting}
+          </p>
+        </div>
+        <div class="space-y-1 text-sm text-cdf-muted">
+          <p>{messages.home.timeEstimate}</p>
+          <p>{messages.home.nextStep}</p>
+        </div>
       </div>
-      <div class="space-y-1 text-sm text-cdf-muted">
-        <p>{messages.home.timeEstimate}</p>
-        <p>{messages.home.nextStep}</p>
+
+      <div class="max-w-xl space-y-3">
+        <h2 class="text-sm font-medium text-cdf-ink">
+          {messages.home.afterTitle}
+        </h2>
+        <ol class="space-y-3">
+          {
+            messages.home.afterSteps.map((item, index) => (
+              <li class="flex gap-3">
+                <span
+                  class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-cdf-accent-soft text-xs font-medium text-cdf-accent"
+                  aria-hidden="true"
+                >
+                  {index + 1}
+                </span>
+                <div class="min-w-0 space-y-0.5">
+                  <p class="text-sm font-medium text-cdf-ink">{item.title}</p>
+                  <p class="text-sm leading-relaxed text-cdf-muted">{item.body}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
       </div>
+
       <a
         href={`/${lang}/formulario`}
-        class="inline-flex min-h-11 items-center justify-center rounded-md bg-cdf-accent px-5 py-3 text-sm font-medium text-white transition hover:bg-cdf-accent-hover"
+        class="inline-flex min-h-11 items-center justify-center rounded-md bg-cdf-accent px-5 py-3 text-sm font-medium text-white transition hover:bg-cdf-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cdf-accent"
       >
         {messages.common.startCta}
       </a>
