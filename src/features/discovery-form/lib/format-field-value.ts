@@ -68,9 +68,13 @@ export function formatDiscoveryFieldValue(
   }
 
   if (key === 'investmentRange') {
-    return messages.timelineBudgetStep.investmentOptions[
-      value as keyof typeof messages.timelineBudgetStep.investmentOptions
-    ];
+    const option =
+      messages.timelineBudgetStep.investmentOptions[
+        value as keyof typeof messages.timelineBudgetStep.investmentOptions
+      ];
+    return option.range
+      ? `${option.label} · ${option.range}`
+      : option.label;
   }
 
   return value;

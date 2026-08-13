@@ -25,7 +25,11 @@ function swapLocaleInPath(path: string, nextLocale: Locale): string {
 }
 ---
 
-<div class="flex items-center gap-1 rounded-md border border-cdf-border bg-cdf-surface-elevated p-1 text-sm">
+<div
+  class="flex items-center gap-1 rounded-md border border-cdf-border bg-cdf-surface-elevated p-1 text-sm"
+  role="navigation"
+  aria-label={locale === 'es' ? 'Idioma' : 'Language'}
+>
   {
     LOCALES.map((item) => {
       const href = swapLocaleInPath(pathname, item);

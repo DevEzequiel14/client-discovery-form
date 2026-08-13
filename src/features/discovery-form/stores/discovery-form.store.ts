@@ -4,12 +4,16 @@ import type {
   FormStatus,
   PartialDiscoveryForm,
 } from '../types/form';
-import { STEP_IDS, type StepId } from '../types/steps';
+import type { StepId } from '../types/steps';
+import { normalizeStepId } from '../lib/legacy-steps';
 import {
   clearPersistedForm,
   loadPersistedForm,
+  persistedFormHasContent,
   savePersistedForm,
 } from '../lib/persistence';
+
+const PERSIST_DEBOUNCE_MS = 400;
 
 export type DiscoveryFormStoreValue = {
   currentStepId: StepId;
@@ -19,30 +23,25 @@ export type DiscoveryFormStoreValue = {
   submitError: string | null;
   /** When set, finishing a step returns here instead of the next step. */
   returnAfterEdit: StepId | null;
+  showDraftBanner: boolean;
   meta: {
     startedAt: string;
     lastSavedAt?: string;
     submissionId?: string;
+    leadId?: string;
   };
 };
-
-function normalizeStepId(stepId: string | undefined): StepId {
-  if (stepId === 'urgency') return 'timeline-budget';
-  if (stepId && (STEP_IDS as readonly string[]).includes(stepId)) {
-    return stepId as StepId;
-  }
-  return 'contact';
-}
 
 /** SSR-safe empty state — never read localStorage here (hydration mismatch). */
 function createEmptyState(): DiscoveryFormStoreValue {
   return {
-    currentStepId: 'contact',
+    currentStepId: 'identity',
     data: {},
     errors: {},
     status: 'idle',
     submitError: null,
     returnAfterEdit: null,
+    showDraftBanner: false,
     meta: {
       startedAt: '',
     },
@@ -55,6 +54,56 @@ export const $discoveryForm = map<DiscoveryFormStoreValue>(createEmptyState());
 export const $formLocale = atom<'es' | 'en'>('es');
 
 let didHydrateFromStorage = false;
+let persistTimer: ReturnType<typeof setTimeout> | undefined;
+let pendingPersist: { stepId: StepId; data: PartialDiscoveryForm } | null =
+  null;
+let beforeUnloadBound = false;
+
+function bindBeforeUnload(): void {
+  if (beforeUnloadBound || typeof window === 'undefined') return;
+  beforeUnloadBound = true;
+  window.addEventListener('beforeunload', () => {
+    flushPersist();
+  });
+}
+
+function flushPersist(): void {
+  if (persistTimer) {
+    clearTimeout(persistTimer);
+    persistTimer = undefined;
+  }
+
+  if (!pendingPersist) return;
+
+  const { stepId, data } = pendingPersist;
+  pendingPersist = null;
+  const leadId = $discoveryForm.get().meta.leadId;
+  savePersistedForm(stepId, data, leadId);
+  const current = $discoveryForm.get();
+  $discoveryForm.setKey('meta', {
+    ...current.meta,
+    lastSavedAt: new Date().toISOString(),
+  });
+}
+
+function persist(
+  stepId: StepId,
+  data: PartialDiscoveryForm,
+  immediate = false,
+): void {
+  bindBeforeUnload();
+  pendingPersist = { stepId, data };
+
+  if (immediate) {
+    flushPersist();
+    return;
+  }
+
+  if (persistTimer) clearTimeout(persistTimer);
+  persistTimer = setTimeout(() => {
+    flushPersist();
+  }, PERSIST_DEBOUNCE_MS);
+}
 
 /** Restore draft from localStorage after mount (client only). */
 export function hydrateDiscoveryFormFromStorage(): void {
@@ -78,9 +127,11 @@ export function hydrateDiscoveryFormFromStorage(): void {
     status: 'idle',
     submitError: null,
     returnAfterEdit: null,
+    showDraftBanner: persistedFormHasContent(persisted.data),
     meta: {
       startedAt: persisted.savedAt ?? new Date().toISOString(),
       lastSavedAt: persisted.savedAt,
+      leadId: persisted.leadId,
     },
   });
 }
@@ -90,19 +141,17 @@ export function patchFormData(patch: PartialDiscoveryForm): void {
   const data = { ...current.data, ...patch };
 
   $discoveryForm.setKey('data', data);
-  $discoveryForm.setKey('errors', {});
   persist(current.currentStepId, data);
 }
 
 export function setCurrentStep(stepId: StepId): void {
   const current = $discoveryForm.get();
   $discoveryForm.setKey('currentStepId', stepId);
-  $discoveryForm.setKey('errors', {});
-  persist(stepId, current.data);
+  persist(stepId, current.data, true);
 }
 
 export function editStepFromReview(stepId: StepId): void {
-  $discoveryForm.setKey('returnAfterEdit', 'review');
+  $discoveryForm.setKey('returnAfterEdit', 'close');
   setCurrentStep(stepId);
 }
 
@@ -130,6 +179,23 @@ export function setSubmitError(message: string | null): void {
   $discoveryForm.setKey('submitError', message);
 }
 
+export function dismissDraftBanner(): void {
+  $discoveryForm.setKey('showDraftBanner', false);
+}
+
+export function ensureLeadId(): string {
+  const current = $discoveryForm.get();
+  if (current.meta.leadId) return current.meta.leadId;
+
+  const leadId = crypto.randomUUID();
+  $discoveryForm.setKey('meta', {
+    ...current.meta,
+    leadId,
+  });
+  persist(current.currentStepId, current.data, true);
+  return leadId;
+}
+
 export function markSubmitted(submissionId: string): void {
   const current = $discoveryForm.get();
   $discoveryForm.setKey('status', 'success');
@@ -137,23 +203,24 @@ export function markSubmitted(submissionId: string): void {
     ...current.meta,
     submissionId,
   });
+  pendingPersist = null;
+  if (persistTimer) {
+    clearTimeout(persistTimer);
+    persistTimer = undefined;
+  }
   clearPersistedForm();
 }
 
 export function resetDiscoveryForm(): void {
+  pendingPersist = null;
+  if (persistTimer) {
+    clearTimeout(persistTimer);
+    persistTimer = undefined;
+  }
   clearPersistedForm();
   didHydrateFromStorage = true;
   $discoveryForm.set({
     ...createEmptyState(),
     meta: { startedAt: new Date().toISOString() },
-  });
-}
-
-function persist(stepId: StepId, data: PartialDiscoveryForm): void {
-  savePersistedForm(stepId, data);
-  const current = $discoveryForm.get();
-  $discoveryForm.setKey('meta', {
-    ...current.meta,
-    lastSavedAt: new Date().toISOString(),
   });
 }

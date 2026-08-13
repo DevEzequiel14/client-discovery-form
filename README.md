@@ -44,6 +44,7 @@ Copia `.env.example` a `.env` y completa las claves cuando conectes Supabase/Res
 1. Creá un proyecto en [supabase.com](https://supabase.com) (plan free).
 2. Abrí **SQL Editor** y ejecutá el contenido de `supabase/schema.sql`.
 3. Si la tabla ya existía de antes del paso técnico, ejecutá también `supabase/migrations/20260812_technical_step.sql`.
+4. Para guardar el contacto al completar el primer paso, ejecutá `supabase/migrations/20260813_discovery_leads.sql`.
 4. En **Project Settings → API**, copiá `URL` y `service_role` a tu `.env`.
 
 ### Setup Resend
@@ -63,6 +64,7 @@ Sin estas claves el submit sigue aceptando payloads válidos (útil en desarroll
 | `/es/formulario`, `/en/formulario` | Wizard |
 | `/es/gracias`, `/en/gracias` | Confirmación |
 | `POST /api/discovery/submit` | Envío validado |
+| `POST /api/discovery/lead` | Contacto al completar el primer paso |
 
 ## Arquitectura
 

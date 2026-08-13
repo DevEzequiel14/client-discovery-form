@@ -1,5 +1,11 @@
 import type { StepId } from '@features/discovery-form/types/steps';
 
+export type InvestmentOptionCopy = {
+  label: string;
+  range: string;
+  example: string;
+};
+
 export type Messages = {
   meta: {
     brandLabel: string;
@@ -21,12 +27,19 @@ export type Messages = {
     startCta: string;
     goHome: string;
     edit: string;
+    draftContinue: string;
+    draftRestart: string;
   };
   home: {
     headline: string;
     supporting: string;
     timeEstimate: string;
     nextStep: string;
+    afterTitle: string;
+    afterSteps: Array<{
+      title: string;
+      body: string;
+    }>;
   };
   form: {
     progressLabel: string;
@@ -34,12 +47,17 @@ export type Messages = {
     reviewTitle: string;
     reviewHint: string;
     submitError: string;
-    phases: {
+    draftBanner: string;
+    sections: {
       contact: string;
       business: string;
-      project: string;
-      close: string;
+      assets: string;
+      design: string;
+      technical: string;
+      timing: string;
+      notes: string;
     };
+    phases: Record<StepId, string>;
   };
   reviewStep: {
     hint: string;
@@ -198,11 +216,11 @@ export type Messages = {
       unsure: string;
     };
     investmentOptions: {
-      starter: string;
-      focused: string;
-      complete: string;
-      open: string;
-      discuss: string;
+      starter: InvestmentOptionCopy;
+      focused: InvestmentOptionCopy;
+      complete: InvestmentOptionCopy;
+      open: InvestmentOptionCopy;
+      discuss: InvestmentOptionCopy;
     };
   };
   extrasStep: {

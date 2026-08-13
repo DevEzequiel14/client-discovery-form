@@ -1,82 +1,66 @@
-import { useEffect, useRef, useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { FormField } from '@components/ui/FormField';
 import { RadioGroup } from '@components/ui/RadioGroup';
 import { SelectField } from '@components/ui/SelectField';
 import { getMessages, type Locale } from '@i18n/index';
-import { btnGhost, btnPrimary, stepCard, stepNav } from '@lib/ui-classes';
+import { btnPrimary, stepCard, stepNav } from '@lib/ui-classes';
 import {
   INDUSTRIES,
   type HasWebsite,
   type Industry,
 } from '../../constants/industries';
-import { zodErrorToFieldErrors } from '../../lib/field-errors';
-import { createBusinessSchema } from '../../schemas/business.schema';
+import { useStepErrors } from '../../hooks/use-step-errors';
+import { createIdentitySchema } from '../../schemas';
+import { saveDiscoveryLead } from '../../services/save-discovery-lead';
 import {
   $discoveryForm,
-  $formLocale,
-  patchFormData,
   completeStepAndGo,
-  setCurrentStep,
-  setFieldErrors,
+  ensureLeadId,
+  patchFormData,
   setFormStatus,
 } from '../../stores/discovery-form.store';
-import type { BusinessData } from '../../types/form';
+import type { BusinessData, ContactData } from '../../types/form';
 
-type BusinessStepFormProps = {
+type IdentityStepFormProps = {
   locale: Locale;
 };
 
-type BusinessField = keyof BusinessData;
+type IdentityField = keyof (ContactData & BusinessData);
 
-const FIELD_ORDER: BusinessField[] = [
+const FIELD_ORDER = [
+  'fullName',
+  'email',
+  'phone',
   'company',
   'industry',
   'hasWebsite',
   'website',
-];
+] as const satisfies readonly IdentityField[];
 
-export function BusinessStepForm({ locale }: BusinessStepFormProps) {
+export function IdentityStepForm({ locale }: IdentityStepFormProps) {
   const form = useStore($discoveryForm);
   const messages = getMessages(locale);
-  const firstErrorRef = useRef<string | null>(null);
+  const { errors, clearError, applyZodFailure, clearAll } =
+    useStepErrors(FIELD_ORDER);
 
-  const [values, setValues] = useState({
+  const values = {
+    fullName: form.data.fullName ?? '',
+    email: form.data.email ?? '',
+    phone: form.data.phone ?? '',
     company: form.data.company ?? '',
     industry: (form.data.industry ?? '') as Industry | '',
     hasWebsite: (form.data.hasWebsite ?? '') as HasWebsite | '',
     website: form.data.website ?? '',
-  });
-  const [errors, setErrors] = useState<Partial<Record<BusinessField, string>>>(
-    {},
-  );
-
-  useEffect(() => {
-    $formLocale.set(locale);
-  }, [locale]);
-
-  useEffect(() => {
-    if (!firstErrorRef.current) return;
-    const field = document.getElementById(firstErrorRef.current);
-    field?.focus();
-    firstErrorRef.current = null;
-  }, [errors]);
-
-  function clearError(field: BusinessField) {
-    setErrors((current) => {
-      if (!current[field]) return current;
-      const next = { ...current };
-      delete next[field];
-      return next;
-    });
-  }
+  };
 
   function handleContinue(event: { preventDefault: () => void }) {
     event.preventDefault();
     setFormStatus('validating');
 
-    const schema = createBusinessSchema(messages.validation);
-    const result = schema.safeParse({
+    const result = createIdentitySchema(messages.validation).safeParse({
+      fullName: values.fullName,
+      email: values.email,
+      phone: values.phone,
       company: values.company,
       industry: values.industry || undefined,
       hasWebsite: values.hasWebsite || undefined,
@@ -84,25 +68,15 @@ export function BusinessStepForm({ locale }: BusinessStepFormProps) {
     });
 
     if (!result.success) {
-      const fieldErrors = zodErrorToFieldErrors(result.error);
-      const nextErrors: Partial<Record<BusinessField, string>> = {};
-
-      for (const field of FIELD_ORDER) {
-        if (fieldErrors[field]) {
-          nextErrors[field] = fieldErrors[field];
-        }
-      }
-
-      const firstError = FIELD_ORDER.find((field) => nextErrors[field]);
-      firstErrorRef.current =
-        firstError === 'hasWebsite' ? 'hasWebsite-yes' : (firstError ?? null);
-      setErrors(nextErrors);
-      setFieldErrors(fieldErrors);
+      applyZodFailure(result.error);
       setFormStatus('idle');
       return;
     }
 
-    const payload: BusinessData = {
+    const payload: ContactData & BusinessData = {
+      fullName: result.data.fullName,
+      email: result.data.email,
+      ...(result.data.phone ? { phone: result.data.phone } : {}),
       company: result.data.company,
       industry: result.data.industry,
       hasWebsite: result.data.hasWebsite,
@@ -112,11 +86,26 @@ export function BusinessStepForm({ locale }: BusinessStepFormProps) {
 
     patchFormData({
       ...payload,
-      website: payload.hasWebsite === 'yes' ? payload.website : '',
+      website: payload.hasWebsite === 'yes' ? (payload.website ?? '') : '',
     });
-    setFieldErrors({});
-    setErrors({});
+    clearAll();
     setFormStatus('idle');
+
+    const leadId = ensureLeadId();
+    void saveDiscoveryLead({
+      locale,
+      leadId,
+      data: {
+        fullName: payload.fullName,
+        email: payload.email,
+        phone: payload.phone,
+        company: payload.company,
+        industry: payload.industry,
+        hasWebsite: payload.hasWebsite,
+        website: payload.website,
+      },
+    });
+
     completeStepAndGo('needs');
   }
 
@@ -128,6 +117,72 @@ export function BusinessStepForm({ locale }: BusinessStepFormProps) {
   return (
     <form className="space-y-5" noValidate onSubmit={handleContinue}>
       <div className={['space-y-4', stepCard].join(' ')}>
+        <h2 className="text-sm font-medium text-cdf-ink">
+          {messages.form.sections.contact}
+        </h2>
+
+        <FormField
+          id="fullName"
+          name="fullName"
+          label={messages.fields.fullName}
+          type="text"
+          value={values.fullName}
+          placeholder={messages.contactStep.fullNamePlaceholder}
+          error={errors.fullName}
+          required
+          autoComplete="name"
+          inputMode="text"
+          onChange={(event) => {
+            patchFormData({ fullName: event.target.value });
+            clearError('fullName');
+          }}
+        />
+
+        <FormField
+          id="email"
+          name="email"
+          label={messages.fields.email}
+          type="email"
+          value={values.email}
+          placeholder={messages.contactStep.emailPlaceholder}
+          hint={messages.contactStep.emailHint}
+          error={errors.email}
+          required
+          autoComplete="email"
+          inputMode="email"
+          onChange={(event) => {
+            patchFormData({ email: event.target.value });
+            clearError('email');
+          }}
+        />
+
+        <FormField
+          id="phone"
+          name="phone"
+          label={messages.fields.phone}
+          type="tel"
+          value={values.phone}
+          placeholder={messages.contactStep.phonePlaceholder}
+          hint={messages.contactStep.phoneHint}
+          error={errors.phone}
+          autoComplete="tel"
+          inputMode="tel"
+          onChange={(event) => {
+            patchFormData({ phone: event.target.value });
+            clearError('phone');
+          }}
+        />
+
+        <p className="border-t border-cdf-border/60 pt-3.5 text-xs leading-relaxed text-cdf-muted">
+          {messages.contactStep.privacyNote}
+        </p>
+      </div>
+
+      <div className={['space-y-4', stepCard].join(' ')}>
+        <h2 className="text-sm font-medium text-cdf-ink">
+          {messages.form.sections.business}
+        </h2>
+
         <FormField
           id="company"
           name="company"
@@ -139,10 +194,7 @@ export function BusinessStepForm({ locale }: BusinessStepFormProps) {
           required
           autoComplete="organization"
           onChange={(event) => {
-            setValues((current) => ({
-              ...current,
-              company: event.target.value,
-            }));
+            patchFormData({ company: event.target.value });
             clearError('company');
           }}
         />
@@ -157,10 +209,7 @@ export function BusinessStepForm({ locale }: BusinessStepFormProps) {
           required
           options={industryOptions}
           onChange={(event) => {
-            setValues((current) => ({
-              ...current,
-              industry: event.target.value as Industry,
-            }));
+            patchFormData({ industry: event.target.value as Industry });
             clearError('industry');
           }}
         />
@@ -177,11 +226,10 @@ export function BusinessStepForm({ locale }: BusinessStepFormProps) {
             { value: 'no', label: messages.businessStep.no },
           ]}
           onChange={(value) => {
-            setValues((current) => ({
-              ...current,
+            patchFormData({
               hasWebsite: value as HasWebsite,
-              website: value === 'no' ? '' : current.website,
-            }));
+              website: value === 'no' ? '' : values.website,
+            });
             clearError('hasWebsite');
             if (value === 'no') clearError('website');
           }}
@@ -201,24 +249,14 @@ export function BusinessStepForm({ locale }: BusinessStepFormProps) {
             autoComplete="url"
             inputMode="url"
             onChange={(event) => {
-              setValues((current) => ({
-                ...current,
-                website: event.target.value,
-              }));
+              patchFormData({ website: event.target.value });
               clearError('website');
             }}
           />
         ) : null}
       </div>
 
-      <div className={[stepNav, 'justify-between'].join(' ')}>
-        <button
-          type="button"
-          className={btnGhost}
-          onClick={() => setCurrentStep('contact')}
-        >
-          {messages.common.back}
-        </button>
+      <div className={[stepNav, 'justify-end'].join(' ')}>
         <button
           type="submit"
           className={btnPrimary}

@@ -1,128 +1,87 @@
-import { useEffect, useRef, useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { FormField } from '@components/ui/FormField';
 import { RadioGroup } from '@components/ui/RadioGroup';
 import { getMessages, type Locale } from '@i18n/index';
 import { btnGhost, btnPrimary, stepCard, stepNav } from '@lib/ui-classes';
-import { zodErrorToFieldErrors } from '../../lib/field-errors';
-import { createTechnicalSchema } from '../../schemas/technical.schema';
+import { useStepErrors } from '../../hooks/use-step-errors';
+import { createApproachSchema } from '../../schemas';
 import {
   $discoveryForm,
-  $formLocale,
-  patchFormData,
   completeStepAndGo,
+  patchFormData,
   setCurrentStep,
-  setFieldErrors,
   setFormStatus,
 } from '../../stores/discovery-form.store';
-import type { TechnicalData } from '../../types/form';
+import type { TechnicalData, TimelineBudgetData } from '../../types/form';
 import {
+  INVESTMENT_RANGES,
+  TIMELINE_OPTIONS,
   infraIncludesDomain,
   type CorporateEmailStatus,
   type InfraStatus,
+  type InvestmentRange,
   type SiteMaintenance,
+  type TimelineOption,
 } from '../../types/steps';
 
-type TechnicalStepFormProps = {
+type ApproachStepFormProps = {
   locale: Locale;
 };
 
-type TechnicalField = keyof TechnicalData;
+type ApproachField = keyof (TechnicalData & TimelineBudgetData);
 
-const FIELD_ORDER: TechnicalField[] = [
+const FIELD_ORDER = [
   'infraStatus',
   'domainName',
   'corporateEmailStatus',
   'siteMaintenance',
-];
+  'timeline',
+  'investmentRange',
+] as const satisfies readonly ApproachField[];
 
-export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
+export function ApproachStepForm({ locale }: ApproachStepFormProps) {
   const form = useStore($discoveryForm);
   const messages = getMessages(locale);
-  const firstErrorRef = useRef<string | null>(null);
+  const { errors, clearError, applyZodFailure, clearAll } =
+    useStepErrors(FIELD_ORDER);
 
-  const [values, setValues] = useState({
+  const values = {
     infraStatus: (form.data.infraStatus ?? '') as InfraStatus | '',
     domainName: form.data.domainName ?? '',
     corporateEmailStatus: (form.data.corporateEmailStatus ??
       '') as CorporateEmailStatus | '',
     siteMaintenance: (form.data.siteMaintenance ?? '') as SiteMaintenance | '',
-  });
-  const [errors, setErrors] = useState<
-    Partial<Record<TechnicalField, string>>
-  >({});
-
-  useEffect(() => {
-    $formLocale.set(locale);
-  }, [locale]);
-
-  useEffect(() => {
-    if (!firstErrorRef.current) return;
-    const field = document.getElementById(firstErrorRef.current);
-    field?.focus();
-    firstErrorRef.current = null;
-  }, [errors]);
-
-  function clearError(field: TechnicalField) {
-    setErrors((current) => {
-      if (!current[field]) return current;
-      const next = { ...current };
-      delete next[field];
-      return next;
-    });
-  }
+    timeline: (form.data.timeline ?? '') as TimelineOption | '',
+    investmentRange: (form.data.investmentRange ?? '') as InvestmentRange | '',
+  };
 
   function handleContinue(event: { preventDefault: () => void }) {
     event.preventDefault();
     setFormStatus('validating');
 
-    const schema = createTechnicalSchema(messages.validation);
-    const result = schema.safeParse({
+    const result = createApproachSchema(messages.validation).safeParse({
       infraStatus: values.infraStatus || undefined,
       domainName: values.domainName,
       corporateEmailStatus: values.corporateEmailStatus || undefined,
       siteMaintenance: values.siteMaintenance || undefined,
+      timeline: values.timeline || undefined,
+      investmentRange: values.investmentRange || undefined,
     });
 
     if (!result.success) {
-      const fieldErrors = zodErrorToFieldErrors(result.error);
-      const nextErrors: Partial<Record<TechnicalField, string>> = {};
-
-      for (const field of FIELD_ORDER) {
-        if (fieldErrors[field]) {
-          nextErrors[field] = fieldErrors[field];
-        }
-      }
-
-      const firstError = FIELD_ORDER.find((field) => nextErrors[field]);
-      firstErrorRef.current =
-        firstError === 'domainName'
-          ? 'domainName'
-          : firstError
-            ? `${firstError}-${
-                firstError === 'infraStatus'
-                  ? 'both'
-                  : firstError === 'corporateEmailStatus'
-                    ? 'yes'
-                    : 'client'
-              }`
-            : null;
-      setErrors(nextErrors);
-      setFieldErrors(fieldErrors);
+      applyZodFailure(result.error);
       setFormStatus('idle');
       return;
     }
 
     const includesDomain = infraIncludesDomain(result.data.infraStatus);
-
     patchFormData({
       ...result.data,
       domainName: includesDomain ? (result.data.domainName ?? '') : '',
     });
-    setFieldErrors({});
-    setErrors({});
+    clearAll();
     setFormStatus('idle');
-    completeStepAndGo('timeline-budget');
+    completeStepAndGo('close');
   }
 
   const showDomainName =
@@ -131,6 +90,10 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
   return (
     <form className="space-y-5" noValidate onSubmit={handleContinue}>
       <div className={['space-y-4', stepCard].join(' ')}>
+        <h2 className="text-sm font-medium text-cdf-ink">
+          {messages.form.sections.technical}
+        </h2>
+
         <RadioGroup
           name="infraStatus"
           legend={messages.technicalStep.infraLegend}
@@ -140,10 +103,7 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
           required
           layout="stack"
           options={[
-            {
-              value: 'both',
-              label: messages.technicalStep.infraOptions.both,
-            },
+            { value: 'both', label: messages.technicalStep.infraOptions.both },
             {
               value: 'domainOnly',
               label: messages.technicalStep.infraOptions.domainOnly,
@@ -152,10 +112,7 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
               value: 'hostingOnly',
               label: messages.technicalStep.infraOptions.hostingOnly,
             },
-            {
-              value: 'none',
-              label: messages.technicalStep.infraOptions.none,
-            },
+            { value: 'none', label: messages.technicalStep.infraOptions.none },
             {
               value: 'unsure',
               label: messages.technicalStep.infraOptions.unsure,
@@ -163,11 +120,10 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
           ]}
           onChange={(value) => {
             const next = value as InfraStatus;
-            setValues((current) => ({
-              ...current,
+            patchFormData({
               infraStatus: next,
-              domainName: infraIncludesDomain(next) ? current.domainName : '',
-            }));
+              domainName: infraIncludesDomain(next) ? values.domainName : '',
+            });
             clearError('infraStatus');
             if (!infraIncludesDomain(next)) clearError('domainName');
           }}
@@ -187,10 +143,7 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
             autoComplete="url"
             inputMode="url"
             onChange={(event) => {
-              setValues((current) => ({
-                ...current,
-                domainName: event.target.value,
-              }));
+              patchFormData({ domainName: event.target.value });
               clearError('domainName');
             }}
           />
@@ -205,24 +158,17 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
           required
           layout="stack"
           options={[
-            {
-              value: 'yes',
-              label: messages.technicalStep.emailOptions.yes,
-            },
+            { value: 'yes', label: messages.technicalStep.emailOptions.yes },
             {
               value: 'unsure',
               label: messages.technicalStep.emailOptions.unsure,
             },
-            {
-              value: 'no',
-              label: messages.technicalStep.emailOptions.no,
-            },
+            { value: 'no', label: messages.technicalStep.emailOptions.no },
           ]}
           onChange={(value) => {
-            setValues((current) => ({
-              ...current,
+            patchFormData({
               corporateEmailStatus: value as CorporateEmailStatus,
-            }));
+            });
             clearError('corporateEmailStatus');
           }}
         />
@@ -250,11 +196,56 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
             },
           ]}
           onChange={(value) => {
-            setValues((current) => ({
-              ...current,
-              siteMaintenance: value as SiteMaintenance,
-            }));
+            patchFormData({ siteMaintenance: value as SiteMaintenance });
             clearError('siteMaintenance');
+          }}
+        />
+      </div>
+
+      <div className={['space-y-4', stepCard].join(' ')}>
+        <h2 className="text-sm font-medium text-cdf-ink">
+          {messages.form.sections.timing}
+        </h2>
+
+        <RadioGroup
+          name="timeline"
+          legend={messages.timelineBudgetStep.timelineLegend}
+          hint={messages.timelineBudgetStep.timelineHint}
+          value={values.timeline}
+          error={errors.timeline}
+          required
+          layout="stack"
+          options={TIMELINE_OPTIONS.map((option) => ({
+            value: option,
+            label: messages.timelineBudgetStep.timelineOptions[option],
+          }))}
+          onChange={(value) => {
+            patchFormData({ timeline: value as TimelineOption });
+            clearError('timeline');
+          }}
+        />
+
+        <RadioGroup
+          name="investmentRange"
+          legend={messages.timelineBudgetStep.investmentLegend}
+          hint={messages.timelineBudgetStep.investmentHint}
+          value={values.investmentRange}
+          error={errors.investmentRange}
+          required
+          layout="stack"
+          options={INVESTMENT_RANGES.map((range) => {
+            const option = messages.timelineBudgetStep.investmentOptions[range];
+            return {
+              value: range,
+              label: option.range
+                ? `${option.label} · ${option.range}`
+                : option.label,
+              description: option.example,
+            };
+          })}
+          onChange={(value) => {
+            patchFormData({ investmentRange: value as InvestmentRange });
+            clearError('investmentRange');
           }}
         />
       </div>
@@ -263,7 +254,7 @@ export function TechnicalStepForm({ locale }: TechnicalStepFormProps) {
         <button
           type="button"
           className={btnGhost}
-          onClick={() => setCurrentStep('design')}
+          onClick={() => setCurrentStep('readiness')}
         >
           {messages.common.back}
         </button>

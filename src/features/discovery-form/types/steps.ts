@@ -1,13 +1,9 @@
 export const STEP_IDS = [
-  'contact',
-  'business',
+  'identity',
   'needs',
-  'assets',
-  'design',
-  'technical',
-  'timeline-budget',
-  'extras',
-  'review',
+  'readiness',
+  'approach',
+  'close',
 ] as const;
 
 export type StepId = (typeof STEP_IDS)[number];
