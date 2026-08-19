@@ -29,7 +29,7 @@ export async function persistDiscoverySubmission(
     website: data.website ?? null,
     goals: data.goals,
     project_type: data.projectType,
-    expected_outcome: data.expectedOutcome,
+    expected_outcome: data.expectedOutcome ?? '',
     logo: data.logo,
     photos: data.photos,
     texts: data.texts,

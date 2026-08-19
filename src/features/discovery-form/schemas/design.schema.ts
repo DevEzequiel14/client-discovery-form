@@ -25,13 +25,15 @@ export function createDesignSchema(v: ValidationMessages) {
         .trim()
         .transform((value) => (value.length === 0 ? undefined : value))
         .optional(),
+      // Optional: omitted from payload when the user leaves it blank.
       designTaste: z
         .string()
         .trim()
         .refine((val) => val === '' || val.length >= 10, {
           message: v.minLength.replace('{min}', '10'),
         })
-        .transform((value) => (value.length === 0 ? undefined : value)),
+        .transform((value) => (value.length === 0 ? undefined : value))
+        .optional(),
     })
     .superRefine((data, ctx) => {
       if (data.hasReferences !== 'yes') return;

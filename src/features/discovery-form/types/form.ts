@@ -30,7 +30,7 @@ export type BusinessData = {
 export type NeedsData = {
   goals: string;
   projectType: ProjectType;
-  expectedOutcome: string;
+  expectedOutcome?: string;
 };
 
 export type AssetsData = {
