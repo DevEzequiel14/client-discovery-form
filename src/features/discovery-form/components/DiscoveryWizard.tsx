@@ -39,6 +39,21 @@ export function DiscoveryWizard({ locale }: DiscoveryWizardProps) {
   const step = messages.steps[stepId];
   const stepDescription = step.description.trim();
 
+  useEffect(() => {
+    const reduced = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: reduced ? 'auto' : 'smooth',
+    });
+
+    document.getElementById('active-step-title')?.focus({
+      preventScroll: true,
+    });
+  }, [stepId]);
+
   return (
     <section
       className={[
@@ -79,7 +94,8 @@ export function DiscoveryWizard({ locale }: DiscoveryWizardProps) {
       <header className={stepDescription ? 'space-y-2' : undefined}>
         <h1
           id="active-step-title"
-          className="font-display text-3xl leading-tight text-cdf-ink md:text-4xl"
+          tabIndex={-1}
+          className="font-display text-3xl leading-tight text-cdf-ink outline-none md:text-4xl"
         >
           {step.title}
         </h1>
